@@ -6,5 +6,9 @@
 </head>
 <body>
 	<h1>Rede social de especialistas</h1>
+
+<div id="menu">
+	<a href="./usuarios/cadastrar/">Cadastro de usuário</a>
+</div>
 </body>
 </html>
