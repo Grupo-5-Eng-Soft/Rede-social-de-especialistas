@@ -12,6 +12,9 @@
 		<property name="hibernate.hbm2ddl.auto">update</property>
 		<property name="show_sql">true</property>
 		<property name="format_sql">true</property>
+		
+		<mapping class="model.User" />
+		
 	</session-factory>
 </hibernate-configuration>
 

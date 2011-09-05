@@ -1,11 +1,10 @@
 package controller;
 
 import model.User;
-import model.UserDao;
 import br.com.caelum.vraptor.Path;
 import br.com.caelum.vraptor.Resource;
 import br.com.caelum.vraptor.Result;
-import br.com.caelum.vraptor.Validator;
+import dao.UserDao;
 
 @Resource
 public class UserController {
@@ -18,16 +17,11 @@ public class UserController {
 	}
 	
 	@Path("/usuarios/cadastrar/")
-	public void userForm() {
-		return;
-	}
+	public void userForm() { }
 	
 	@Path("/usuarios/salvar/")
 	public void save(User user) {
 		dao.save(user);
 		result.redirectTo(IndexController.class).index();
 	}
-	
-	
-	
 }

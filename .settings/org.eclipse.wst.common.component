@@ -3,6 +3,7 @@
     <wb-module deploy-name="rede-social-de-especialistas">
         <wb-resource deploy-path="/" source-path="/WebContent"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/test"/>
         <property name="java-output-path" value="/rede-social-de-especialistas/build/classes"/>
         <property name="context-root" value="rede-social-de-especialistas"/>
     </wb-module>
