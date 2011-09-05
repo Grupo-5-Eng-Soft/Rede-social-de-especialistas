@@ -26,6 +26,13 @@
 				<td><input type="password" name="password-confirmation" /></td>
 			</tr>
 			<tr>
+				<td>Privilégio</td>
+				<td>
+					<p><input name="user.role" type="radio" value="USER"/>Usuário</p>
+					<p><input name="user.role" type="radio" value="ADMIN"/>Administrador</p>
+				</td>
+			</tr>
+			<tr>
 				<td><input type="submit" value="Enviar" /></td>
 			</tr>
 		</table>

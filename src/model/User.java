@@ -1,10 +1,13 @@
 package model;
 
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
 import org.hibernate.validator.NotEmpty;
+import org.hibernate.validator.NotNull;
 
 @Entity
 public class User {
@@ -20,7 +23,11 @@ public class User {
 	
 	@NotEmpty
 	private String email;
-
+	
+	@NotNull
+	@Enumerated(EnumType.STRING)
+	private Role role;
+	
 	public String getLogin() {
 		return login;
 	}
@@ -43,6 +50,14 @@ public class User {
 
 	public void setEmail(String email) {
 		this.email = email;
+	}
+	
+	public Role getRole() {
+		return role;
+	}
+
+	public void setRole(Role role) {
+		this.role = role;
 	}
 }
 
