@@ -22,7 +22,6 @@ public class EmailConfirmation implements Serializable {
 	private User user;
 
 	@NotEmpty
-	@Column(unique=true)
 	private String confirmationString;
 
 	public User getUser() {
@@ -37,4 +36,5 @@ public class EmailConfirmation implements Serializable {
 	public String getConfirmationString() {
 		return confirmationString;
 	}
+
 }

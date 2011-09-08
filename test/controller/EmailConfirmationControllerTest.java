@@ -11,7 +11,6 @@ import org.mockito.MockitoAnnotations;
 import br.com.caelum.vraptor.Result;
 import br.com.caelum.vraptor.util.test.MockResult;
 import dao.EmailConfirmationDao;
-import dao.UserDao;
 
 public class EmailConfirmationControllerTest {
 	
@@ -34,9 +33,9 @@ public class EmailConfirmationControllerTest {
 
 	private User validUser() {
 		User user = new User();
-		user.setEmail("teste@blabla.bla");
-		user.setLogin("teste");
-		user.setPassword("teste1234");
+		user.setEmail("grupo5.engsoft@gmail.com");
+		user.setLogin("junit");
+		user.setPassword("lala");
 		return user;
 	}
 }

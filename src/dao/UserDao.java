@@ -3,9 +3,7 @@ package dao;
 import model.User;
 
 import org.hibernate.Session;
-import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
-import org.hibernate.cfg.Configuration;
 
 import br.com.caelum.vraptor.ioc.Component;
 
@@ -21,6 +19,10 @@ public class UserDao {
 		Transaction tx = session.beginTransaction();
 		session.save(user);
 		tx.commit();
+	}
+	
+	public User getUser(int userId) {
+		return (User) this.session.get(User.class, userId);
 	}
 	
 }

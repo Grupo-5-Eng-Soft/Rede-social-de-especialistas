@@ -26,4 +26,8 @@ public class EmailConfirmationDao {
 		tx.commit();
 	}
 	
+	public EmailConfirmation getEmailConfirmation(User user, String hash) {
+		return (EmailConfirmation) this.session.get(EmailConfirmation.class, user.getId());
+	}
+	
 }
