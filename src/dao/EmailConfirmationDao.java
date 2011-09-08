@@ -4,9 +4,7 @@ import model.EmailConfirmation;
 import model.User;
 
 import org.hibernate.Session;
-import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
-import org.hibernate.cfg.Configuration;
 
 import br.com.caelum.vraptor.ioc.Component;
 
@@ -26,7 +24,7 @@ public class EmailConfirmationDao {
 		tx.commit();
 	}
 	
-	public EmailConfirmation getEmailConfirmation(User user, String hash) {
+	public EmailConfirmation getEmailConfirmation(User user) {
 		return (EmailConfirmation) this.session.get(EmailConfirmation.class, user.getId());
 	}
 	

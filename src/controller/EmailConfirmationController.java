@@ -1,18 +1,17 @@
 package controller;
 
 import hash.HashCalculator;
+import model.EmailConfirmation;
+import model.User;
 
 import org.apache.commons.mail.EmailException;
 import org.apache.commons.mail.SimpleEmail;
 
-import model.EmailConfirmation;
-import model.User;
-import dao.EmailConfirmationDao;
-import dao.UserDao;
 import br.com.caelum.vraptor.Get;
-import br.com.caelum.vraptor.Path;
 import br.com.caelum.vraptor.Resource;
 import br.com.caelum.vraptor.Result;
+import dao.EmailConfirmationDao;
+import dao.UserDao;
 
 @Resource
 public class EmailConfirmationController {
@@ -40,17 +39,17 @@ public class EmailConfirmationController {
 			return;
 		}
 		if (user.isActive()) {
-			result.include("message", "Sua conta j· foi ativada!");
+			result.include("message", "Sua conta j√° foi ativada!");
 			return;
 		}
-		EmailConfirmation confirmation = dao.getEmailConfirmation(user, hash);
+		EmailConfirmation confirmation = dao.getEmailConfirmation(user);
 		if (confirmation == null || !hash.equals(confirmation.getConfirmationString())){
 			result.include("message", "URL incorreta!");
 			return;
 		}
 		user.setActive(true);
 		userDao.save(user);
-		result.include("message", "ParabÈns, sua conta foi ativada!");
+		result.include("message", "Parab√©ns, sua conta foi ativada!");
 		
 	}
 
@@ -66,7 +65,7 @@ public class EmailConfirmationController {
 		try {
 			email.addTo(emailAddress);
 			email.setFrom("grupo5.engsoft@gmail.com"); 
-			email.setSubject("ConfiramÁ„o de conta");
+			email.setSubject("Confirma√ß√£o de conta");
 			email.setMsg(message);
 			email.send();
 		} catch (EmailException e) {

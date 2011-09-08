@@ -3,10 +3,7 @@ package model;
 import hash.HashCalculator;
 
 import java.io.Serializable;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
@@ -36,5 +33,4 @@ public class EmailConfirmation implements Serializable {
 	public String getConfirmationString() {
 		return confirmationString;
 	}
-
 }

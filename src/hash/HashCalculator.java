@@ -1,20 +1,26 @@
 package hash;
 
+import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
 public class HashCalculator {
 
 	public static String calculateHash(String s) {
-		MessageDigest md = null;
+		StringBuffer buffer = new StringBuffer();
 		// creating a hash from user login
 		try {
-			md = MessageDigest.getInstance("MD5");
-			md.update(s.getBytes());
+			MessageDigest md = MessageDigest.getInstance("MD5");
+			byte digest[] = md.digest(s.getBytes("UTF-8"));
+			for (byte b : digest) {
+				buffer.append(Integer.toHexString(0xFF & b));
+			}
 		} catch (NoSuchAlgorithmException e) {
 			e.printStackTrace();
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
 		}
-		return md.digest().toString();
+		return buffer.toString();
 	}
 
 
