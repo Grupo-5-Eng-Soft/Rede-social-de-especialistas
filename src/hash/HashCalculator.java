@@ -5,8 +5,18 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
 public class HashCalculator {
+	
+	private String hash;
 
-	public static String calculateHash(String s) {
+	public HashCalculator(String string) {
+		this.hash = calculateHash(string);
+	}
+	
+	public String getValue() {
+		return hash;
+	}
+	
+	private String calculateHash(String s) {
 		StringBuffer buffer = new StringBuffer();
 		// creating a hash from user login
 		try {
@@ -22,6 +32,4 @@ public class HashCalculator {
 		}
 		return buffer.toString();
 	}
-
-
 }

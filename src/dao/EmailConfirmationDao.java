@@ -27,5 +27,12 @@ public class EmailConfirmationDao {
 	public EmailConfirmation getEmailConfirmation(User user) {
 		return (EmailConfirmation) this.session.get(EmailConfirmation.class, user.getId());
 	}
+
+	public void removeEmailConfirmationFrom(User user) {
+		Transaction tx = session.beginTransaction();
+		EmailConfirmation confirmation = this.getEmailConfirmation(user);
+		session.delete(confirmation);
+		tx.commit();
+	}
 	
 }

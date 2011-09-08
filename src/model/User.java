@@ -1,6 +1,6 @@
 package model;
 
-import java.io.Serializable;
+import hash.HashCalculator;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -13,7 +13,7 @@ import org.hibernate.validator.NotEmpty;
 import org.hibernate.validator.NotNull;
 
 @Entity
-public class User implements Serializable {
+public class User {
 	@Id
 	@GeneratedValue
 	private int id;
@@ -55,7 +55,8 @@ public class User implements Serializable {
 	}
 
 	public void setPassword(String password) {
-		this.password = password;
+		HashCalculator encryption = new HashCalculator(password);
+		this.password = encryption.getValue();
 	}
 
 	public String getEmail() {

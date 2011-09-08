@@ -49,13 +49,15 @@ public class EmailConfirmationController {
 		}
 		user.setActive(true);
 		userDao.save(user);
+		dao.removeEmailConfirmationFrom(user);
 		result.include("message", "Parabéns, sua conta foi ativada!");
 		
 	}
 
 	private void sendEmail(User user) {
+		HashCalculator hashCalculator = new HashCalculator(user.getLogin() + user.getEmail());
 		String emailAddress = user.getEmail();
-		String hash = HashCalculator.calculateHash(user.getLogin());
+		String hash = hashCalculator.getValue();
 		SimpleEmail email = new SimpleEmail();
 		String message = "Confirme sua conta em http://localhost:8080/rede-social-de-especialistas/usuarios/confirmar/"+user.getId()+"/"+hash;
 		email.setDebug(true);

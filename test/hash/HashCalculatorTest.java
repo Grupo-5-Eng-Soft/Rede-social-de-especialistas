@@ -9,14 +9,23 @@ public class HashCalculatorTest {
 	
 	@Test
 	public void shouldReturnEqualValuesForEqualEntries() throws Exception {
-		String hash = HashCalculator.calculateHash("abc");
-		assertEquals(hash, HashCalculator.calculateHash("abc"));
+		HashCalculator calculator = new HashCalculator("abc");
+		String hash = calculator.getValue();
+		
+		HashCalculator otherCalculator = new HashCalculator("abc");
+		String otherHash = otherCalculator.getValue();
+		assertEquals(hash, otherHash);
 	}
 	
 	@Test
 	public void shouldReturnDifferentValuesForDifferentEntries() throws Exception {
-		String hash = HashCalculator.calculateHash("123");
-		assertTrue(!hash.equals(HashCalculator.calculateHash("122")));
+		HashCalculator calculator = new HashCalculator("123");
+		String hash = calculator.getValue();
+		
+		HashCalculator otherCalculator = new HashCalculator("122");
+		String otherHash = otherCalculator.getValue();
+		
+		assertTrue(!hash.equals(otherHash));
 	}
 
 }

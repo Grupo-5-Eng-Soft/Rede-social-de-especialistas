@@ -13,6 +13,7 @@ import org.hibernate.validator.NotEmpty;
 
 @Entity
 public class EmailConfirmation implements Serializable {
+
 	@Id
 	@OneToOne
 	@JoinColumn(name = "user_pk")
@@ -26,8 +27,9 @@ public class EmailConfirmation implements Serializable {
 	}
 
 	public void setUser(User user) {
+		HashCalculator hash = new HashCalculator(user.getLogin() + user.getEmail());
 		this.user = user;
-		this.confirmationString = HashCalculator.calculateHash(user.getLogin());
+		this.confirmationString = hash.getValue();
 	}
 
 	public String getConfirmationString() {
