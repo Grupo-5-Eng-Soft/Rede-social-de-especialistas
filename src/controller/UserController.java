@@ -21,7 +21,10 @@ public class UserController {
 	
 	@Path("/usuarios/salvar/")
 	public void save(User user) {
+		user.setActive(false);
 		dao.save(user);
-		result.redirectTo(IndexController.class).index();
+		result.redirectTo(EmailConfirmationController.class).createAndSendEmailConfirmation(user);
 	}
+	
+	
 }

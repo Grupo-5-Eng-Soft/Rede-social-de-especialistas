@@ -1,5 +1,6 @@
 package dao;
 
+import model.EmailConfirmation;
 import model.User;
 
 import org.hibernate.Session;
@@ -10,16 +11,18 @@ import org.hibernate.cfg.Configuration;
 import br.com.caelum.vraptor.ioc.Component;
 
 @Component
-public class UserDao {
+public class EmailConfirmationDao {
 	private Session session;
-	
-	public UserDao() {
+
+	public EmailConfirmationDao() {
 		this.session = SessionCreator.criaSessao();
 	}
 	
-	public void save(User user) {
+	public void saveEmailConfirmationFromUser(User user) {
+		EmailConfirmation confirmation = new EmailConfirmation();
+		confirmation.setUser(user);
 		Transaction tx = session.beginTransaction();
-		session.save(user);
+		session.save(confirmation);
 		tx.commit();
 	}
 	

@@ -1,5 +1,8 @@
 package model;
 
+import java.io.Serializable;
+
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -10,11 +13,12 @@ import org.hibernate.validator.NotEmpty;
 import org.hibernate.validator.NotNull;
 
 @Entity
-public class User {
+public class User implements Serializable {
 	@Id
 	@GeneratedValue
 	private int id;
 	
+	@Column(unique=true)
 	@NotEmpty
 	private String login;
 	
@@ -28,6 +32,16 @@ public class User {
 	@Enumerated(EnumType.STRING)
 	private Role role;
 	
+	private boolean active;
+	
+	public boolean isActive() {
+		return active;
+	}
+
+	public void setActive(boolean active) {
+		this.active = active;
+	}
+
 	public String getLogin() {
 		return login;
 	}
