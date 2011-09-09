@@ -5,10 +5,13 @@
 <title>Rede social de especialistas</title>
 </head>
 <body>
+<jsp:include page="../user.jsp" />
 	<h1>Rede social de especialistas</h1>
 
 <div id="menu">
-	<a href="./usuarios/cadastrar/">Cadastro de usuário</a>
+	<div class="item"><a href="./usuarios/cadastrar/">Cadastro de usuário</a></div>
+	<div class="item"><a href="./login/">Login</a></div>
+	
 </div>
 </body>
 </html>

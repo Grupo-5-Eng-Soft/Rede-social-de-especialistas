@@ -1,9 +1,12 @@
 package dao;
 
+import java.util.List;
+
 import model.User;
 
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.hibernate.criterion.Restrictions;
 
 import br.com.caelum.vraptor.ioc.Component;
 
@@ -23,6 +26,12 @@ public class UserDao {
 	
 	public User getUser(int userId) {
 		return (User) this.session.get(User.class, userId);
+	}
+	
+	public User getUser(String login) {
+		return (User) this.session.createCriteria(User.class)
+				.add(Restrictions.eq("login", login))
+				.list().get(0);
 	}
 	
 }

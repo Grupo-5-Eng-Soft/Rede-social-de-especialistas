@@ -17,11 +17,12 @@ public class UserControllerTest {
 	private @Mock UserDao dao;
 	private Result result = new MockResult();
 	private UserController controller;
+	private UserSession userSession;
 
 	@Before
 	public void setUp() throws Exception {
 		MockitoAnnotations.initMocks(this);
-		controller = new UserController(result, dao);
+		controller = new UserController(result, dao, userSession);
 	}
 
 	@Test
