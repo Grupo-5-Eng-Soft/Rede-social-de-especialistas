@@ -5,6 +5,7 @@
 <title>Rede social de especialistas</title>
 </head>
 <body>
+<jsp:include page="../header.jsp" />
 <jsp:include page="../user.jsp" />
 	<h1>Rede social de especialistas</h1>
 
