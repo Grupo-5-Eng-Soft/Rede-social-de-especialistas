@@ -1,28 +1,34 @@
 package model;
 
+import java.util.Collection;
+
 import hash.HashCalculator;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 
 import org.hibernate.validator.NotEmpty;
 import org.hibernate.validator.NotNull;
 
 @Entity
 public class User {
-	@Id
-	@GeneratedValue
-	private int id;
+	
+	private long id;
+	
+	private Collection<Specialty> specialties;
 	
 	@Column(unique=true)
 	@NotEmpty
 	private String login;
 	
-	@NotEmpty
 	private String password;
 	
 	@NotEmpty
@@ -33,6 +39,20 @@ public class User {
 	private Role role;
 	
 	private boolean active;
+	
+	public void setSpecialties(Collection<Specialty> specialties) {
+		this.specialties = specialties;
+	}
+	
+	@ManyToMany(cascade = CascadeType.ALL)
+	@JoinTable(
+			name = "users_specialties",
+			joinColumns = { @JoinColumn(name = "user_id") }, 
+			inverseJoinColumns = { @JoinColumn(name = "specialty_id") }
+	)
+	public Collection<Specialty> getSpecialties() {
+		return specialties;
+	}
 	
 	public boolean isActive() {
 		return active;
@@ -50,13 +70,18 @@ public class User {
 		this.login = login;
 	}
 
+	@NotEmpty
 	public String getPassword() {
-		return password;
+		return this.password;
+	}
+	
+	public void setPasswordFromRawString(String password) {
+		HashCalculator encryption = new HashCalculator(password);
+		this.password = encryption.getValue();
 	}
 
 	public void setPassword(String password) {
-		HashCalculator encryption = new HashCalculator(password);
-		this.password = encryption.getValue();
+		this.password = password;
 	}
 
 	public String getEmail() {
@@ -75,8 +100,23 @@ public class User {
 		this.role = role;
 	}
 
-	public int getId() {
+	@Id
+	@GeneratedValue
+	@Column(name="user_id")
+	public long getId() {
 		return this.id;
+	}
+
+	public void setId(long id) {
+		this.id = id;
+	}
+	
+	public static void main(String args[]) {
+		User u = new User();
+		u.setPassword("1234");
+		System.out.println(u.getPassword());
+		u.setPassword("1234");
+		System.out.println(u.getPassword());
 	}
 }
 

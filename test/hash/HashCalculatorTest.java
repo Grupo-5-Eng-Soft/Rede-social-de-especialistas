@@ -27,5 +27,13 @@ public class HashCalculatorTest {
 		
 		assertTrue(!hash.equals(otherHash));
 	}
+	
+	@Test
+	public void shouldNotGenerate255LongerString() throws Exception {
+		HashCalculator calculator = new HashCalculator("lalalallalala");
+		String hash = calculator.getValue();
+		
+		assertTrue(hash.length() < 255);
+	}
 
 }

@@ -2,7 +2,6 @@ package controller;
 
 import hash.HashCalculator;
 import model.User;
-import br.com.caelum.vraptor.Get;
 import br.com.caelum.vraptor.Path;
 import br.com.caelum.vraptor.Post;
 import br.com.caelum.vraptor.Resource;
@@ -40,6 +39,10 @@ public class UserController {
 		HashCalculator encryption = new HashCalculator(password);
 		password = encryption.getValue();
 		user = dao.getUser(login);
+		System.out.println("==================");
+		System.out.println("dao: "+user.getPassword());
+		System.out.println("calculado: "+password);
+		System.out.println("==================");
 		if (password.equals(user.getPassword())) {
 			userSession.login(user);
 			result.redirectTo(IndexController.class).index();
@@ -49,13 +52,13 @@ public class UserController {
 		}
 		
 	}
-	
+
 	@Path("/usuarios/salvar/")
 	public void save(User user) {
 		user.setActive(false);
+		user.setPasswordFromRawString(user.getPassword());
 		dao.save(user);
 		result.redirectTo(EmailConfirmationController.class).createAndSendEmailConfirmation(user);
 	}
-	
 	
 }

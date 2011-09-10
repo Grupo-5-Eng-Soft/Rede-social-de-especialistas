@@ -13,7 +13,7 @@ public class EmailConfirmationDao {
 	private Session session;
 
 	public EmailConfirmationDao() {
-		this.session = SessionCreator.criaSessao();
+		this.session = SessionCreator.createSession();
 	}
 	
 	public void saveEmailConfirmationFromUser(User user) {

@@ -10,9 +10,7 @@
 	<h1>Rede social de especialistas</h1>
 
 <div id="menu">
-	<div class="item"><a href="./usuarios/cadastrar/">Cadastro de usuário</a></div>
-	<div class="item"><a href="./login/">Login</a></div>
-	
+	<div class="item"><a href="./especialidades/listar/">Especialidades</a></div>
 </div>
 </body>
 </html>
