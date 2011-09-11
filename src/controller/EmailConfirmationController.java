@@ -1,5 +1,5 @@
 package controller;
-
+//8086 8123
 import hash.HashCalculator;
 import model.EmailConfirmation;
 import model.User;
@@ -30,7 +30,7 @@ public class EmailConfirmationController {
 	}
 	
 	@Get("/usuarios/confirmar/{userId}/{hash}")
-	public void confirmUser(int userId, String hash) {
+	public void confirmUser(long userId, String hash) {
 		UserDao userDao = new UserDao();
 		User user;
 		user = userDao.getUser(userId);
@@ -39,7 +39,7 @@ public class EmailConfirmationController {
 			return;
 		}
 		if (user.isActive()) {
-			result.include("message", "Sua conta j√° foi ativada!");
+			result.include("message", "Sua conta j· foi ativada!");
 			return;
 		}
 		EmailConfirmation confirmation = dao.getEmailConfirmation(user);
@@ -50,7 +50,7 @@ public class EmailConfirmationController {
 		user.setActive(true);
 		userDao.save(user);
 		dao.removeEmailConfirmationFrom(user);
-		result.include("message", "Parab√©ns, sua conta foi ativada!");
+		result.include("message", "ParabÈns, sua conta foi ativada!");
 		
 	}
 
@@ -67,7 +67,7 @@ public class EmailConfirmationController {
 		try {
 			email.addTo(emailAddress);
 			email.setFrom("grupo5.engsoft@gmail.com"); 
-			email.setSubject("Confirma√ß√£o de conta");
+			email.setSubject("ConfirmaÁ„o de conta");
 			email.setMsg(message);
 			email.send();
 		} catch (EmailException e) {
