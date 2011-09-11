@@ -1,11 +1,10 @@
 package controller;
 
 import model.Specialty;
-import dao.SpecialtyDao;
-import dao.UserDao;
 import br.com.caelum.vraptor.Path;
 import br.com.caelum.vraptor.Resource;
 import br.com.caelum.vraptor.Result;
+import dao.SpecialtyDao;
 
 @Resource
 public class SpecialtyController {

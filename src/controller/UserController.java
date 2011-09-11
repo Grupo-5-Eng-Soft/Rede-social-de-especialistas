@@ -35,22 +35,23 @@ public class UserController {
 	@Post
 	@Path("/login/autenticar/")
 	public void authenticate(String login, String password) {
-		User user;
-		HashCalculator encryption = new HashCalculator(password);
-		password = encryption.getValue();
-		user = dao.getUser(login);
-		System.out.println("==================");
-		System.out.println("dao: "+user.getPassword());
-		System.out.println("calculado: "+password);
-		System.out.println("==================");
-		if (password.equals(user.getPassword())) {
-			userSession.login(user);
-			result.redirectTo(IndexController.class).index();
-		}
-		else {
+		User user = dao.getUser(login);
+		if (user != null) {
+			HashCalculator encryption = new HashCalculator(password);
+			password = encryption.getValue();
+			System.out.println("==================");
+			System.out.println("dao: "+user.getPassword());
+			System.out.println("calculado: "+password);
+			System.out.println("==================");
+			if (user.getPassword().equals(password) && user.isActive()) {
+				userSession.login(user);
+				result.redirectTo(IndexController.class).index();
+			} else {
+				result.redirectTo(UserController.class).loginForm();
+			}
+		} else {
 			result.redirectTo(UserController.class).loginForm();
 		}
-		
 	}
 
 	@Path("/usuarios/salvar/")
