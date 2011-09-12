@@ -1,5 +1,6 @@
 package controller;
 
+import interceptor.annotations.Admin;
 import model.Specialty;
 import br.com.caelum.vraptor.Path;
 import br.com.caelum.vraptor.Resource;
@@ -18,9 +19,11 @@ public class SpecialtyController {
 		this.dao = dao;
 	}
 	
+	@Admin
 	@Path("/especialidades/nova/")
 	public void specialtyForm() { }
 	
+	@Admin
 	@Path("/especialidades/salvar/")
 	public void save(Specialty specialty) {
 		dao.save(specialty);

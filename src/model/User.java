@@ -1,8 +1,8 @@
 package model;
 
-import java.util.Collection;
-
 import hash.HashCalculator;
+
+import java.util.Collection;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -14,6 +14,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.Transient;
 
 import org.hibernate.validator.NotEmpty;
 import org.hibernate.validator.NotNull;
@@ -111,12 +112,9 @@ public class User {
 		this.id = id;
 	}
 	
-	public static void main(String args[]) {
-		User u = new User();
-		u.setPassword("1234");
-		System.out.println(u.getPassword());
-		u.setPassword("1234");
-		System.out.println(u.getPassword());
+	@Transient
+	public boolean isAdmin() {
+		return role == Role.ADMIN;
 	}
 }
 
