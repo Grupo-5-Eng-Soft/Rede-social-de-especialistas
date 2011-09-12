@@ -47,9 +47,11 @@ public class UserController {
 				userSession.login(user);
 				result.redirectTo(IndexController.class).index();
 			} else {
+				result.include("notAuthenticated", "Usuário com cadastro não confirmado. Verifique seu e-mail.");
 				result.redirectTo(UserController.class).loginForm();
 			}
 		} else {
+			result.include("notFound", "Usuário não cadastrado no sistema.");
 			result.redirectTo(UserController.class).loginForm();
 		}
 	}

@@ -9,6 +9,8 @@
 </head>
 <body>
 <jsp:include page="../user.jsp" />
+	${notFound}
+	${notAuthenticated}
 	<form method="post" action="./autenticar/" >
 		<table>
 			<tr>
