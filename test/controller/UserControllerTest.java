@@ -1,6 +1,7 @@
 package controller;
 
 import static org.mockito.Mockito.verify;
+import infra.UserSession;
 import model.User;
 
 import org.junit.Before;

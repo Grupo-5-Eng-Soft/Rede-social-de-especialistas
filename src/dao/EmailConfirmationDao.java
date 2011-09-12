@@ -1,5 +1,6 @@
 package dao;
 
+import infra.SessionCreator;
 import model.EmailConfirmation;
 import model.User;
 

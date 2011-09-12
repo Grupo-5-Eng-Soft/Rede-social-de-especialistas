@@ -11,10 +11,8 @@ import dao.SpecialtyDao;
 public class SpecialtyController {
 	private final Result result;
 	private final SpecialtyDao dao;
-	private final UserSession userSession;
 	
-	public SpecialtyController(Result result, SpecialtyDao dao, UserSession userSession) {
-		this.userSession = userSession;
+	public SpecialtyController(Result result, SpecialtyDao dao) {
 		this.result = result;
 		this.dao = dao;
 	}

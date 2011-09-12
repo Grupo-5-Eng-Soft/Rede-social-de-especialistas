@@ -1,4 +1,4 @@
-package controller;
+package infra;
 
 import br.com.caelum.vraptor.ioc.Component;
 import br.com.caelum.vraptor.ioc.SessionScoped;

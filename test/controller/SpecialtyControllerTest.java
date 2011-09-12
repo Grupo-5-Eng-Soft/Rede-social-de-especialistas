@@ -17,12 +17,11 @@ public class SpecialtyControllerTest {
 	private @Mock SpecialtyDao dao;
 	private Result result = new MockResult();
 	private SpecialtyController controller;
-	private UserSession userSession;
 
 	@Before
 	public void setUp() throws Exception {
 		MockitoAnnotations.initMocks(this);
-		controller = new SpecialtyController(result, dao, userSession);
+		controller = new SpecialtyController(result, dao);
 	}
 
 	@Test

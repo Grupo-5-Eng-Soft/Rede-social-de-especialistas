@@ -1,5 +1,6 @@
 package controller;
 
+import infra.UserSession;
 import br.com.caelum.vraptor.Path;
 import br.com.caelum.vraptor.Resource;
 

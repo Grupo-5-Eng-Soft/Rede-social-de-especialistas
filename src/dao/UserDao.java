@@ -1,5 +1,7 @@
 package dao;
 
+import infra.SessionCreator;
+
 import java.util.List;
 
 import model.User;

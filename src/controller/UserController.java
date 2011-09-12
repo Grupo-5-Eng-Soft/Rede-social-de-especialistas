@@ -1,5 +1,6 @@
 package controller;
 
+import infra.UserSession;
 import hash.HashCalculator;
 import model.User;
 import br.com.caelum.vraptor.Path;
