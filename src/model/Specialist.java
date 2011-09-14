@@ -10,13 +10,16 @@ import javax.persistence.Id;
 public class Specialist {
 
 	@Id
-	private long id;	
+	private long user_id;	
+
 	@Id
-	private String especialidade;
+	private long specialty_id;
 	
-	public Specialist(long id, String especialidade){
-		this.id = id;
-		this.especialidade = especialidade;
+	
+	
+	public Specialist(long user_id, long specialty_id){
+		this.user_id = user_id;
+		this.specialty_id = specialty_id;
 	}
 	
 	

@@ -27,7 +27,7 @@ public class SpecialistDao {
 		int i;
 		Transaction tx = session.beginTransaction();
 		for (i = 0; i < specialties.size(); i++) {
-			session.save(new Specialist(user.getId(), specialties.get(i).getName()));
+			session.save(new Specialist(user.getId(), specialties.get(i).getId()));
 		}
 		tx.commit();
 	}
