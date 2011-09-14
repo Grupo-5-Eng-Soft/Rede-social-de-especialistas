@@ -11,17 +11,19 @@ import org.mockito.MockitoAnnotations;
 import br.com.caelum.vraptor.Result;
 import br.com.caelum.vraptor.util.test.MockResult;
 import dao.EmailConfirmationDao;
+import dao.UserDao;
 
 public class EmailConfirmationControllerTest {
 	
 	private @Mock EmailConfirmationDao dao;
+	private @Mock UserDao users;
 	private Result result = new MockResult();
 	private EmailConfirmationController controller;
 
 	@Before
 	public void setUp() throws Exception {
 		MockitoAnnotations.initMocks(this);
-		controller = new EmailConfirmationController(result, dao);
+		controller = new EmailConfirmationController(result, dao, users);
 	}
 
 	@Test

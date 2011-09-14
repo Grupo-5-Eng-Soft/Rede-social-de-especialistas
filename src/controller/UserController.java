@@ -36,7 +36,7 @@ public class UserController {
 	@Post
 	@Path("/login/autenticar/")
 	public void authenticate(String login, String password) {
-		User user = dao.getUser(login);
+		User user = dao.getUserFromLogin(login);
 		if (user != null) {
 			HashCalculator encryption = new HashCalculator(password);
 			password = encryption.getValue();

@@ -1,6 +1,5 @@
 package dao;
 
-import infra.SessionCreator;
 import model.EmailConfirmation;
 import model.User;
 
@@ -11,10 +10,10 @@ import br.com.caelum.vraptor.ioc.Component;
 
 @Component
 public class EmailConfirmationDao {
-	private Session session;
+	private final Session session;
 
-	public EmailConfirmationDao() {
-		this.session = SessionCreator.createSession();
+	public EmailConfirmationDao(Session session) {
+		this.session = session;
 	}
 	
 	public void saveEmailConfirmationFromUser(User user) {

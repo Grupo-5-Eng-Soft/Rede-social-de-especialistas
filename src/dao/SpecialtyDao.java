@@ -1,7 +1,5 @@
 package dao;
 
-import infra.SessionCreator;
-
 import java.util.List;
 
 import model.Specialty;
@@ -14,10 +12,10 @@ import br.com.caelum.vraptor.ioc.Component;
 
 @Component
 public class SpecialtyDao {
-	private Session session;
+	private final Session session;
 
-	public SpecialtyDao() {
-		this.session = SessionCreator.createSession();
+	public SpecialtyDao(Session session) {
+		this.session = session;
 	}
 
 	public void save(Specialty specialty) {

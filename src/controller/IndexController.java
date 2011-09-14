@@ -6,10 +6,11 @@ import br.com.caelum.vraptor.Resource;
 
 @Resource
 public class IndexController {
-	private final UserSession userSession;
 	
-	public IndexController(UserSession userSession) {
-		this.userSession = userSession;
+	private UserSession session;
+
+	public IndexController(UserSession session) {
+		this.session = session;
 	}
 	
 	@Path("/")

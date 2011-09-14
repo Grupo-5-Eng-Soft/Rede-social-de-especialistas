@@ -1,7 +1,5 @@
 package dao;
 
-import infra.SessionCreator;
-
 import java.util.List;
 
 import model.User;
@@ -16,10 +14,10 @@ import br.com.caelum.vraptor.ioc.RequestScoped;
 @Component
 @RequestScoped
 public class UserDao {
-	private Session session;
+	private final Session session;
 	
-	public UserDao() {
-		this.session = SessionCreator.createSession();
+	public UserDao(Session session) {
+		this.session = session;
 	}
 	
 	public void save(User user) {
@@ -28,11 +26,11 @@ public class UserDao {
 		tx.commit();
 	}
 	
-	public User getUser(long userId) {
+	public User getUserFromId(long userId) {
 		return (User) this.session.get(User.class, userId);
 	}
 	
-	public User getUser(String login) {
+	public User getUserFromLogin(String login) {
 		List<User> userList = this.session.createCriteria(User.class)
 							.add(Restrictions.eq("login", login))
 							.list();

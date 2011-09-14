@@ -17,10 +17,12 @@ import dao.UserDao;
 public class EmailConfirmationController {
 	private final Result result;
 	private final EmailConfirmationDao dao;
+	private final UserDao users;
 
-	public EmailConfirmationController(Result result, EmailConfirmationDao dao) {
+	public EmailConfirmationController(Result result, EmailConfirmationDao dao, UserDao users) {
 		this.result = result;
 		this.dao = dao;
+		this.users = users;
 	}
 	
 	public void createAndSendEmailConfirmation(User user) {
@@ -31,15 +33,13 @@ public class EmailConfirmationController {
 	
 	@Get("/usuarios/confirmar/{userId}/{hash}")
 	public void confirmUser(long userId, String hash) {
-		UserDao userDao = new UserDao();
-		User user;
-		user = userDao.getUser(userId);
+		User user = users.getUserFromId(userId);
 		if (user == null) {
 			result.include("message", "URL incorreta!");
 			return;
 		}
 		if (user.isActive()) {
-			result.include("message", "Sua conta já foi ativada!");
+			result.include("message", "Sua conta jï¿½ foi ativada!");
 			return;
 		}
 		EmailConfirmation confirmation = dao.getEmailConfirmation(user);
@@ -48,9 +48,9 @@ public class EmailConfirmationController {
 			return;
 		}
 		user.setActive(true);
-		userDao.save(user);
+		users.save(user);
 		dao.removeEmailConfirmationFrom(user);
-		result.include("message", "Parabéns, sua conta foi ativada!");
+		result.include("message", "Parabï¿½ns, sua conta foi ativada!");
 		
 	}
 
@@ -67,7 +67,7 @@ public class EmailConfirmationController {
 		try {
 			email.addTo(emailAddress);
 			email.setFrom("grupo5.engsoft@gmail.com"); 
-			email.setSubject("Confirmação de conta");
+			email.setSubject("Confirmaï¿½ï¿½o de conta");
 			email.setMsg(message);
 			email.send();
 		} catch (EmailException e) {
