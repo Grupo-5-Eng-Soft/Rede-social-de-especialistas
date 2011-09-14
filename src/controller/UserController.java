@@ -9,30 +9,34 @@ import br.com.caelum.vraptor.Resource;
 import br.com.caelum.vraptor.Result;
 import dao.UserDao;
 
+
 @Resource
 public class UserController {
 	private final Result result;
 	private final UserDao dao;
 	private final UserSession userSession;
-	
+
 	public UserController(Result result, UserDao dao, UserSession userSession) {
 		this.userSession = userSession;
 		this.result = result;
 		this.dao = dao;
 	}
-	
+
 	@Path("/usuarios/cadastrar/")
-	public void userForm() { }
-	
+	public void userForm() {
+		result.include("specialties", dao.list());
+	}
+
 	@Path("/login/")
-	public void loginForm() { }
-	
+	public void loginForm() {
+	}
+
 	@Path("/logout/")
 	public void logout() {
 		userSession.logout();
 		result.redirectTo(IndexController.class).index();
 	}
-	
+
 	@Post
 	@Path("/login/autenticar/")
 	public void authenticate(String login, String password) {
@@ -41,8 +45,8 @@ public class UserController {
 			HashCalculator encryption = new HashCalculator(password);
 			password = encryption.getValue();
 			System.out.println("==================");
-			System.out.println("dao: "+user.getPassword());
-			System.out.println("calculado: "+password);
+			System.out.println("dao: " + user.getPassword());
+			System.out.println("calculado: " + password);
 			System.out.println("==================");
 			if (user.getPassword().equals(password) && user.isActive()) {
 				userSession.login(user);
@@ -64,5 +68,5 @@ public class UserController {
 		dao.save(user);
 		result.redirectTo(EmailConfirmationController.class).createAndSendEmailConfirmation(user);
 	}
-	
+
 }

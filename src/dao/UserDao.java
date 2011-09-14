@@ -2,6 +2,7 @@ package dao;
 
 import java.util.List;
 
+import model.Specialty;
 import model.User;
 
 import org.hibernate.Session;
@@ -31,13 +32,15 @@ public class UserDao {
 	}
 	
 	public User getUserFromLogin(String login) {
-		List<User> userList = this.session.createCriteria(User.class)
-							.add(Restrictions.eq("login", login))
-							.list();
+		List<User> userList = this.session.createCriteria(User.class).add(Restrictions.eq("login", login)).list();
 		if (! userList.isEmpty()) {
 			return userList.get(0);	
 		}
 		return null;
+	}
+	
+	public List<Specialty> list() {
+		return this.session.createCriteria(Specialty.class).list();
 	}
 	
 }
