@@ -2,18 +2,17 @@ package model;
 
 import hash.HashCalculator;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.Transient;
 
 import org.hibernate.validator.NotEmpty;
@@ -22,9 +21,12 @@ import org.hibernate.validator.NotNull;
 @Entity
 public class User {
 	
-	private long id;
+	@Id
+	@GeneratedValue
+	private Long id;
 	
-	private Collection<Specialty> specialties;
+	@OneToMany
+	private Collection<Specialty> specialties = new ArrayList<Specialty>();
 	
 	@Column(unique=true)
 	@NotEmpty
@@ -39,18 +41,15 @@ public class User {
 	@Enumerated(EnumType.STRING)
 	private Role role;
 	
+	@OneToMany(mappedBy="user")
+	private List<Post> posts = new ArrayList<Post>();
+	
 	private boolean active;
 	
 	public void setSpecialties(Collection<Specialty> specialties) {
 		this.specialties = specialties;
 	}
 	
-	@ManyToMany(cascade = CascadeType.ALL)
-	@JoinTable(
-			name = "users_specialties",
-			joinColumns = { @JoinColumn(name = "user_id") }, 
-			inverseJoinColumns = { @JoinColumn(name = "specialty_id") }
-	)
 	public Collection<Specialty> getSpecialties() {
 		return specialties;
 	}
@@ -101,9 +100,6 @@ public class User {
 		this.role = role;
 	}
 
-	@Id
-	@GeneratedValue
-	@Column(name="user_id")
 	public long getId() {
 		return this.id;
 	}

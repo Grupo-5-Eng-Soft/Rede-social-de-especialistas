@@ -35,6 +35,7 @@ public class EmailConfirmationControllerTest {
 
 	private User validUser() {
 		User user = new User();
+		user.setId(1L);
 		user.setEmail("grupo5.engsoft@gmail.com");
 		user.setLogin("junit");
 		user.setPassword("lala");

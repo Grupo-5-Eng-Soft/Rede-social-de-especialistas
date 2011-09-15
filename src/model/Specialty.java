@@ -3,28 +3,29 @@ package model;
 
 import java.util.Collection;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 
 import org.hibernate.validator.NotEmpty;
 
 @Entity
 public class Specialty {
 	
-	long id;
+	@Id
+	@GeneratedValue
+	private Long id;
 	
 	@NotEmpty
 	private String name;
 	
+	@OneToMany(mappedBy="specialty")
+	private Collection<Post> posts;
+	
+	@OneToMany(mappedBy="specialties")
 	private Collection<User> users;
 	
-	@ManyToMany(
-	        mappedBy = "specialties",
-	        targetEntity = User.class
-	)
 	public Collection<User> getUsers() {
 		return users;
 	}
@@ -37,9 +38,6 @@ public class Specialty {
 		this.id = id;
 	}
 
-	@Id
-	@GeneratedValue
-	@Column(name="specialty_id")
 	public long getId() {
 		return id;
 	}
