@@ -39,7 +39,7 @@
 				
 					<c:forEach var="specialty" items="${specialties}">
 					<tr>
-						<td> <input name="user.specialties" type="checkbox"> ${specialty.name} </td>
+						<td> <input name="specialties_ids" type="checkbox" value="${specialty.id}"> ${specialty.name} </td>
 					</tr>
 					</c:forEach>
 				

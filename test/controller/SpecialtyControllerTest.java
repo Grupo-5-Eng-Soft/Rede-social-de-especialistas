@@ -25,7 +25,7 @@ public class SpecialtyControllerTest {
 	}
 
 	@Test
-	public void shouldSaveUser() throws Exception {
+	public void shouldSaveSpecialty() throws Exception {
 		Specialty s = new Specialty();
 		s.setName("vraptor");
 		controller.save(s);

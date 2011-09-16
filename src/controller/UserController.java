@@ -1,5 +1,7 @@
 package controller;
 
+import java.util.ArrayList;
+
 import infra.UserSession;
 import hash.HashCalculator;
 import model.User;
@@ -62,10 +64,10 @@ public class UserController {
 	}
 
 	@Path("/usuarios/salvar/")
-	public void save(User user) {
+	public void save(User user, ArrayList<Long> specialties_ids) {
 		user.setActive(false);
 		user.setPasswordFromRawString(user.getPassword());
-		dao.save(user);
+		dao.save(user, specialties_ids);
 		result.redirectTo(EmailConfirmationController.class).createAndSendEmailConfirmation(user);
 	}
 

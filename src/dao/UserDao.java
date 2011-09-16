@@ -1,5 +1,6 @@
 package dao;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import model.Specialty;
@@ -27,6 +28,16 @@ public class UserDao {
 		tx.commit();
 	}
 	
+	public void save(User user, ArrayList<Long> specialties_ids) {
+		Transaction tx = session.beginTransaction();
+		ArrayList<Specialty> specialties = new ArrayList<Specialty>();
+		for (long id : specialties_ids)
+			specialties.add((Specialty) this.session.get(Specialty.class, id));
+		user.setSpecialties(specialties);
+		session.save(user);
+		tx.commit();
+	}
+	
 	public User getUserFromId(long userId) {
 		return (User) this.session.get(User.class, userId);
 	}
@@ -42,5 +53,5 @@ public class UserDao {
 	public List<Specialty> list() {
 		return this.session.createCriteria(Specialty.class).list();
 	}
-	
+
 }
