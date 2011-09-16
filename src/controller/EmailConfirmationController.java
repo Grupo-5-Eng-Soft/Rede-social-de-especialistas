@@ -33,7 +33,7 @@ public class EmailConfirmationController {
 	
 	@Get("/usuarios/confirmar/{userId}/{hash}")
 	public void confirmUser(long userId, String hash) {
-		User user = users.getUserFromId(userId);
+		User user = users.getUser(userId);
 		if (user == null) {
 			result.include("message", "URL incorreta!");
 			return;

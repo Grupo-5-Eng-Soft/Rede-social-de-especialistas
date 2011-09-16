@@ -32,4 +32,16 @@ public class SpecialtyController {
 	public void list() {
 		result.include("specialties", dao.list());
 	}
+	
+	@Path("/especialidades/{specialtyId}/")
+	public void detail(long specialtyId) {
+		Specialty s = dao.getSpecialty(specialtyId);
+		System.out.println("=====================================================");
+		System.out.println(s.getName());
+		System.out.println(s.getUsers());
+		System.out.println("=====================================================");
+				
+		result.include("specialty", dao.getSpecialty(specialtyId));
+		
+	}
 }
