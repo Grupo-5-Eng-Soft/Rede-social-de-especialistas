@@ -17,6 +17,8 @@
 		<mapping class="model.EmailConfirmation" />
 		<mapping class="model.Specialty" />
 		<mapping class="model.Post" />
+		<mapping class="model.Specialist" />
+		
 		
 	</session-factory>
 </hibernate-configuration>

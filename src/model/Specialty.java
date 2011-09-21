@@ -2,7 +2,6 @@ package model;
 
 
 import java.util.Collection;
-
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -22,6 +21,9 @@ public class Specialty {
 	
 	@OneToMany(mappedBy="specialty")
 	private Collection<Post> posts;
+	
+	@OneToMany(mappedBy="specialty")
+	private Collection<Specialist> specialists;
 	
 	@OneToMany(mappedBy="specialties")
 	private Collection<User> users;

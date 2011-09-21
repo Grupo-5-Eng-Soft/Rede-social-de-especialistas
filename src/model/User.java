@@ -44,6 +44,9 @@ public class User {
 	@OneToMany(mappedBy="user")
 	private List<Post> posts = new ArrayList<Post>();
 	
+	@OneToMany(mappedBy="user")
+	private List<Specialist> specialists = new ArrayList<Specialist>();
+	
 	private boolean active;
 	
 	public void setSpecialties(Collection<Specialty> specialties) {
