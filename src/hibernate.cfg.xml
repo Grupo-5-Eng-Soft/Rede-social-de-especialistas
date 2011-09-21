@@ -16,6 +16,7 @@
 		<mapping class="model.User" />
 		<mapping class="model.EmailConfirmation" />
 		<mapping class="model.Specialty" />
+		<mapping class="model.Specialist" />
 		<mapping class="model.Post" />
 		
 	</session-factory>

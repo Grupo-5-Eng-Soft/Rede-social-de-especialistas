@@ -31,9 +31,11 @@ public class UserDao {
 	public void save(User user, ArrayList<Long> specialties_ids) {
 		Transaction tx = session.beginTransaction();
 		ArrayList<Specialty> specialties = new ArrayList<Specialty>();
-		for (long id : specialties_ids)
-			specialties.add((Specialty) this.session.get(Specialty.class, id));
-		user.setSpecialties(specialties);
+		if (specialties_ids != null) {
+			for (long id : specialties_ids)
+				specialties.add((Specialty) this.session.get(Specialty.class, id));
+			user.setSpecialties(specialties);
+		}
 		session.save(user);
 		tx.commit();
 	}
