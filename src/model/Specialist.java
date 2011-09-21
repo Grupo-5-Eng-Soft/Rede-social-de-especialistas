@@ -12,24 +12,17 @@ import org.hibernate.validator.NotNull;
 @Entity
 public class Specialist implements Serializable{
 	
-	
-	@NotNull
-	@NotEmpty
-	private Long score;
+	private int score;
 	
 	@Id
-	@NotNull
-	@NotEmpty
 	@ManyToOne
 	private User user;
 	
 	@Id
-	@NotNull
-	@NotEmpty
 	@ManyToOne
 	private Specialty specialty;
 	
-	public Specialist(Long score) {
+	public Specialist(int score) {
 		this.score = score;
 	}
 
@@ -37,41 +30,6 @@ public class Specialist implements Serializable{
 		this.user = user;
 	}
 	
-	public Long getScore() {
-		return score;
-	}
-
-	public void setScore(Long score) {
-		this.score = score;
-	}
-
-	public User getUser() {
-		return user;
-	}
-
-	public Specialty getSpecialty() {
-		return specialty;
-	}
-
-	public void setSpecialty(Specialty specialty) {
-		this.specialty = specialty;
-	}
-}
-/*@Embeddable
-public class Specialist {
-
-	// Lets suppose you have added this field
-	@Column
-	private int score;
-
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "USER_ID")
-	private User user;
-
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "SPECIALTY_ID")
-	private Specialty specialty;
-
 	public int getScore() {
 		return score;
 	}
@@ -84,10 +42,6 @@ public class Specialist {
 		return user;
 	}
 
-	public void setUser(User user) {
-		this.user = user;
-	}
-
 	public Specialty getSpecialty() {
 		return specialty;
 	}
@@ -95,27 +49,4 @@ public class Specialist {
 	public void setSpecialty(Specialty specialty) {
 		this.specialty = specialty;
 	}
-
-	public boolean equals(Object instance) {
-		if (instance == null)
-			return false;
-
-		if (!(instance instanceof Specialist))
-			return false;
-
-		Specialist other = (Specialist) instance;
-		if (!(user.getId() == other.user.getId()))
-			return false;
-
-		if (!(specialty.getId() == other.specialty.getId()))
-			return false;
-
-		if (!(score == other.score))
-			return false;
-
-		return true;
-	}
-	
-	
 }
-*/

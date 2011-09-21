@@ -25,17 +25,6 @@ public class Specialty {
 	@OneToMany(mappedBy="specialty")
 	private Collection<Specialist> specialists;
 	
-	@OneToMany(mappedBy="specialties")
-	private Collection<User> users;
-	
-	public Collection<User> getUsers() {
-		return users;
-	}
-	
-	public void setUsers(Collection<User> users) {
-		this.users = users;
-	}
-	
 	public void setId(long id) {
 		this.id = id;
 	}

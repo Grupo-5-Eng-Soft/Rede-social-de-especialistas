@@ -25,9 +25,6 @@ public class User {
 	@GeneratedValue
 	private Long id;
 	
-	@OneToMany
-	private Collection<Specialty> specialties = new ArrayList<Specialty>();
-	
 	@Column(unique=true)
 	@NotEmpty
 	private String login;
@@ -48,14 +45,6 @@ public class User {
 	private List<Specialist> specialists = new ArrayList<Specialist>();
 	
 	private boolean active;
-	
-	public void setSpecialties(Collection<Specialty> specialties) {
-		this.specialties = specialties;
-	}
-	
-	public Collection<Specialty> getSpecialties() {
-		return specialties;
-	}
 	
 	public boolean isActive() {
 		return active;
@@ -114,6 +103,14 @@ public class User {
 	@Transient
 	public boolean isAdmin() {
 		return role == Role.ADMIN;
+	}
+
+	public List<Specialist> getSpecialists() {
+		return specialists;
+	}
+
+	public void setSpecialists(List<Specialist> specialists) {
+		this.specialists = specialists;
 	}
 }
 

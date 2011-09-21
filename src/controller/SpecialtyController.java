@@ -39,7 +39,6 @@ public class SpecialtyController {
 		Specialty s = dao.getSpecialty(specialtyId);
 		System.out.println("=====================================================");
 		System.out.println(s.getName());
-		System.out.println(s.getUsers());
 		System.out.println("=====================================================");
 				
 		result.include("specialty", dao.getSpecialty(specialtyId));

@@ -3,6 +3,7 @@ package dao;
 import java.util.ArrayList;
 import java.util.List;
 
+import model.Specialist;
 import model.Specialty;
 import model.User;
 
@@ -30,13 +31,25 @@ public class UserDao {
 	
 	public void save(User user, ArrayList<Long> specialties_ids) {
 		Transaction tx = session.beginTransaction();
-		ArrayList<Specialty> specialties = new ArrayList<Specialty>();
-		if (specialties_ids != null) {
-			for (long id : specialties_ids)
-				specialties.add((Specialty) this.session.get(Specialty.class, id));
-			user.setSpecialties(specialties);
-		}
+		ArrayList<Specialist> specialists = new ArrayList<Specialist>();
 		session.save(user);
+		tx.commit();
+		if (specialties_ids != null) {
+			for (long id : specialties_ids) {
+				Specialty s;
+				s = (Specialty) this.session.get(Specialty.class, id);
+				Specialist specialist = new Specialist(0);
+				specialist.setUser(user);
+				specialist.setSpecialty(s);
+				tx = session.beginTransaction();
+				session.save(specialist);
+				tx.commit();
+				specialists.add(specialist);
+			}
+			user.setSpecialists(specialists);
+		}
+		tx = session.beginTransaction();
+		session.update(user);
 		tx.commit();
 	}
 	
