@@ -1,13 +1,16 @@
 package dao;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import model.Specialist;
 import model.Specialty;
 import model.User;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
+import org.hibernate.criterion.Restrictions;
 
 import br.com.caelum.vraptor.ioc.Component;
 import br.com.caelum.vraptor.util.hibernate.SessionCreator;
@@ -33,6 +36,12 @@ public class SpecialtyDao {
 
 	public Specialty getSpecialty(long specialtyId) {
 		return (Specialty) this.session.get(Specialty.class, specialtyId);
+	}
+
+	public ArrayList<Specialist> getSpecialists(Specialty specialty) {
+		return (ArrayList<Specialist>) this.session.createCriteria(Specialist.class)
+			.add(Restrictions.eq("specialty", specialty))
+			.list();
 	}
 	
 }

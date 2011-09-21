@@ -8,11 +8,16 @@
 <body>
 	<div id="content">
 		<h1>${specialty.name}</h1>
-		${specialty.users}
+		<a href="<c:url value="/especialidades/"/>">Postar uma dúvida</a>
 		<table>
-			<c:forEach var="user" items="${specialty.users}">
 				<tr>
-					<td>${user.name}</td>
+					<th>Login</th>
+					<th>Pontuação</th>
+				</tr>
+			<c:forEach var="specialist" items="${specialists}">
+				<tr>
+					<td>${specialist.user.login}</td>
+					<td>${specialist.score}</td>
 				</tr>
 			</c:forEach>
 		</table>

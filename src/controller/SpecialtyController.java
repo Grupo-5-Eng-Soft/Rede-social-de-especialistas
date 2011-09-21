@@ -1,7 +1,10 @@
 package controller;
 
+import java.util.ArrayList;
+
 import infra.UserSession;
 import interceptor.annotations.Admin;
+import model.Specialist;
 import model.Specialty;
 import br.com.caelum.vraptor.Path;
 import br.com.caelum.vraptor.Resource;
@@ -36,12 +39,9 @@ public class SpecialtyController {
 	
 	@Path("/especialidades/{specialtyId}/")
 	public void detail(long specialtyId) {
-		Specialty s = dao.getSpecialty(specialtyId);
-		System.out.println("=====================================================");
-		System.out.println(s.getName());
-		System.out.println("=====================================================");
-				
+		Specialty specialty = dao.getSpecialty(specialtyId);
 		result.include("specialty", dao.getSpecialty(specialtyId));
+		result.include("specialists", dao.getSpecialists(specialty));
 		
 	}
 }

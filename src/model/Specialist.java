@@ -22,6 +22,10 @@ public class Specialist implements Serializable{
 	@ManyToOne
 	private Specialty specialty;
 	
+	public Specialist() {
+		super();
+	}
+	
 	public Specialist(int score) {
 		this.score = score;
 	}

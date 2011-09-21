@@ -12,7 +12,7 @@
 		<table>
 			<c:forEach var="specialty" items="${specialties}">
 				<tr>
-					<td>${specialty.name}</td>
+					<td><a href="<c:url value="/especialidades/${specialty.id}/"/>">${specialty.name}</a></td>
 				</tr>
 			</c:forEach>
 		</table>
