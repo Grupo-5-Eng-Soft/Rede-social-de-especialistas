@@ -1,1 +1,0 @@
-se ta de brincadeira.
