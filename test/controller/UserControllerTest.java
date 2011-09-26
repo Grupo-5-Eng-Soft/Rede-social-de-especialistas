@@ -29,7 +29,7 @@ public class UserControllerTest {
 	@Test
 	public void shouldSaveUser() throws Exception {
 		User user = validUser();
-		controller.save(user);
+		controller.save(user, null);
 		verify(dao).save(user);
 	}
 

@@ -1,6 +1,7 @@
 package controller;
 
 import static org.mockito.Mockito.verify;
+import infra.UserSession;
 import model.Specialty;
 
 import org.junit.Before;
@@ -17,11 +18,12 @@ public class SpecialtyControllerTest {
 	private @Mock SpecialtyDao dao;
 	private Result result = new MockResult();
 	private SpecialtyController controller;
+	private UserSession session = new UserSession();
 
 	@Before
 	public void setUp() throws Exception {
 		MockitoAnnotations.initMocks(this);
-		controller = new SpecialtyController(result, dao);
+		controller = new SpecialtyController(result, dao, session);
 	}
 
 	@Test

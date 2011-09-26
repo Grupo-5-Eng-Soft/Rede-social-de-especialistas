@@ -4,6 +4,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 import org.hibernate.validator.NotEmpty;
 import org.hibernate.validator.NotNull;
@@ -24,10 +25,8 @@ public class Post {
 	@NotEmpty
 	private String content;
 	
-	@NotNull
-	@NotEmpty
-	@ManyToOne
-	private Specialty specialty;
+	@OneToMany
+	private Question question;
 	
 	public Post(String title, String content) {
 		this.title = title;
@@ -39,10 +38,7 @@ public class Post {
 	}
 
 	public Specialty getSpecialty() {
-		return specialty;
+		return question.getSpecialty();
 	}
 
-	public void setSpecialty(Specialty specialty) {
-		this.specialty = specialty;
-	}
 }
