@@ -1,5 +1,6 @@
 package dao;
 
+import java.util.ArrayList;
 import java.util.Collection;
 
 import model.Post;
@@ -29,6 +30,19 @@ public class QuestionDao {
 	public Collection<Specialty> listSpecialties() {
 		SpecialtyDao dao = new SpecialtyDao(session);
 		return dao.list();
+	}
+
+	public Specialty getSpecialty(Long specialtyId) {
+		SpecialtyDao dao = new SpecialtyDao(session);
+		return dao.getSpecialty(specialtyId);
+	}
+
+	public ArrayList<Question> listQuestions() {
+		return (ArrayList<Question>) this.session.createCriteria(Question.class).list();
+	}
+
+	public Question getQuestion(Long questionId) {
+		return (Question) this.session.get(Question.class, questionId);
 	}
 
 }

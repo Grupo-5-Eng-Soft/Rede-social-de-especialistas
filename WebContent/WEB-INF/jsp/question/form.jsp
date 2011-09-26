@@ -22,7 +22,7 @@
 		<tr>
 			<td>Especialidade: </td>
 			<td>
-				<select name="specialty_id">
+				<select name="specialtyId">
 					<c:forEach var="specialty" items="${specialties}">
 						<option value="${specialty.id}">${specialty.name}</option>
 					</c:forEach>

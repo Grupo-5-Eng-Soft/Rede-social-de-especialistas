@@ -3,6 +3,7 @@ package controller;
 import infra.UserSession;
 import interceptor.annotations.LoggedUser;
 import model.Question;
+import model.Specialty;
 import br.com.caelum.vraptor.Path;
 import br.com.caelum.vraptor.Resource;
 import br.com.caelum.vraptor.Result;
@@ -28,9 +29,22 @@ public class QuestionController {
 	
 	@LoggedUser
 	@Path("/perguntas/salvar/")
-	public void save(Question question) {
+	public void save(Question question, Long specialtyId) {
+		Specialty specialty = dao.getSpecialty(specialtyId);
 		question.setAuthor(userSession.getLoggedUser());
-		
+		question.setSpecialty(specialty);
+		dao.save(question);
+	}
+	
+	@Path("/perguntas/")
+	public void list() {
+		result.include("questions", dao.listQuestions());
+	}
+	
+	@Path("/perguntas/{questionId}/")
+	public void detail(Long questionId) {
+		Question question = dao.getQuestion(questionId);
+		result.include("question", question);
 	}
 
 }

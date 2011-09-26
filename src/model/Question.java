@@ -69,5 +69,17 @@ public class Question {
 	public void setDescription(String description) {
 		this.description = description;
 	}
+
+	public long getId() {
+		return id;
+	}
+
+	public void setId(long id) {
+		this.id = id;
+	}
+
+	public void setPosts(Collection<Post> posts) {
+		this.posts = posts;
+	}
 	
 }
