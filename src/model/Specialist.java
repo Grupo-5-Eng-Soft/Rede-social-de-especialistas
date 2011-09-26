@@ -6,11 +6,8 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
-import org.hibernate.validator.NotEmpty;
-import org.hibernate.validator.NotNull;
-
 @Entity
-public class Specialist implements Serializable{
+public class Specialist implements Serializable {
 	
 	private int score;
 	

@@ -25,7 +25,7 @@ public class Post {
 	@NotEmpty
 	private String content;
 	
-	@OneToMany
+	@ManyToOne
 	private Question question;
 	
 	public Post(String title, String content) {
@@ -35,10 +35,6 @@ public class Post {
 
 	public void setUser(User user) {
 		this.user = user;
-	}
-
-	public Specialty getSpecialty() {
-		return question.getSpecialty();
 	}
 
 }

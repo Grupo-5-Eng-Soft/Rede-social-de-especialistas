@@ -1,10 +1,7 @@
 package controller;
 
-import java.util.ArrayList;
-
 import infra.UserSession;
 import interceptor.annotations.Admin;
-import model.Specialist;
 import model.Specialty;
 import br.com.caelum.vraptor.Path;
 import br.com.caelum.vraptor.Resource;

@@ -20,7 +20,7 @@ public class Specialty {
 	private String name;
 	
 	@OneToMany(mappedBy="specialty")
-	private Collection<Post> posts;
+	private Collection<Question> question;
 	
 	@OneToMany(mappedBy="specialty")
 	private Collection<Specialist> specialists;

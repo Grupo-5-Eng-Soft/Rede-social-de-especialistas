@@ -1,11 +1,7 @@
 package interceptor;
 
 import infra.UserSession;
-import interceptor.annotations.Admin;
 import interceptor.annotations.LoggedUser;
-
-import controller.ErrorController;
-
 import br.com.caelum.vraptor.InterceptionException;
 import br.com.caelum.vraptor.Intercepts;
 import br.com.caelum.vraptor.Lazy;
@@ -13,6 +9,7 @@ import br.com.caelum.vraptor.Result;
 import br.com.caelum.vraptor.core.InterceptorStack;
 import br.com.caelum.vraptor.interceptor.Interceptor;
 import br.com.caelum.vraptor.resource.ResourceMethod;
+import controller.ErrorController;
 
 @Lazy
 @Intercepts

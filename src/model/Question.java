@@ -1,6 +1,7 @@
 package model;
 
 import java.util.ArrayList;
+import java.util.Collection;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -20,10 +21,14 @@ public class Question {
 	private User author;
 	
 	@OneToMany(mappedBy="question")
-	private ArrayList<Post> posts;
+	private Collection<Post> posts = new ArrayList<Post>();
 	
-	@OneToOne
+	@ManyToOne
 	private Specialty specialty;
+	
+	private String title;
+	
+	private String description;
 
 	public User getAuthor() {
 		return author;
@@ -33,7 +38,7 @@ public class Question {
 		this.author = author;
 	}
 
-	public ArrayList<Post> getPosts() {
+	public Collection<Post> getPosts() {
 		return posts;
 	}
 
@@ -47,6 +52,22 @@ public class Question {
 
 	public void setSpecialty(Specialty specialty) {
 		this.specialty = specialty;
+	}
+
+	public String getTitle() {
+		return title;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
 	}
 	
 }

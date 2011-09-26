@@ -3,7 +3,6 @@ package model;
 import hash.HashCalculator;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 import javax.persistence.Column;
