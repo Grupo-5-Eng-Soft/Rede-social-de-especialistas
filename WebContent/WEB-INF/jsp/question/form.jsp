@@ -29,8 +29,8 @@
 				</select>
 			</td>
 		</tr>
-		
 	</table>
+	<input type="submit" value="Enviar" />
 </form>
 
 </body>

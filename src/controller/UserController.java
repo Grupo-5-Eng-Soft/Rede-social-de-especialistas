@@ -46,10 +46,6 @@ public class UserController {
 		if (user != null) {
 			HashCalculator encryption = new HashCalculator(password);
 			password = encryption.getValue();
-			System.out.println("==================");
-			System.out.println("dao: " + user.getPassword());
-			System.out.println("calculado: " + password);
-			System.out.println("==================");
 			if (user.getPassword().equals(password) && user.isActive()) {
 				userSession.login(user);
 				result.redirectTo(IndexController.class).index();

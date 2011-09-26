@@ -1,12 +1,14 @@
 package infra;
 
+import java.io.Serializable;
+
 import model.User;
 import br.com.caelum.vraptor.ioc.Component;
 import br.com.caelum.vraptor.ioc.SessionScoped;
 
 @Component
 @SessionScoped
-public class UserSession {
+public class UserSession implements Serializable {
 	
 	private User loggedUser;
 	
