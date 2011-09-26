@@ -18,6 +18,7 @@
 		<mapping class="model.Specialty" />
 		<mapping class="model.Specialist" />
 		<mapping class="model.Post" />
+		<mapping class="model.Question" />
 		
 	</session-factory>
 </hibernate-configuration>

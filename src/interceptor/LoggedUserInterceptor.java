@@ -2,6 +2,7 @@ package interceptor;
 
 import infra.UserSession;
 import interceptor.annotations.Admin;
+import interceptor.annotations.LoggedUser;
 
 import controller.ErrorController;
 
@@ -15,29 +16,30 @@ import br.com.caelum.vraptor.resource.ResourceMethod;
 
 @Lazy
 @Intercepts
-public class AdminInterceptor implements Interceptor {
+public class LoggedUserInterceptor implements Interceptor {
 	
 	private final Result result;
 	private final UserSession session;
 
-	public AdminInterceptor(UserSession session, Result result) {
+	public LoggedUserInterceptor(UserSession session, Result result) {
 		this.session = session;
 		this.result = result;
 	}
 
 	@Override
 	public boolean accepts(ResourceMethod method) {
-		return method.containsAnnotation(Admin.class) 
-			|| method.getResource().getType().isAnnotationPresent(Admin.class);
+		return method.containsAnnotation(LoggedUser.class) 
+			|| method.getResource().getType().isAnnotationPresent(LoggedUser.class);
 	}
 
 	@Override
 	public void intercept(InterceptorStack stack, ResourceMethod method, Object instance) throws InterceptionException {
-		if(session.isAuthenticated() && session.getLoggedUser().isAdmin()) {
+		if (session.isAuthenticated()) {
 			stack.next(method, instance);
 		} else {
 			result.redirectTo(ErrorController.class).errorscreen();
 		}
 		
 	}
+
 }
