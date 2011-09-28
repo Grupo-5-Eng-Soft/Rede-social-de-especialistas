@@ -5,6 +5,7 @@ import java.util.Collection;
 
 import model.Post;
 import model.Question;
+import model.Specialist;
 import model.Specialty;
 
 import org.hibernate.Session;
@@ -43,6 +44,11 @@ public class QuestionDao {
 
 	public Question getQuestion(Long questionId) {
 		return (Question) this.session.get(Question.class, questionId);
+	}
+
+	public ArrayList<Specialist> getSpecialists(Specialty specialty) {
+		SpecialtyDao dao = new SpecialtyDao(session);
+		return dao.getSpecialists(specialty);
 	}
 
 }

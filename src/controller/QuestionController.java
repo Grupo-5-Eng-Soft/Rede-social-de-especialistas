@@ -1,8 +1,12 @@
 package controller;
 
+import java.util.ArrayList;
+
+import infra.EmailSender;
 import infra.UserSession;
 import interceptor.annotations.LoggedUser;
 import model.Question;
+import model.Specialist;
 import model.Specialty;
 import br.com.caelum.vraptor.Path;
 import br.com.caelum.vraptor.Resource;
@@ -30,13 +34,25 @@ public class QuestionController {
 	@LoggedUser
 	@Path("/perguntas/salvar/")
 	public void save(Question question, Long specialtyId) {
+		ArrayList<Specialist> specialists;
 		Specialty specialty = dao.getSpecialty(specialtyId);
+		specialists = dao.getSpecialists(specialty);
+		sendEmailsToSpecialists(specialists, question);
 		question.setAuthor(userSession.getLoggedUser());
 		question.setSpecialty(specialty);
 		dao.save(question);
 		result.redirectTo(QuestionController.class).list();
 	}
 	
+	private void sendEmailsToSpecialists(ArrayList<Specialist> specialists, Question question) {
+		String subject = "Nova pergunta na rede social de especialistas - " + question.getTitle();
+		String message = question.getDescription();
+		for (Specialist specialist : specialists) {
+			Thread thread = new Thread(new EmailSender(specialist.getUser(), message, subject));
+			thread.start();
+		}
+	}
+
 	@Path("/perguntas/")
 	public void list() {
 		result.include("questions", dao.listQuestions());
