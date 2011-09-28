@@ -2,6 +2,7 @@ package model;
 
 import hash.HashCalculator;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,7 +19,7 @@ import org.hibernate.validator.NotEmpty;
 import org.hibernate.validator.NotNull;
 
 @Entity
-public class User {
+public class User implements Serializable {
 	
 	@Id
 	@GeneratedValue
