@@ -1,5 +1,6 @@
 package controller;
 //8086 8123
+import infra.EmailSender;
 import hash.HashCalculator;
 import model.EmailConfirmation;
 import model.User;
@@ -39,7 +40,7 @@ public class EmailConfirmationController {
 			return;
 		}
 		if (user.isActive()) {
-			result.include("message", "Sua conta já foi ativada!");
+			result.include("message", "Sua conta jÃ¡ foi ativada!");
 			return;
 		}
 		EmailConfirmation confirmation = dao.getEmailConfirmation(user);
@@ -50,28 +51,14 @@ public class EmailConfirmationController {
 		user.setActive(true);
 		users.save(user);
 		dao.removeEmailConfirmationFrom(user);
-		result.include("message", "Parabéns, sua conta foi ativada!");
+		result.include("message", "ParabÃ©ns, sua conta foi ativada!");
 	}
 
 	private void sendEmail(User user) {
 		HashCalculator hashCalculator = new HashCalculator(user.getLogin() + user.getEmail());
-		String emailAddress = user.getEmail();
 		String hash = hashCalculator.getValue();
-		SimpleEmail email = new SimpleEmail();
 		String message = "Confirme sua conta em http://localhost:8080/rede-social-de-especialistas/usuarios/confirmar/"+user.getId()+"/"+hash;
-		email.setDebug(true);
-		email.setHostName("smtp.gmail.com");
-		email.setAuthentication("grupo5.engsoft","ohhappyday");
-		email.setSSL(true);
-		try {
-			email.addTo(emailAddress);
-			email.setFrom("grupo5.engsoft@gmail.com"); 
-			email.setSubject("Confirmaï¿½ï¿½o de conta");
-			email.setMsg(message);
-			email.send();
-		} catch (EmailException e) {
-			e.printStackTrace();
-		} 
-
+		Thread emailSenderThread = new Thread(new EmailSender(user, message, "Confirme sua conta"));
+		emailSenderThread.start();
 	}
 }
