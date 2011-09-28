@@ -1,0 +1,4 @@
+Ver com o Gerosa as histórias:
+
+O usuário determina suas especialidades (e se torna especialista nela)
+
