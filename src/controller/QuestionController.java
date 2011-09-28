@@ -34,6 +34,7 @@ public class QuestionController {
 		question.setAuthor(userSession.getLoggedUser());
 		question.setSpecialty(specialty);
 		dao.save(question);
+		result.redirectTo(QuestionController.class).list();
 	}
 	
 	@Path("/perguntas/")

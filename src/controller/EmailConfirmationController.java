@@ -39,7 +39,7 @@ public class EmailConfirmationController {
 			return;
 		}
 		if (user.isActive()) {
-			result.include("message", "Sua conta jï¿½ foi ativada!");
+			result.include("message", "Sua conta já foi ativada!");
 			return;
 		}
 		EmailConfirmation confirmation = dao.getEmailConfirmation(user);
@@ -50,8 +50,7 @@ public class EmailConfirmationController {
 		user.setActive(true);
 		users.save(user);
 		dao.removeEmailConfirmationFrom(user);
-		result.include("message", "Parabï¿½ns, sua conta foi ativada!");
-		
+		result.include("message", "Parabéns, sua conta foi ativada!");
 	}
 
 	private void sendEmail(User user) {

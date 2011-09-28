@@ -10,7 +10,7 @@
 <body>
 
 <h1>Perguntas</h1>
-
+<div><a href="nova/">Nova pergunta</a></div>
 <table>
 	<tr>
 		<th>Título</th>
