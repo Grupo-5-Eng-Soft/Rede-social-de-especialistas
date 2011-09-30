@@ -14,5 +14,15 @@ ${question.author.login} <br />
 ${question.description} <br />
 ${question.specialty.name} <br />
 
+<form method="post" action="<c:url value="/perguntas/salvar/"/>">
+	<table>
+		<tr>
+			<td>Resposta: </td>
+			<td><textarea cols="80" rows="6" name="question.description"></textarea></td>
+		</tr>
+	</table>
+	<input type="submit" value="Enviar" />
+</form>
+
 </body>
 </html>

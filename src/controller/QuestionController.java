@@ -9,6 +9,7 @@ import model.Question;
 import model.Specialist;
 import model.Specialty;
 import model.User;
+import model.Answer;
 import br.com.caelum.vraptor.Path;
 import br.com.caelum.vraptor.Resource;
 import br.com.caelum.vraptor.Result;
@@ -45,6 +46,16 @@ public class QuestionController {
 		result.redirectTo(QuestionController.class).list();
 	}
 	
+	@LoggedUser
+	@Path("/perguntas/responder/")
+	public void answer(Answer answer, Question question, User author) {
+		sendEmailsToAuthor(author, answer, question);
+		answer.setAuthor(userSession.getLoggedUser());
+		answer.setSpecialty(question.getSpecialty());
+		//dao.save(answer);
+		result.redirectTo(QuestionController.class).list();
+	}
+	
 	private void sendEmailsToSpecialists(ArrayList<Specialist> specialists, Question question) {
 		ArrayList<User> users = new ArrayList<User>();
 		String subject = "Nova pergunta na rede social de especialistas - " + question.getTitle();
@@ -54,7 +65,16 @@ public class QuestionController {
 		Thread thread = new Thread(new EmailSender(users, message, subject));
 		thread.start();
 	}
-
+	
+	private void sendEmailsToAuthor(User author, Answer answer, Question question) {
+		ArrayList<User> users = new ArrayList<User>();
+		String subject = "Uma resposta para sua pergunta - " + question.getTitle();
+		String message = answer.getDescription();
+		users.add(question.getAuthor());
+		Thread thread = new Thread(new EmailSender(users, message, subject));
+		thread.start();
+	}
+	
 	@Path("/perguntas/")
 	public void list() {
 		result.include("questions", dao.listQuestions());
