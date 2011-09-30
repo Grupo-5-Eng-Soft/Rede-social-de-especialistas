@@ -67,7 +67,7 @@ public class UserController {
 		result.redirectTo(EmailConfirmationController.class).createAndSendEmailConfirmation(user);
 	}
 	
-	@Path("/usuarios/listar_especialistas/")
+	@Path("/usuarios/top5/")
 	public void listTopSpecialists() {
 		result.include("specialist", dao.getTopSpecialists());
 	}

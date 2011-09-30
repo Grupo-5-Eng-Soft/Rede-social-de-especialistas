@@ -11,7 +11,8 @@
 		<table>
 			<c:forEach var="specialist" items="${specialist}">
 				<tr>
-					<td> <c:url value="/especialidades/${specialist.user.login}/"/>">${specialist.score} </td>
+					<td> <a href="<c:url value="/usuarios/${specialist.user.id}/"/>">${specialist.user.login}</a></td>
+					<td>${specialist.score}</td>
 				</tr>
 			</c:forEach>
 		</table>
