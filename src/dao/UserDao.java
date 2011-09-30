@@ -7,8 +7,10 @@ import model.Specialist;
 import model.Specialty;
 import model.User;
 
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 
 import br.com.caelum.vraptor.ioc.Component;
@@ -69,4 +71,10 @@ public class UserDao {
 		return this.session.createCriteria(Specialty.class).list();
 	}
 
+	public List<Specialist> getTopSpecialists() {
+		return this.session.createCriteria(Specialist.class).addOrder( Order.desc("score")).setMaxResults(5).list();
+
+	}
+	
+	
 }
