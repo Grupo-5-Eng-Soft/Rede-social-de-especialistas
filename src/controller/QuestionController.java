@@ -65,7 +65,8 @@ public class QuestionController {
 	@Path("/perguntas/{questionId}/")
 	public void detail(Long questionId) {
 		Question question = dao.getQuestion(questionId);
-		result.include("question", question, "answer", question.getPosts());
+		result.include("question", question);
+		result.include("answer", question.getAnswer());
 	}
 
 }
