@@ -6,25 +6,37 @@
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Login</title>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<jsp:include page="../include/head.jsp" />
 </head>
 <body>
-<jsp:include page="../include/user.jsp" />
-	${notFound}
-	${notAuthenticated}
-	<form method="post" action="./autenticar/" >
-		<table>
-			<tr>
-				<td>Login</td>
-				<td><input type="text" name="login"/></td>
-			</tr>
-			<tr>
-				<td>Senha</td>
-				<td><input type="password" name="password" /></td>
-			</tr>
-			<tr>
-				<td><input type="submit" value="Enviar" /></td>
-			</tr>
-		</table>
-	</form>
+
+	<div id="upperHeader">
+		<jsp:include page="../include/user.jsp" />
+	</div>
+	
+	<jsp:include page="../include/header.jsp" />
+	
+	<jsp:include page="../include/menu.jsp" />
+
+	<div id="content">
+		${notFound}
+		${notAuthenticated}
+		<form method="post" action="./autenticar/" >
+			<table>
+				<tr>
+					<td>Login</td>
+					<td><input type="text" name="login"/></td>
+				</tr>
+				<tr>
+					<td>Senha</td>
+					<td><input type="password" name="password" /></td>
+				</tr>
+				<tr>
+					<td><input type="submit" value="Enviar" /></td>
+				</tr>
+			</table>
+		</form>
+	</div>
+	
 </body>
 </html>

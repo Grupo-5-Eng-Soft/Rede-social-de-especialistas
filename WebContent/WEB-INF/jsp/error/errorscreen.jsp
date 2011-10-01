@@ -9,14 +9,25 @@
 <title>Insert title here</title>
 </head>
 <body>	
-	<c:if test="${userSession.authenticated }">
-		<h3> Você não tem permissão para isso.</h3>
-	</c:if>
-	<c:if test="${!userSession.authenticated }">
-		<h3> Você não esta logado.</h3>
-		<a href="../login/"/>Login</a>
-	</c:if>
-	<a href="../"/>Voltar</a>
+
+	<div id="upperHeader">
+		<jsp:include page="../include/user.jsp" />
+	</div>
+	
+	<jsp:include page="../include/header.jsp" />
+	
+	<jsp:include page="../include/menu.jsp" />
+
+	<div id="content">
+		<c:if test="${userSession.authenticated }">
+			<h3> Você não tem permissão para isso.</h3>
+		</c:if>
+		<c:if test="${!userSession.authenticated }">
+			<h3> Você não esta logado.</h3>
+			<a href="../login/"/>Login</a>
+		</c:if>
+		<a href="../"/>Voltar</a>
+	</div>
 
 </body>
 </html>
