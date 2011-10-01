@@ -17,7 +17,7 @@
 		<mapping class="model.EmailConfirmation" />
 		<mapping class="model.Specialty" />
 		<mapping class="model.Specialist" />
-		<mapping class="model.Post" />
+		<mapping class="model.Answer" />
 		<mapping class="model.Question" />
 		
 	</session-factory>

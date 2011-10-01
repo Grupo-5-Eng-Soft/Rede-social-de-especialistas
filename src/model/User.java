@@ -38,8 +38,8 @@ public class User implements Serializable {
 	@Enumerated(EnumType.STRING)
 	private Role role;
 	
-	@OneToMany(mappedBy="user")
-	private List<Answer> posts = new ArrayList<Answer>();
+	//@OneToMany(mappedBy="user")
+	//private List<Answer> answer = new ArrayList<Answer>();
 	
 	@OneToMany(mappedBy="user")
 	private List<Specialist> specialists = new ArrayList<Specialist>();
@@ -112,5 +112,13 @@ public class User implements Serializable {
 	public void setSpecialists(List<Specialist> specialists) {
 		this.specialists = specialists;
 	}
+
+	/*public List<Answer> getAnswer() {
+		return answer;
+	}
+
+	public void setAnswer(List<Answer> answer) {
+		this.answer = answer;
+	}*/
 }
 
