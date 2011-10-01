@@ -3,7 +3,6 @@ package controller;
 import static org.mockito.Mockito.verify;
 import infra.UserSession;
 import model.Question;
-import model.Specialty;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -13,7 +12,6 @@ import org.mockito.MockitoAnnotations;
 import br.com.caelum.vraptor.Result;
 import br.com.caelum.vraptor.util.test.MockResult;
 import dao.QuestionDao;
-import dao.SpecialtyDao;
 
 public class QuestionControllerTest {
 	
