@@ -14,16 +14,19 @@ import br.com.caelum.vraptor.Path;
 import br.com.caelum.vraptor.Resource;
 import br.com.caelum.vraptor.Result;
 import dao.QuestionDao;
+import dao.AnswerDao;
 
 @Resource
 public class QuestionController {
 	private final Result result;
 	private final QuestionDao dao;
+	private final AnswerDao aDao;
 	private final UserSession userSession;
 	
-	public QuestionController(Result result, QuestionDao dao, UserSession userSession) {
+	public QuestionController(Result result, QuestionDao dao, AnswerDao aDao, UserSession userSession) {
 		this.result = result;
 		this.dao = dao;
+		this.aDao = aDao;
 		this.userSession = userSession;
 	}
 	
@@ -48,11 +51,12 @@ public class QuestionController {
 	
 	@LoggedUser
 	@Path("/perguntas/responder/")
-	public void answer(Answer answer, Question question, User author) {
-		sendEmailsToAuthor(author, answer, question);
+	public void answer(Answer answer, Long questionId, User author) {
+		Question question = dao.getQuestion(questionId);
+		sendEmailToAuthor(author, answer, question);
 		answer.setAuthor(userSession.getLoggedUser());
 		answer.setSpecialty(question.getSpecialty());
-		//dao.save(answer);
+		aDao.save(answer);
 		result.redirectTo(QuestionController.class).list();
 	}
 	
@@ -66,7 +70,7 @@ public class QuestionController {
 		thread.start();
 	}
 	
-	private void sendEmailsToAuthor(User author, Answer answer, Question question) {
+	private void sendEmailToAuthor(User author, Answer answer, Question question) {
 		ArrayList<User> users = new ArrayList<User>();
 		String subject = "Uma resposta para sua pergunta - " + question.getTitle();
 		String message = answer.getDescription();

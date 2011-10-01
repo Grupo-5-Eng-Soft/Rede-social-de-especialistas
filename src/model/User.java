@@ -39,7 +39,7 @@ public class User implements Serializable {
 	private Role role;
 	
 	@OneToMany(mappedBy="user")
-	private List<Post> posts = new ArrayList<Post>();
+	private List<Answer> posts = new ArrayList<Answer>();
 	
 	@OneToMany(mappedBy="user")
 	private List<Specialist> specialists = new ArrayList<Specialist>();

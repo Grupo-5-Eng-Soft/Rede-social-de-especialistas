@@ -1,21 +1,21 @@
 package dao;
 
-import model.Post;
+import model.Answer;
 
 import org.hibernate.Session;
 
 import br.com.caelum.vraptor.ioc.Component;
 
 @Component
-public class PostDao {
+public class AnswerDao {
 	
 	private final Session session;
 
-	public PostDao(Session session) {
+	public AnswerDao(Session session) {
 		this.session = session;
 	}
 
-	public void save(Post post) {
+	public void save(Answer answer) {
 		
 	}
 

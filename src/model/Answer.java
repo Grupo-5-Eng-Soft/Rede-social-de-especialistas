@@ -11,7 +11,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
 @Entity
-public class Question {
+public class Answer {
 	
 	@Id
 	@GeneratedValue
@@ -20,13 +20,11 @@ public class Question {
 	@ManyToOne
 	private User author;
 	
-	@OneToMany(mappedBy="question")
-	private Collection<Answer> posts = new ArrayList<Answer>();
+	@ManyToOne
+	private Question question;
 	
 	@ManyToOne
 	private Specialty specialty;
-	
-	private String title;
 	
 	private String description;
 
@@ -38,28 +36,12 @@ public class Question {
 		this.author = author;
 	}
 
-	public Collection<Answer> getPosts() {
-		return posts;
-	}
-
-	public void setPosts(ArrayList<Answer> posts) {
-		this.posts = posts;
-	}
-
 	public Specialty getSpecialty() {
 		return specialty;
 	}
 
 	public void setSpecialty(Specialty specialty) {
 		this.specialty = specialty;
-	}
-
-	public String getTitle() {
-		return title;
-	}
-
-	public void setTitle(String title) {
-		this.title = title;
 	}
 
 	public String getDescription() {
@@ -78,8 +60,13 @@ public class Question {
 		this.id = id;
 	}
 
-	public void setPosts(Collection<Answer> posts) {
-		this.posts = posts;
+	public Question getQuestion() {
+		return question;
+	}
+
+	public void setQuestion(Question question) {
+		this.question = question;
 	}
 	
 }
+

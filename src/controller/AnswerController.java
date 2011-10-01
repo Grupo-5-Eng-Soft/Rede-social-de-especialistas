@@ -1,16 +1,16 @@
 package controller;
 
-import model.Post;
+import model.Answer;
 import br.com.caelum.vraptor.Path;
 import br.com.caelum.vraptor.Resource;
-import dao.PostDao;
+import dao.AnswerDao;
 
 @Resource
-public class PostController {
+public class AnswerController {
 	
-	private final PostDao posts;
+	private final AnswerDao posts;
 	
-	public PostController(PostDao posts) {
+	public AnswerController(AnswerDao posts) {
 		this.posts = posts;
 	}
 	
@@ -18,7 +18,7 @@ public class PostController {
 	public void form() {
 	}
 	
-	public void save(Post post) {
+	public void save(Answer post) {
 		posts.save(post);
 	}
 }

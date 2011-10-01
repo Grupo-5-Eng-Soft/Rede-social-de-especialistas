@@ -3,7 +3,7 @@ package dao;
 import java.util.ArrayList;
 import java.util.Collection;
 
-import model.Post;
+import model.Answer;
 import model.Question;
 import model.Specialist;
 import model.Specialty;

@@ -12,12 +12,14 @@ import org.mockito.MockitoAnnotations;
 
 import br.com.caelum.vraptor.Result;
 import br.com.caelum.vraptor.util.test.MockResult;
+import dao.AnswerDao;
 import dao.QuestionDao;
 import dao.SpecialtyDao;
 
 public class QuestionControllerTest {
 	
 	private @Mock QuestionDao dao;
+	private @Mock AnswerDao aDao;
 	private Result result = new MockResult();
 	private QuestionController controller;
 	private UserSession session = new UserSession();
@@ -25,7 +27,7 @@ public class QuestionControllerTest {
 	@Before
 	public void setUp() throws Exception {
 		MockitoAnnotations.initMocks(this);
-		controller = new QuestionController(result, dao, session);
+		controller = new QuestionController(result, dao, aDao, session);
 	}
 
 	@Test
