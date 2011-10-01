@@ -2,23 +2,17 @@
 <html>
 <head>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<link href="<c:url value="/css/padrao.css" />" rel="stylesheet" type="text/css" />
-<link href="<c:url value="/css/header.css" />" rel="stylesheet" type="text/css" />
+<jsp:include page="../include/header.jsp" />
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 
 <title>Rede social de especialistas</title>
 </head>
 <body>
 <div id="upperHeader">
-	<jsp:include page="../header.jsp" />
-	<jsp:include page="../user.jsp" />
+	<jsp:include page="../include/user.jsp" />
 </div>
 <div id="header">
 </div>
-<div id="menu">
-	<div class="item"><a href="<c:url value="/especialidades/listar/"/>">Especialidades</a></div>
-	<div class="item"><a href="<c:url value="/usuarios/top5/"/>">Top5 Especialistas</a></div>
-	<div class="item"><a href="<c:url value="/perguntas/"/>">Perguntas</a></div>
-</div>
+<jsp:include page="../include/menu.jsp" />
 </body>
 </html>

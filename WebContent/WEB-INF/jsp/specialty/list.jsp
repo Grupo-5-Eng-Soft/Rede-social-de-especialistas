@@ -3,9 +3,18 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<jsp:include page="../header.jsp" />
+<jsp:include page="../include/header.jsp" />
 </head>
 <body>
+
+	<div id="upperHeader">
+		<jsp:include page="../include/user.jsp" />
+	</div>
+	<div id="header">
+	</div>
+	<jsp:include page="../include/menu.jsp" />
+
+
 	<div id="content">
 		<h1>Especialidades</h1>
 		<a href="../nova/">Cadastrar nova</a>

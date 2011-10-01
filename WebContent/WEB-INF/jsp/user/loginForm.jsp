@@ -8,7 +8,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 </head>
 <body>
-<jsp:include page="../user.jsp" />
+<jsp:include page="../include/user.jsp" />
 	${notFound}
 	${notAuthenticated}
 	<form method="post" action="./autenticar/" >
