@@ -9,16 +9,16 @@
 </head>
 <body>
 
-<h2>${question.title}</h2>
-${question.author.login} <br />
-${question.description} <br />
-${question.specialty.name} <br />
+<h2>Titulo: ${question.title}</h2>
+Autor: ${question.author.login} <br />
+Pergunta: ${question.description} <br />
+Especialidade: ${question.specialty.name} <br />
 
-<form method="post" action="<c:url value="/perguntas/salvar/"/>">
+<form method="post" action="<c:url value="/perguntas/responder/"/>">
 	<table>
 		<tr>
 			<td>Resposta: </td>
-			<td><textarea cols="80" rows="6" name="question.description"></textarea></td>
+			<td><textarea cols="80" rows="6" name="answer.description"></textarea></td>
 		</tr>
 	</table>
 	<input type="submit" value="Enviar" />

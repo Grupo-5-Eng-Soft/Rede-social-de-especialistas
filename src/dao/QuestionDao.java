@@ -41,6 +41,11 @@ public class QuestionDao {
 	public ArrayList<Question> listQuestions() {
 		return (ArrayList<Question>) this.session.createCriteria(Question.class).list();
 	}
+	
+	public Answer getAnswer(Long answerId) {
+		AnswerDao dao = new AnswerDao(session);
+		return dao.getAnswer(answerId);
+	}
 
 	public Question getQuestion(Long questionId) {
 		return (Question) this.session.get(Question.class, questionId);

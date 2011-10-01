@@ -20,13 +20,11 @@ import dao.AnswerDao;
 public class QuestionController {
 	private final Result result;
 	private final QuestionDao dao;
-	private final AnswerDao aDao;
 	private final UserSession userSession;
 	
-	public QuestionController(Result result, QuestionDao dao, AnswerDao aDao, UserSession userSession) {
+	public QuestionController(Result result, QuestionDao dao, UserSession userSession) {
 		this.result = result;
 		this.dao = dao;
-		this.aDao = aDao;
 		this.userSession = userSession;
 	}
 	
@@ -49,32 +47,12 @@ public class QuestionController {
 		result.redirectTo(QuestionController.class).list();
 	}
 	
-	@LoggedUser
-	@Path("/perguntas/responder/")
-	public void answer(Answer answer, Long questionId, User author) {
-		Question question = dao.getQuestion(questionId);
-		sendEmailToAuthor(author, answer, question);
-		answer.setAuthor(userSession.getLoggedUser());
-		answer.setSpecialty(question.getSpecialty());
-		aDao.save(answer);
-		result.redirectTo(QuestionController.class).list();
-	}
-	
 	private void sendEmailsToSpecialists(ArrayList<Specialist> specialists, Question question) {
 		ArrayList<User> users = new ArrayList<User>();
 		String subject = "Nova pergunta na rede social de especialistas - " + question.getTitle();
 		String message = question.getDescription();
 		for (Specialist specialist : specialists)
 			users.add(specialist.getUser());
-		Thread thread = new Thread(new EmailSender(users, message, subject));
-		thread.start();
-	}
-	
-	private void sendEmailToAuthor(User author, Answer answer, Question question) {
-		ArrayList<User> users = new ArrayList<User>();
-		String subject = "Uma resposta para sua pergunta - " + question.getTitle();
-		String message = answer.getDescription();
-		users.add(question.getAuthor());
 		Thread thread = new Thread(new EmailSender(users, message, subject));
 		thread.start();
 	}
@@ -87,7 +65,7 @@ public class QuestionController {
 	@Path("/perguntas/{questionId}/")
 	public void detail(Long questionId) {
 		Question question = dao.getQuestion(questionId);
-		result.include("question", question);
+		result.include("question", question, "answer", question.getPosts());
 	}
 
 }
