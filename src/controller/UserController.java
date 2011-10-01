@@ -72,5 +72,10 @@ public class UserController {
 		result.include("specialist", dao.getTopSpecialists());
 	}
 	
+	@Path("/usuarios/{userId}/")
+	public void detail(long userId) {
+		result.include("user", dao.getUser(userId));
+	}
+	
 
 }
