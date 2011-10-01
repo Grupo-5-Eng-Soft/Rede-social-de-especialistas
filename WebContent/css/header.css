@@ -1,0 +1,48 @@
+#upperHeader {
+	background: #111;
+    padding: 2px 1px;
+  	margin: 0 auto;
+  	width: 980px;
+  	text-align: right;
+}
+#upperHeader span{
+	padding: 0.5em;
+    font-size: 11px;
+    text-align:left;
+    color: #FFF;
+}
+#upperHeader a {
+    color: #FFF;
+
+}
+#upperHeader a:hover {
+    color: #FF0033;
+    text-decoration: none;
+}
+#header {
+  margin: 0 auto;
+  width: 980px;
+  height: 90px;
+  border-left: 1px solid #DDD;
+  border-right: 1px solid #DDD;
+  background-image: url(../img/logo.png);
+  background-repeat:no-repeat;
+}
+#menu {
+    background: #111;
+    padding: 2px 1px;
+    margin: 0 auto;
+	width: 980px;
+}
+#menu .item {
+    display: inline;
+    padding-left: 15px;
+}
+#menu .item a {
+    font-weight: bold;
+    color: #FFF;
+    text-decoration: none;
+}
+#menu .item a:hover {
+    color: #FF0033;
+}
