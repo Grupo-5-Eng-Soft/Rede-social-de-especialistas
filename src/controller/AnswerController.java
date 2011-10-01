@@ -29,7 +29,7 @@ public class AnswerController {
 	}
 	
 	@LoggedUser
-	@Path("/perguntas/responder/")
+	@Path("/perguntas/{questionId}/responder/")
 	public void answer(Answer answer, Long questionId) {
 		Question question = dao.getQuestion(questionId);
 		answer.setAuthor(userSession.getLoggedUser());

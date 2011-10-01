@@ -23,7 +23,7 @@
 		Pergunta: ${question.description} <br />
 		Especialidade: ${question.specialty.name} <br />
 		
-		<form method="post" action="<c:url value="/perguntas/responder/"/>">
+		<form method="post" action="<c:url value="/perguntas/${question.id}/responder/"/>">
 			<table>
 				<tr>
 					<td>Resposta: </td>
