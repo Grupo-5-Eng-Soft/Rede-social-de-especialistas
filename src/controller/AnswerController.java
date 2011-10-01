@@ -33,7 +33,6 @@ public class AnswerController {
 	public void answer(Answer answer, Long questionId) {
 		Question question = dao.getQuestion(questionId);
 		answer.setAuthor(userSession.getLoggedUser());
-		answer.setSpecialty(question.getSpecialty());
 		answer.setQuestion(question);
 		sendEmailToAuthor(question, answer);
 		dao.save(answer);

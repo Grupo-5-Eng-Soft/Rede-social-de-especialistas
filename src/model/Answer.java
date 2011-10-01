@@ -23,9 +23,6 @@ public class Answer {
 	@ManyToOne
 	private Question question;
 	
-	@ManyToOne
-	private Specialty specialty;
-	
 	private String description;
 
 	public User getAuthor() {
@@ -34,14 +31,6 @@ public class Answer {
 
 	public void setAuthor(User author) {
 		this.author = author;
-	}
-
-	public Specialty getSpecialty() {
-		return specialty;
-	}
-
-	public void setSpecialty(Specialty specialty) {
-		this.specialty = specialty;
 	}
 
 	public String getDescription() {

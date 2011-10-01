@@ -21,7 +21,7 @@ public class Question {
 	private User author;
 	
 	@OneToMany(mappedBy="question")
-	private Collection<Answer> answer = new ArrayList<Answer>();
+	private Collection<Answer> answers = new ArrayList<Answer>();
 	
 	@ManyToOne
 	private Specialty specialty;
@@ -38,12 +38,12 @@ public class Question {
 		this.author = author;
 	}
 
-	public Collection<Answer> getAnswer() {
-		return answer;
+	public Collection<Answer> getAnswers() {
+		return answers;
 	}
 
-	public void setAnswer(ArrayList<Answer> answer) {
-		this.answer = answer;
+	public void setAnswers(ArrayList<Answer> answer) {
+		this.answers = answer;
 	}
 
 	public Specialty getSpecialty() {

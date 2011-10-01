@@ -66,7 +66,7 @@ public class QuestionController {
 	public void detail(Long questionId) {
 		Question question = dao.getQuestion(questionId);
 		result.include("question", question);
-		result.include("answer", question.getAnswer());
+		result.include("answer", question.getAnswers());
 	}
 
 }

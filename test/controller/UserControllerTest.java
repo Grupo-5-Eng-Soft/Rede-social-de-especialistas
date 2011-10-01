@@ -30,7 +30,7 @@ public class UserControllerTest {
 	public void shouldSaveUser() throws Exception {
 		User user = validUser();
 		controller.save(user, null);
-		verify(dao).save(user);
+		verify(dao).save(user, null);
 	}
 
 	private User validUser() {
