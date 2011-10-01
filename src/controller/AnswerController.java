@@ -36,7 +36,7 @@ public class AnswerController {
 		answer.setQuestion(question);
 		sendEmailToAuthor(question, answer);
 		dao.save(answer);
-		result.redirectTo(QuestionController.class).list();
+		result.redirectTo(QuestionController.class).detail(questionId);
 	}
 	
 	private void sendEmailToAuthor(Question question, Answer answer) {

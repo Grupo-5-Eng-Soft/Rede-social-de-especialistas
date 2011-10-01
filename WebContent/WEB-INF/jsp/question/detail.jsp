@@ -22,11 +22,29 @@
 		Autor: ${question.author.login} <br />
 		Pergunta: ${question.description} <br />
 		Especialidade: ${question.specialty.name} <br />
+	
+		<br />
+		<h2>Respostas: </h2>
 		
+		<table>
+			<tr>
+				<th>Resposta</th>
+				<th>Autor</th>
+			</tr>
+			<c:forEach var="answer" items="${question.answers}">
+				<tr>
+					<td>${answer.description}</td>
+					<td>${answer.author.login}</td>
+				</tr>
+			</c:forEach>
+		
+		</table>
+		
+		<br />
 		<form method="post" action="<c:url value="/perguntas/${question.id}/responder/"/>">
+			<h2>Sua resposta: </h2>
 			<table>
 				<tr>
-					<td>Resposta: </td>
 					<td><textarea cols="80" rows="6" name="answer.description"></textarea></td>
 				</tr>
 			</table>
