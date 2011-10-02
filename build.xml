@@ -133,7 +133,6 @@
             <report format="frames" todir="${junit.output.dir}"/>
         </junitreport>
     </target>
-</project>
     <target name="war">
         <war destfile="rede-social-de-especialistas.war" webxml="WebContent/WEB-INF/web.xml">
             <fileset dir="WebContent"/>
