@@ -37,7 +37,7 @@
 				</tr>
 				<tr>
 					<td>Confirmação de senha</td>
-					<td><input type="password" name="password-confirmation" /></td>
+					<td><input type="password" name="confirmation" /></td>
 				</tr>
 				<tr>
 					<td>Privilégio</td>
@@ -63,6 +63,11 @@
 				</tr>
 			</table>
 		</form>
+		<ul>
+			<c:forEach items="${errors}" var="error">
+			<li style="color: #FF0000">${error.category} - ${error.message}</li>
+			</c:forEach>
+		</ul>
 	</div>
 </body>
 <script type="text/javascript">
@@ -86,7 +91,7 @@ $(document).ready(function(){
         },
         messages:{
             "user.login":{
-                required: "O campo nome é obrigatorio.",
+                required: "O campo login é obrigatorio.",
             },
             "user.email": {
                 required: "O campo email é obrigatorio.",

@@ -9,6 +9,8 @@ import br.com.caelum.vraptor.Path;
 import br.com.caelum.vraptor.Post;
 import br.com.caelum.vraptor.Resource;
 import br.com.caelum.vraptor.Result;
+import br.com.caelum.vraptor.Validator;
+import br.com.caelum.vraptor.validator.ValidationMessage;
 import dao.UserDao;
 
 
@@ -17,11 +19,13 @@ public class UserController {
 	private final Result result;
 	private final UserDao dao;
 	private final UserSession userSession;
+	private final Validator validator;
 
-	public UserController(Result result, UserDao dao, UserSession userSession) {
+	public UserController(Result result, Validator validator, UserDao dao, UserSession userSession) {
 		this.userSession = userSession;
 		this.result = result;
 		this.dao = dao;
+		this.validator = validator;
 	}
 
 	@Path("/usuarios/cadastrar/")
@@ -60,7 +64,33 @@ public class UserController {
 	}
 
 	@Path("/usuarios/salvar/")
-	public void save(User user, ArrayList<Long> specialties_ids) {
+	public void save(User user, String confirmation, ArrayList<Long> specialties_ids) {
+		if (user.getLogin().isEmpty()) {
+			validator.add(new ValidationMessage("Login é obrigatório.","user.login"));
+		}
+		if (dao.getUser(user.getLogin()) != null) {
+			validator.add(new ValidationMessage("Usuário já existente.","user.login"));
+		}
+		if (user.getEmail().isEmpty()) {
+			validator.add(new ValidationMessage("E-mail é obrigatório.","user.email"));
+		}
+		if (user.getEmail().split("@").length != 2) {
+			validator.add(new ValidationMessage("E-mail inválido.","user.email"));
+		}
+		if (dao.getUserByEmail(user.getEmail()) != null) {
+			validator.add(new ValidationMessage("E-mail já existente.","user.email"));
+		}
+		if (user.getPassword().isEmpty()) {
+			validator.add(new ValidationMessage("Senha é obrigatória.","user.password"));
+		}
+		if (!user.getPassword().equals(confirmation)) {
+			validator.add(new ValidationMessage("Senha não confere.","user.password"));
+		}
+		if (user.getPassword().length() < 6) {
+			validator.add(new ValidationMessage("Senha menor que 6 caracteres.","user.password"));
+		}
+		validator.onErrorUsePageOf(this).userForm();
+
 		user.setActive(false);
 		user.setPasswordFromRawString(user.getPassword());
 		dao.save(user, specialties_ids);

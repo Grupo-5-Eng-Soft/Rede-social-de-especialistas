@@ -10,6 +10,7 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
 import br.com.caelum.vraptor.Result;
+import br.com.caelum.vraptor.Validator;
 import br.com.caelum.vraptor.util.test.MockResult;
 import dao.UserDao;
 
@@ -17,19 +18,20 @@ public class UserControllerTest {
 	
 	private @Mock UserDao dao;
 	private Result result = new MockResult();
+	private Validator validator;
 	private UserController controller;
 	private UserSession userSession;
 
 	@Before
 	public void setUp() throws Exception {
 		MockitoAnnotations.initMocks(this);
-		controller = new UserController(result, dao, userSession);
+		controller = new UserController(result, validator, dao, userSession);
 	}
 
 	@Test
 	public void shouldSaveUser() throws Exception {
 		User user = validUser();
-		controller.save(user, null);
+		controller.save(user, user.getLogin(), null);
 		verify(dao).save(user, null);
 	}
 
