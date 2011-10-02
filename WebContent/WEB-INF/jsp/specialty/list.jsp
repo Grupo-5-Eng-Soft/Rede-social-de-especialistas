@@ -17,15 +17,15 @@
 
 
 	<div id="content">
-		<h1>Especialidades</h1>
-		<a href="../nova/">Cadastrar nova</a>
-		<table>
+		<div id="tabs">
+			<h1>Especialidades</h1>
+			<a href="../nova/">Cadastrar nova</a>
+		</div>
+		<ul>
 			<c:forEach var="specialty" items="${specialties}">
-				<tr>
-					<td><a href="<c:url value="/especialidades/${specialty.id}/"/>">${specialty.name}</a></td>
-				</tr>
+				<li><a href="<c:url value="/especialidades/${specialty.id}/"/>">${specialty.name}</a></li>
 			</c:forEach>
-		</table>
+		</ul>
 	</div> 
 </body>
                

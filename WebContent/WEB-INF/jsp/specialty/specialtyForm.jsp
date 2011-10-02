@@ -14,20 +14,17 @@
 	</div>
 	
 	<jsp:include page="../include/header.jsp" />
-	
 	<jsp:include page="../include/menu.jsp" />
-	
+
 	<div id="content">
+		<div id="tabs">
+			<h1>Especialidades</h1>
+			<a href="../listar/">Listar</a>
+		</div>
+
 		<form method="post" action="../salvar/" >
-			<table>
-				<tr>
-					<td>Nome</td>
-					<td><input type="text" name="specialty.name"/></td>
-				</tr>
-				<tr>
-					<td><input type="submit" value="Enviar" /></td>
-				</tr>
-			</table>
+			<p><b>Título:</b><br /> <input type="text" size="40" name="specialty.name"/><br /><br />
+			<input type="submit" value="Enviar" /></p>
 		</form>
 	</div>
 </body>

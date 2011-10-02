@@ -19,28 +19,21 @@
 	<jsp:include page="../include/menu.jsp" />
 	
 	<div id="content">
+		<h1>Postar Dúvida</h1>
 		<form method="post" action="<c:url value="/perguntas/salvar/"/>">
-			<table>
-				<tr>
-					<td>Título: </td>
-					<td><input type="text" name="question.title" /></td>
-				</tr>
-				<tr>
-					<td>Descrição: </td>
-					<td><textarea cols="80" rows="6" name="question.description"></textarea></td>
-				</tr>
-				<tr>
-					<td>Especialidade: </td>
-					<td>
-						<select name="specialtyId">
-							<c:forEach var="specialty" items="${specialties}">
-								<option value="${specialty.id}">${specialty.name}</option>
-							</c:forEach>
-						</select>
-					</td>
-				</tr>
-			</table>
+			<p>Título: <br />
+				<input type="text" size="40" name="question.title" /></p>
+			<p>Pergunta: <br />
+				<textarea cols="80" rows="6" name="question.description"></textarea></p>
+			<p>Especialidade: 
+				<select name="specialtyId">
+					<c:forEach var="specialty" items="${specialties}">
+						<option value="${specialty.id}">${specialty.name}</option>
+					</c:forEach>
+				</select>
+			<br /><br />		
 			<input type="submit" value="Enviar" />
+			</p>
 		</form>
 	</div>
 </body>

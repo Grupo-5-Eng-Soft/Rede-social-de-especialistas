@@ -16,9 +16,11 @@
 	<jsp:include page="../include/menu.jsp" />
 
 	<div id="content">
-		<h1>${specialty.name}</h1>
-		<a href="<c:url value="/perguntas/nova/"/>">Postar uma dúvida</a>
-		<table>
+		<div id="tabs">
+			<h1>${specialty.name}</h1>
+			<a href="<c:url value="/perguntas/nova/"/>">Postar uma dúvida</a>
+		</div>
+			<table>
 				<tr>
 					<th>Login</th>
 					<th>Pontuação</th>

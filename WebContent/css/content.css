@@ -1,6 +1,62 @@
 #content {
-/* 	background: #111; */
-    padding: 10px 1px;
+ 	background: #FFF;
+	border-left: 1px solid #DDD;
+  	border-right: 1px solid #DDD;
   	margin: 0 auto;
-  	width: 980px;
+  	width: 955px;
+  	height: auto;
+  	padding: 15px 5px 10px 20px;
 }
+#content p {
+	text-align: justify;
+	font-size: 13px;
+	margin: 20px 0px 0px 20px;
+}
+#content h1 {
+  	font-size: 170%;
+  	margin: 0 2em 0 0;
+  	color: #444;
+}
+#content #tabs {
+	border-collapse: collapse;
+  	padding: 0 0 0 1em;
+  	margin: 5px;
+  	height: 30px;
+  	border-bottom: 1px solid #bbb;
+}
+#content #tabs h1 {
+  	float: left;
+  	margin: 0 2em 0 0;
+  	padding: 0;
+	color: #aa0000;
+}
+#content #tabs a {
+    font-weight: bold;
+    color: #111;
+    margin-top:40px;
+    text-decoration: none;
+    padding: 1em 2em 2em 0em;
+}
+#content ul {
+	margin: 1em 0 0em 1em;
+	padding: 0;
+} 
+#content ul li {
+	list-style-type:circle;
+	margin: 0.2em 0 0 2em;
+}
+#content ul li a{
+    color: #aa0000;
+    font-size:115%;
+    text-decoration: none;	
+}
+#content table {
+	margin: 1em 0;
+	width: auto;
+} 
+#content thead th {
+	border-bottom: 2px solid #d3e7f4;
+	color: #494949;
+	font-weight: bold;
+}
+	

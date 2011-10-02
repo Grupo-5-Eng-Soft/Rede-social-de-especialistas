@@ -19,8 +19,10 @@
 	<jsp:include page="../include/menu.jsp" />
 	
 	<div id="content">
-		<h1>Perguntas</h1>
-		<div><a href="nova/">Nova pergunta</a></div>
+		<div id="tabs">
+			<h1>Perguntas</h1>
+			<a href="nova/">Nova pergunta</a>
+		</div>
 		<table>
 			<tr>
 				<th>Título</th>
