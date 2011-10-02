@@ -89,3 +89,6 @@
 	margin-top:3px;
 	font-size: 13px;
 }
+label.error {
+	color: red;
+}

@@ -67,6 +67,14 @@ public class UserDao {
 		return null;
 	}
 	
+	public User getUserByEmail(String email) {
+		List<User> userList = this.session.createCriteria(User.class).add(Restrictions.eq("email", email)).list();
+		if (! userList.isEmpty()) {
+			return userList.get(0);
+		}
+		return null;
+	}
+	
 	public List<Specialty> list() {
 		return this.session.createCriteria(Specialty.class).list();
 	}
@@ -75,6 +83,4 @@ public class UserDao {
 		return this.session.createCriteria(Specialist.class).addOrder( Order.desc("score")).setMaxResults(5).list();
 
 	}
-	
-	
 }

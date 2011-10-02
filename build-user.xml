@@ -1,3 +1,4 @@
+<project>
     <target depends="build-subprojects,build-project" name="build">
         <antcall target="war"/>
     </target>
@@ -8,3 +9,4 @@
             <classes dir="build/classes"/>
         </war>
     </target>
+</project>
