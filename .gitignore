@@ -1,6 +1,4 @@
 *.class
 .classpath
-src/hibernate.cfg.xml
-build/classes/hibernate.cfg.xml
 /bin
-/build
+
