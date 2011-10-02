@@ -1,0 +1,10 @@
+    <target depends="build-subprojects,build-project" name="build">
+        <antcall target="war"/>
+    </target>
+    <target name="war">
+        <war destfile="rede-social-de-especialistas.war" webxml="WebContent/WEB-INF/web.xml">
+            <fileset dir="WebContent"/>
+            <lib dir="WebContent/WEB-INF/lib"/>
+            <classes dir="build/classes"/>
+        </war>
+    </target>
