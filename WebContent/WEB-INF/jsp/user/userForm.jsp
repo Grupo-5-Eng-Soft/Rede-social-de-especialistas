@@ -21,47 +21,28 @@
 	<jsp:include page="../include/menu.jsp" />
 
 	<div id="content">
+		<div id="tabs">
+			<h1>Cadastro</h1>
+			<a href="<c:url value="/login/"/>">Login</a> 
+		</div>
 		<form method="post" action="../salvar/" >
-			<table>
-				<tr>
-					<td>Login</td>
-					<td><input type="text" name="user.login"/></td>
-				</tr>
-				<tr>
-					<td>Email</td>
-					<td><input type="text" name="user.email" /></td>
-				</tr>
-				<tr>
-					<td>Senha</td>
-					<td><input type="password" name="user.password" id="password"/></td>
-				</tr>
-				<tr>
-					<td>Confirmação de senha</td>
-					<td><input type="password" name="confirmation" /></td>
-				</tr>
-				<tr>
-					<td>Privilégio</td>
-					<td>
-						<p><input name="user.role" type="radio" value="USER"/>Usuário</p>
-						<p><input name="user.role" type="radio" value="ADMIN"/>Administrador</p>
-					</td>
-				</tr>
-				
-				<tr>
-					<td> Especialidades </td>
-					
-						<c:forEach var="specialty" items="${specialties}">
-						<tr>
-							<td> <input name="specialties_ids" type="checkbox" value="${specialty.id}"> ${specialty.name} </td>
-						</tr>
-						</c:forEach>
-					
-				</tr>
-				
-				<tr>			
-	  				<td><input type="submit" value="Enviar"/></td>
-				</tr>
-			</table>
+			<p>Login<br />
+			<input type="text" name="user.login"/><br />
+			Email<br />
+			<input type="text" name="user.email" /><br />
+			Senha<br />
+			<input type="password" name="user.password" id="password"/><br />
+			Confirmação de senha<br />
+			<input type="password" name="confirmation" /><br />
+			Privilégio<br />
+			<input name="user.role" type="radio" value="USER"/>Usuário<br />
+			<input name="user.role" type="radio" value="ADMIN"/>Administrador<br />
+			Especialidades<br />
+			<c:forEach var="specialty" items="${specialties}">
+			<input name="specialties_ids" type="checkbox" value="${specialty.id}"> ${specialty.name}<br />
+			</c:forEach>
+			<br />
+			<input type="submit" value="Enviar"/></td>
 		</form>
 		<ul>
 			<c:forEach items="${errors}" var="error">
@@ -69,6 +50,7 @@
 			</c:forEach>
 		</ul>
 	</div>
+	<div id="bottom"></div>
 </body>
 <script type="text/javascript">
 $(document).ready(function(){

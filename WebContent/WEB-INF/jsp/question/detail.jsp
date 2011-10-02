@@ -45,14 +45,9 @@ function toggle(obj) {
 		<a href="#" onclick="toggle('maisinfo');">Responder</a>
 		<div id="maisinfo" style="display:none">
 			<form method="post" action="<c:url value="/perguntas/${question.id}/responder/"/>">
-				<h2>Sua resposta: </h2>
-				<table>
-					<tr>
-						<td><textarea cols="80" rows="6" name="answer.description"></textarea></td>
-					</tr>
-				</table>
-				<input type="submit" value="Enviar" />
-		</form>
+					<textarea cols="80" rows="6" name="answer.description"></textarea><br />
+					<input type="submit" value="Enviar" />
+			</form>		
 		</div>
 	</div>
 	<div id="bottom">

@@ -24,6 +24,8 @@
 				<li>${specialist.specialty.name}</li>
 			</c:forEach>
 		</ul>
+	</div>
+	<div id="bottom">
 	</div> 
 </body>
                

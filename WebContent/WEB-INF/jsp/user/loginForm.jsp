@@ -19,23 +19,22 @@
 	<jsp:include page="../include/menu.jsp" />
 
 	<div id="content">
-		${notFound}
-		${notAuthenticated}
+		<div id="tabs">
+			<h1>Login</h1>
+			<a href="<c:url value="/usuarios/cadastrar/"/>">Crie sua conta</a> 
+		</div>
+
+		<p>${notFound}</p>
+		<p>${notAuthenticated}</p>
 		<form method="post" action="./autenticar/" >
-			<table>
-				<tr>
-					<td>Login</td>
-					<td><input type="text" name="login"/></td>
-				</tr>
-				<tr>
-					<td>Senha</td>
-					<td><input type="password" name="password" /></td>
-				</tr>
-				<tr>
-					<td><input type="submit" value="Enviar" /></td>
-				</tr>
-			</table>
+			<p>Login<br />
+			<input type="text" name="login"/><br />
+			Senha<br />
+			<input type="password" name="password" /><br /><br />
+			<input type="submit" value="Enviar" /></p>
 		</form>
+	</div>	
+	<div id="bottom">
 	</div>
 	
 </body>
