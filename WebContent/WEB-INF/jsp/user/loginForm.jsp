@@ -23,15 +23,16 @@
 			<h1>Login</h1>
 			<a href="<c:url value="/usuarios/cadastrar/"/>">Crie sua conta</a> 
 		</div>
-
-		<p>${notFound}</p>
-		<p>${notAuthenticated}</p>
 		<form method="post" action="./autenticar/" >
 			<p>Login<br />
 			<input type="text" name="login"/><br />
 			Senha<br />
-			<input type="password" name="password" /><br /><br />
-			<input type="submit" value="Enviar" /></p>
+			<input type="password" name="password" /></p>
+			<div id="error">
+				<p>${notFound}</p>
+				<p>${notAuthenticated}</p>
+			</div>
+			<p><input type="submit" value="Enviar" /></p>
 		</form>
 	</div>	
 	<div id="bottom">

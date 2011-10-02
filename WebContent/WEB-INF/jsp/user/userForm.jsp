@@ -33,22 +33,24 @@
 			Senha<br />
 			<input type="password" name="user.password" id="password"/><br />
 			Confirmação de senha<br />
-			<input type="password" name="confirmation" /><br />
+			<input type="password" name="confirmation" /><br /><br />
 			Privilégio<br />
 			<input name="user.role" type="radio" value="USER"/>Usuário<br />
-			<input name="user.role" type="radio" value="ADMIN"/>Administrador<br />
+			<input name="user.role" type="radio" value="ADMIN"/>Administrador<br /><br />
 			Especialidades<br />
 			<c:forEach var="specialty" items="${specialties}">
 			<input name="specialties_ids" type="checkbox" value="${specialty.id}"> ${specialty.name}<br />
 			</c:forEach>
 			<br />
-			<input type="submit" value="Enviar"/></td>
+			<input type="submit" value="Enviar"/>
 		</form>
-		<ul>
+		<div id="error">
+			<p>
 			<c:forEach items="${errors}" var="error">
-			<li style="color: #FF0000">${error.category} - ${error.message}</li>
+				${error.category} - ${error.message}<br />
 			</c:forEach>
-		</ul>
+			</p>
+		</div>
 	</div>
 	<div id="bottom"></div>
 </body>
