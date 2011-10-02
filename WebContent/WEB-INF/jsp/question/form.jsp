@@ -36,5 +36,7 @@
 			</p>
 		</form>
 	</div>
+	<div id="bottom">
+	</div>
 </body>
 </html>

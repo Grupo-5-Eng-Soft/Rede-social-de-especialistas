@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Insert title here</title>
+<title>Permissão negada</title>
 </head>
 <body>	
 
@@ -24,10 +24,11 @@
 		</c:if>
 		<c:if test="${!userSession.authenticated }">
 			<h3> Você não esta logado.</h3>
-			<a href="../login/"/>Login</a>
+			<a href="../login/">Login</a>
 		</c:if>
-		<a href="../"/>Voltar</a>
+		<a href="../">Voltar</a>
 	</div>
-
+	<div id="bottom">
+	</div>
 </body>
 </html>

@@ -3,6 +3,17 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
+<script type="text/javascript">
+function toggle(obj) {
+	var el = document.getElementById(obj);
+	if ( el.style.display != 'none' ) {
+		el.style.display = 'none';
+	}
+	else {
+		el.style.display = '';
+	}
+}
+</script>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <jsp:include page="../include/head.jsp" />
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
@@ -18,39 +29,33 @@
 	
 	<jsp:include page="../include/menu.jsp" />
 	<div id="content">
-		<h2>Titulo: ${question.title}</h2>
-		Autor: ${question.author.login} <br />
-		Pergunta: ${question.description} <br />
-		Especialidade: ${question.specialty.name} <br />
-	
+		<div id="question">
+			<h2>${question.title}</h2>
+			<h6>Autor: ${question.author.login} - Especialidade: ${question.specialty.name}</h6>
+			<h4>${question.description}<br /><br /></h4>
+		</div>
+		<c:forEach var="answer" items="${question.answers}">
+			<div id="answer">
+				<h5>Resposta para: ${question.title}</h5>
+				<h6>Especialista: ${answer.author.login}</h6>
+				<p>${answer.description}<br /><br /></p>
+			</div>
+		</c:forEach>
 		<br />
-		<h2>Respostas: </h2>
-		
-		<table>
-			<tr>
-				<th>Resposta</th>
-				<th>Autor</th>
-			</tr>
-			<c:forEach var="answer" items="${question.answers}">
-				<tr>
-					<td>${answer.description}</td>
-					<td>${answer.author.login}</td>
-				</tr>
-			</c:forEach>
-		
-		</table>
-		
-		<br />
-		<form method="post" action="<c:url value="/perguntas/${question.id}/responder/"/>">
-			<h2>Sua resposta: </h2>
-			<table>
-				<tr>
-					<td><textarea cols="80" rows="6" name="answer.description"></textarea></td>
-				</tr>
-			</table>
-			<input type="submit" value="Enviar" />
+		<a href="#" onclick="toggle('maisinfo');">Responder</a>
+		<div id="maisinfo" style="display:none">
+			<form method="post" action="<c:url value="/perguntas/${question.id}/responder/"/>">
+				<h2>Sua resposta: </h2>
+				<table>
+					<tr>
+						<td><textarea cols="80" rows="6" name="answer.description"></textarea></td>
+					</tr>
+				</table>
+				<input type="submit" value="Enviar" />
 		</form>
+		</div>
 	</div>
-
+	<div id="bottom">
+	</div>
 </body>
 </html>

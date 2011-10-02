@@ -26,6 +26,8 @@
 				<li><a href="<c:url value="/especialidades/${specialty.id}/"/>">${specialty.name}</a></li>
 			</c:forEach>
 		</ul>
+	</div>
+	<div id="bottom">
 	</div> 
 </body>
                

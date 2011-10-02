@@ -27,5 +27,7 @@
 			<input type="submit" value="Enviar" /></p>
 		</form>
 	</div>
+	<div id="bottom">
+	</div>
 </body>
 </html>

@@ -2,8 +2,10 @@
 <link href="<c:url value="/css/padrao.css" />" rel="stylesheet" type="text/css" />
 <link href="<c:url value="/css/header.css" />" rel="stylesheet" type="text/css" />
 <link href="<c:url value="/css/content.css" />" rel="stylesheet" type="text/css" />
+<link href="<c:url value="/css/bottom.css" />" rel="stylesheet" type="text/css" />
 
-<a href="<c:url value="/" />">
-	<div id="header">
-	</div>
-</a>
+<div id="header">
+	<a href="<c:url value="/" />">
+	</a>
+</div>
+	

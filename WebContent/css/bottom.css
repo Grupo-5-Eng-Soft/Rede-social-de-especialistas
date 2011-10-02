@@ -1,0 +1,10 @@
+#bottom {
+ 	background: #FFF;
+	border-left: 1px solid #DDD;
+  	border-right: 1px solid #DDD;
+  	margin: 0 auto;
+  	width: 955px;
+  	height: 30px;
+  	padding: 18px 5px 10px 20px;
+  	border-bottom: 15px solid #111111;
+}
