@@ -4,7 +4,6 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <jsp:include page="../include/head.jsp" />
-<jsp:include page="../include/header.jsp" />
 <title>Especialidade: ${specialty.name}</title>
 </head>
 <body>
@@ -13,6 +12,7 @@
 		<jsp:include page="../include/user.jsp" />
 	</div>
 	
+	<jsp:include page="../include/header.jsp" />
 	
 	<jsp:include page="../include/menu.jsp" />
 
