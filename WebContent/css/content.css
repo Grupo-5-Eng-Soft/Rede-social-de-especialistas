@@ -59,4 +59,7 @@
 	color: #494949;
 	font-weight: bold;
 }
+label.error {
+	color: red;
+}
 	

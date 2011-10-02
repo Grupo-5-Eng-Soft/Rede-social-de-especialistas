@@ -5,6 +5,8 @@
 <html>
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.1/jquery.min.js" ></script>
+  	<script type="text/javascript" src="<c:url value="/javascript/jquery.validate.js"/>"></script>
 	<jsp:include page="../include/head.jsp" />
 <title>Cadastrar novo usuário</title>
 </head>
@@ -31,7 +33,7 @@
 				</tr>
 				<tr>
 					<td>Senha</td>
-					<td><input type="password" name="user.password" /></td>
+					<td><input type="password" name="user.password" id="password"/></td>
 				</tr>
 				<tr>
 					<td>Confirmação de senha</td>
@@ -57,10 +59,48 @@
 				</tr>
 				
 				<tr>			
-	  				<td><input type="submit" value="Enviar" /></td>
+	  				<td><input type="submit" value="Enviar"/></td>
 				</tr>
 			</table>
 		</form>
 	</div>
 </body>
+<script type="text/javascript">
+$(document).ready(function(){
+	$("form").validate({
+        rules:{
+            "user.login":{
+                required: true,
+            },
+            "user.email": {
+                required: true,
+                email: true
+            },
+            "user.password": {
+                required: true
+            },
+            "password-confirmation":{
+                required: true,
+                equalTo: "#password"
+            }
+        },
+        messages:{
+            "user.login":{
+                required: "O campo nome é obrigatorio.",
+            },
+            "user.email": {
+                required: "O campo email é obrigatorio.",
+                email: "O campo email deve conter um email válido."
+            },
+            "user.password": {
+                required: "O campo senha é obrigatorio."
+            },
+            "password-confirmation":{
+                required: "O campo confirmação de senha é obrigatorio.",
+                equalTo: "O campo confirmação de senha deve ser identico ao campo senha."
+            }
+        }
+    });
+});
+</script>
 </html>
