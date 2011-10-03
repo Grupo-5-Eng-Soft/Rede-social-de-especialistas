@@ -97,11 +97,7 @@ public class UserController {
 		dao.save(user, specialties_ids);
 		result.redirectTo(EmailConfirmationController.class).createAndSendEmailConfirmation(user);
 	}
-	
-	@Path("/usuarios/top5/")
-	public void listTopSpecialists() {
-		result.include("specialist", dao.getTopSpecialists());
-	}
+
 	
 	@Path("/usuarios/{userId}/")
 	public void detail(long userId) {
