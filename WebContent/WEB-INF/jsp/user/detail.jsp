@@ -23,7 +23,7 @@
 		<b>Especialidades: </b>
 		<ul>
 			<c:forEach var="specialist" items="${user.specialists}">
-				<li>${specialist.specialty.name}</li>
+				<li><a href="<c:url value="/especialidades/${specialist.specialty.id}/"/>">${specialist.specialty.name}</a></li>			
 			</c:forEach>
 		</ul>
 	</div>

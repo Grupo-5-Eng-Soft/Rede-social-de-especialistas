@@ -32,7 +32,7 @@ public class UserController {
 
 	@Path("/usuarios/cadastrar/")
 	public void userForm() {
-		result.include("specialties", dao.list());
+		result.include("specialties", dao.listSpecialty());
 	}
 
 	@Path("/login/")
@@ -102,6 +102,12 @@ public class UserController {
 	@Path("/usuarios/{userId}/")
 	public void detail(long userId) {
 		result.include("user", dao.getUser(userId));
+	}
+	
+	
+	@Path("/usuarios/listar/")
+	public void list(){
+		result.include("user",dao.listUser());
 	}
 	
 

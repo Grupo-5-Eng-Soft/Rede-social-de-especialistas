@@ -75,10 +75,15 @@ public class UserDao {
 		return null;
 	}
 	
-	public List<Specialty> list() {
+	public List<Specialty> listSpecialty() {
 		return this.session.createCriteria(Specialty.class).list();
 	}
 
+	public List<User> listUser() {
+		return this.session.createCriteria(User.class).list();
+	}
+	
+	
 	public List<Specialist> getTopSpecialists() {
 		return this.session.createCriteria(Specialist.class).addOrder( Order.desc("score")).setMaxResults(5).list();
 
