@@ -42,7 +42,6 @@
 			</c:forEach>
 			<br />
 			<input type="submit" value="Enviar"/>
-			<input type="hidden" name="hostname" value="<% out.print(request.getServerName()); %>"/> 
 		</form>
 		<div id="error">
 			<p>

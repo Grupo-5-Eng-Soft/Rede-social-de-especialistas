@@ -31,7 +31,7 @@ public class UserControllerTest {
 	@Test
 	public void shouldSaveUser() throws Exception {
 		User user = validUser();
-		controller.save(user, user.getLogin(), null, null);
+		controller.save(user, user.getLogin(), null);
 		verify(dao).save(user, null);
 	}
 

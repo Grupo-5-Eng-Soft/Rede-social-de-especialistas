@@ -29,7 +29,7 @@ public class EmailConfirmationControllerTest {
 	@Test
 	public void shouldSaveUser() throws Exception {
 		User user = validUser();
-		controller.createAndSendEmailConfirmation(user, null);
+		controller.createAndSendEmailConfirmation(user);
 		verify(dao).saveEmailConfirmationFromUser(user);
 	}
 

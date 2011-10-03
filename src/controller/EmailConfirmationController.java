@@ -27,9 +27,9 @@ public class EmailConfirmationController {
 		this.users = users;
 	}
 	
-	public void createAndSendEmailConfirmation(User user, String hostname) {
+	public void createAndSendEmailConfirmation(User user) {
 		dao.saveEmailConfirmationFromUser(user);
-		sendEmail(user, hostname);
+		sendEmail(user);
 		result.redirectTo(IndexController.class).index();
 	}
 	
@@ -55,10 +55,10 @@ public class EmailConfirmationController {
 		result.include("message", "Parabéns, sua conta foi ativada!");
 	}
 
-	private void sendEmail(User user, String hostname) {
+	private void sendEmail(User user) {
 		HashCalculator hashCalculator = new HashCalculator(user.getLogin() + user.getEmail());
 		String hash = hashCalculator.getValue();
-		String message = "Confirme sua conta em http://" + hostname + ":8080/rede-social-de-especialistas/usuarios/confirmar/"+user.getId()+"/"+hash;
+		String message = "Confirme sua conta em http://linux.ime.usp.br:8080/rede-social-de-especialistas/usuarios/confirmar/"+user.getId()+"/"+hash;
 		Thread emailSenderThread = new Thread(new EmailSender(user, message, "Confirme sua conta"));
 		emailSenderThread.start();
 	}
