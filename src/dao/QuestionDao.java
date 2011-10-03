@@ -2,6 +2,7 @@ package dao;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 import model.Answer;
 import model.Question;
@@ -10,6 +11,7 @@ import model.Specialty;
 
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.hibernate.criterion.Order;
 
 import br.com.caelum.vraptor.ioc.Component;
 
@@ -56,4 +58,10 @@ public class QuestionDao {
 		return dao.getSpecialists(specialty);
 	}
 
+	
+	public List<Question> getLastQuestions() {
+		return this.session.createCriteria(Question.class).addOrder( Order.desc("id")).setMaxResults(5).list();
+
+	}
+	
 }
