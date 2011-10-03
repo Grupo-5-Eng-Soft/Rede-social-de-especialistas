@@ -22,15 +22,12 @@
 	<div id="content">
 		<div id="tabs">
 			<h1>Editar</h1>
-			<a href="<c:url value="/login/"/>">Login</a> 
 		</div>
-		<form method="post" action="../salvar/" >
+		<form method="post" action="../../atualizacao/" >
 			<p>Login<br />
 			<input type="text" value="${user.login}" name="user.login"/><br />
 			Email<br />
 			<input type="text" value="${user.email}" name="user.email" /><br />
-			Senha<br />
-			<input type="password" name="user.password" id="password"/><br />
 			Especialidades<br />
 			<c:forEach var="specialty" items="${specialties}">
 				<% String s = new String("");%>
@@ -42,7 +39,7 @@
 				<input name="specialties_ids" <%= s %> type="checkbox" value="${specialty.id}"> ${specialty.name}<br />
 			</c:forEach>
 			<br />
-			<input type="submit" value="Enviar"/>
+			<input type="submit" value="Atualizar"/>
 		</form>
 		<div id="error">
 			<p>

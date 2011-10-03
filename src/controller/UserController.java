@@ -106,6 +106,10 @@ public class UserController {
 		result.include("specialties", dao.listSpecialty());
 	}
 	
+	@Path("/usuarios/atualizacao/")
+	public void saveEdit(){
+		result.redirectTo(IndexController.class).index();
+	}
 	
 	@Path("/usuarios/{userId}/")
 	public void detail(long userId) {
