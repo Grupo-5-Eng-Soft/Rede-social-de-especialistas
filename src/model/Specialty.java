@@ -40,5 +40,9 @@ public class Specialty {
 	public String getName(){
 		return name;
 	}
+	
+	public String func(){
+		return "checked";
+	}
 
 }

@@ -4,6 +4,8 @@ import java.util.ArrayList;
 
 import javax.servlet.ServletRequest;
 
+import org.hibernate.Session;
+
 import infra.UserSession;
 import hash.HashCalculator;
 import model.User;
@@ -98,6 +100,12 @@ public class UserController {
 		result.redirectTo(EmailConfirmationController.class).createAndSendEmailConfirmation(user);
 	}
 
+	@Path("/usuarios/editar/{userId}/")
+	public void userEditForm(long userId){
+		result.include("user",dao.getUser(userId));
+		result.include("specialties", dao.listSpecialty());
+	}
+	
 	
 	@Path("/usuarios/{userId}/")
 	public void detail(long userId) {
@@ -110,5 +118,6 @@ public class UserController {
 		result.include("user",dao.listUser());
 	}
 	
+		
 
 }
