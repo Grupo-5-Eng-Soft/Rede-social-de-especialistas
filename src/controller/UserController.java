@@ -2,6 +2,8 @@ package controller;
 
 import java.util.ArrayList;
 
+import javax.servlet.ServletRequest;
+
 import infra.UserSession;
 import hash.HashCalculator;
 import model.User;
@@ -64,7 +66,7 @@ public class UserController {
 	}
 
 	@Path("/usuarios/salvar/")
-	public void save(User user, String confirmation, ArrayList<Long> specialties_ids) {
+	public void save(User user, String confirmation, String hostname, ArrayList<Long> specialties_ids) {
 		if (user.getLogin().isEmpty()) {
 			validator.add(new ValidationMessage("Login é obrigatório.","user.login"));
 		}
@@ -89,12 +91,11 @@ public class UserController {
 		if (user.getPassword().length() < 6) {
 			validator.add(new ValidationMessage("Senha menor que 6 caracteres.","user.password"));
 		}
-		validator.onErrorUsePageOf(this).userForm();
-
+		validator.onErrorRedirectTo(this).userForm();
 		user.setActive(false);
 		user.setPasswordFromRawString(user.getPassword());
 		dao.save(user, specialties_ids);
-		result.redirectTo(EmailConfirmationController.class).createAndSendEmailConfirmation(user);
+		result.redirectTo(EmailConfirmationController.class).createAndSendEmailConfirmation(user, hostname);
 	}
 	
 	@Path("/usuarios/top5/")

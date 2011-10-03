@@ -11,25 +11,25 @@ $(document).ready(function(){
             "user.password": {
                 required: true
             },
-            "password-confirmation":{
+            "confirmation":{
                 required: true,
                 equalTo: "#password"
             }
         },
         messages:{
             "user.login":{
-                required: "O campo login Ã© obrigatorio.",
+                required: "O campo login é obrigatório.",
             },
             "user.email": {
-                required: "O campo email Ã© obrigatorio.",
-                email: "O campo email deve conter um email vÃ¡lido."
+                required: "O campo email é obrigatório.",
+                email: "O campo e-mail deve conter um e-mail válido."
             },
             "user.password": {
-                required: "O campo senha Ã© obrigatorio."
+                required: "O campo senha é obrigatório."
             },
-            "password-confirmation":{
-                required: "O campo confirmaÃ§Ã£o de senha Ã© obrigatorio.",
-                equalTo: "O campo confirmaÃ§Ã£o de senha deve ser identico ao campo senha."
+            "confirmation":{
+                required: "O campo confirmação de senha é obrigatório.",
+                equalTo: "O campo confirmação de senha deve ser idêntico ao campo senha."
             }
         }
     });
