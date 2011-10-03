@@ -38,12 +38,14 @@
 	<h1> Ultimas 5 Perguntas </h1>
 	<table>
 		<tr>
-			<td> Titulo </td> 
-			<td> Autor </td> 
+			<td> Título </td>
+			<td> Especialidade </td> 
+			<td> Autor </td> 		
 		</tr>
 		<c:forEach var="question" items="${question}">
 			<tr>
 				<td> <a href="<c:url value="/perguntas/${question.id}/"/>">${question.title}</a></td>
+				<td> <a href="<c:url value="/especialidades/${question.specialty.id}/"/>">${question.specialty.name}</a></td>
 				<td>${question.author.login}</td>
 			</tr>
 		</c:forEach>
