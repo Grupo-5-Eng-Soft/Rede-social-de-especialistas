@@ -16,7 +16,7 @@ function toggle(obj) {
 </script>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <jsp:include page="../include/head.jsp" />
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <title>Perguntas</title>
 </head>
 <body>

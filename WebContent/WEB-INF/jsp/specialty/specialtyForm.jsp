@@ -4,7 +4,7 @@
 <html>
 <head>
 <jsp:include page="../include/head.jsp" />
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <title>Cadastrar nova especialidade</title>
 </head>
 <body>
