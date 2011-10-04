@@ -26,13 +26,13 @@
 		</div>
 		<form method="post" action="../salvar/" >
 			<p>Login<br />
-			<input type="text" name="user.login"/><br />
+			<input type="text" size="30" name="user.login"/><br />
 			Email<br />
-			<input type="text" name="user.email" /><br />
+			<input type="text" size="30" name="user.email" /><br />
 			Senha<br />
-			<input type="password" name="user.password" id="password"/><br />
+			<input type="password" size="30" name="user.password" id="password"/><br />
 			Confirmação de senha<br />
-			<input type="password" name="confirmation" /><br /><br />
+			<input type="password" size="30" name="confirmation" /><br /><br />
 			Privilégio<br />
 			<input name="user.role" type="radio" value="USER"/>Usuário<br />
 			<input name="user.role" type="radio" value="ADMIN"/>Administrador<br /><br />

@@ -25,9 +25,9 @@
 		</div>
 		<form method="post" action="../../atualizacao/" >
 			<p>Login<br />
-			<input type="text" value="${user.login}" name="user.login"/><br />
+			<input type="text" size="30" value="${user.login}" name="user.login"/><br />
 			Email<br />
-			<input type="text" value="${user.email}" name="user.email" /><br />
+			<input type="text" size="30" value="${user.email}" name="user.email" /><br /><br />
 			Especialidades<br />
 			<c:forEach var="specialty" items="${specialties}">
 				<% String s = new String("");%>

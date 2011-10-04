@@ -25,9 +25,9 @@
 		</div>
 		<form method="post" action="./autenticar/" >
 			<p>Login<br />
-			<input type="text" name="login"/><br />
+			<input type="text" size="30" name="login"/><br />
 			Senha<br />
-			<input type="password" name="password" /></p>
+			<input type="password" size="30" name="password" /></p>
 			<div id="error">
 				<p>${notFound}</p>
 				<p>${notAuthenticated}</p>
