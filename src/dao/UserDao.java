@@ -55,6 +55,38 @@ public class UserDao {
 		tx.commit();
 	}
 	
+	
+	
+	public void edit(User user,ArrayList<Long> specialties_ids) {
+		User u;
+		Transaction tx = session.beginTransaction();
+		ArrayList<Specialist> specialists = new ArrayList<Specialist>();
+		u = (User) session.load(User.class, user.getId());
+		u.setEmail(user.getEmail());
+		u.setLogin(user.getLogin());
+		session.update(u);
+		tx.commit();
+/*		if (specialties_ids != null) {
+			for (long id : specialties_ids) {
+				Specialty s;
+				s = (Specialty) this.session.get(Specialty.class, id);
+				Specialist specialist = new Specialist(0);
+				specialist.setUser(u);
+				specialist.setSpecialty(s);
+				tx = session.beginTransaction();
+				session.update(specialist);
+				tx.commit();
+				specialists.add(specialist);
+			}
+			user.setSpecialists(specialists);
+		}
+		tx = session.beginTransaction();
+		session.update(u);
+		tx.commit();*/
+	}
+	
+	
+	
 	public User getUser(long userId) {
 		return (User) this.session.get(User.class, userId);
 	}

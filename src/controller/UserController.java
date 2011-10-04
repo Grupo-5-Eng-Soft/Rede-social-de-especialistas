@@ -107,7 +107,32 @@ public class UserController {
 	}
 	
 	@Path("/usuarios/atualizacao/")
-	public void saveEdit(){
+	public void saveEdit(User user, ArrayList<Long> specialties_ids) {
+		user.setPassword(userSession.getLoggedUser().getPassword());
+		user.setRole(userSession.getLoggedUser().getRole());
+		user.setActive(true);
+		user.setId(userSession.getLoggedUser().getId());
+		if (user.getLogin().isEmpty()) {
+			validator.add(new ValidationMessage("Login é obrigatório.","user.login"));
+		}
+		if (dao.getUser(user.getLogin()) != null && !userSession.getLoggedUser().getLogin().equals(user.getLogin())) {
+			validator.add(new ValidationMessage("Usuário já existente.","user.login"));
+			System.out.println("LOGIN2\n");
+		}
+		if (user.getEmail().isEmpty()) {
+			validator.add(new ValidationMessage("E-mail é obrigatório.","user.email"));
+		}
+		if (user.getEmail().split("@").length != 2) {
+			validator.add(new ValidationMessage("E-mail inválido.","user.email"));
+		}
+		if (dao.getUserByEmail(user.getEmail()) != null && !userSession.getLoggedUser().getEmail().equals(user.getEmail())) {
+			validator.add(new ValidationMessage("E-mail já existente.","user.email"));
+			System.out.println("EMAIL3\n");
+		}
+		validator.onErrorRedirectTo(this).userForm();
+		dao.edit(user, specialties_ids);
+		userSession.getLoggedUser().setLogin(user.getLogin());
+		userSession.getLoggedUser().setEmail(user.getEmail());
 		result.redirectTo(IndexController.class).index();
 	}
 	
