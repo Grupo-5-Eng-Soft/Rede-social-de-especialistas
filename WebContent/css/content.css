@@ -91,6 +91,20 @@
 	margin-top:3px;
 	font-size: 13px;
 }
+#content #column1 {
+  	width: 500px;
+  	height: auto;
+  	padding: 15px 5px 10px 20px;	
+}
+#content #column2 {
+	position:absolute;
+	top: 23.5%;
+	left: 52%;
+  	width: 350px;
+  	height: auto;
+  	padding: 15px 5px 10px 20px;	
+}
+
 #error p {
 	color: red;
 }
