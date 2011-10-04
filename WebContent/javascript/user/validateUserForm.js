@@ -18,18 +18,18 @@ $(document).ready(function(){
         },
         messages:{
             "user.login":{
-                required: "O campo login é obrigatório.",
+                required: " O campo login Ã© obrigatÃ³rio.",
             },
             "user.email": {
-                required: "O campo email é obrigatório.",
-                email: "O campo e-mail deve conter um e-mail válido."
+                required: " O campo e-mail Ã© obrigatÃ³rio.",
+                email: " O campo e-mail deve conter um e-mail vÃ¡lido."
             },
             "user.password": {
-                required: "O campo senha é obrigatório."
+                required: " O campo senha Ã© obrigatÃ³rio."
             },
             "confirmation":{
-                required: "O campo confirmação de senha é obrigatório.",
-                equalTo: "O campo confirmação de senha deve ser idêntico ao campo senha."
+                required: " O campo confirmaÃ§Ã£o de senha Ã© obrigatÃ³rio.",
+                equalTo: " O campo confirmaÃ§Ã£o de senha deve ser idÃªntico ao campo senha."
             }
         }
     });
