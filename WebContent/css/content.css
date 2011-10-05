@@ -98,12 +98,16 @@
 }
 #content #column2 {
 	position:absolute;
-	top: 23.5%;
-	left: 52%;
+	top: 154px;
+	left: 530px;
   	width: 350px;
   	height: auto;
   	padding: 15px 5px 10px 20px;	
 }
+#content #column2 table{
+	width:320px;
+}
+
 
 #error p {
 	color: red;
