@@ -30,9 +30,9 @@
 		<h1>Top 5 Especialistas</h1>
 		<table>
 			<tr>
-				<td> Nome </td> 
-				<td> Especialidade </td> 
-				<td> Pontuação </td>
+				<td width="180"> Nome </td> 
+				<td width="180"> Especialidade </td> 
+				<td width="100"> Pontuação </td>
 			</tr>
 			<c:forEach var="specialist" items="${specialist}">
 				<tr>
