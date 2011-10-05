@@ -1,12 +1,12 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
     
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<title>Página não encontrada</title>
+<title>PÃ¡gina nÃ£o encontrada</title>
 </head>
 <body>	
 
@@ -19,8 +19,8 @@
 	<jsp:include page="../include/menu.jsp" />
 
 	<div id="content">
-		<h1>Página não encontrada</h1>
-		<p>A página que você está procurando não existe. Verifique o endereço digitado.</p>
+		<h1>PÃ¡gina nÃ£o encontrada</h1>
+		<p>A pÃ¡gina que vocÃª estÃ¡ procurando nÃ£o existe. Verifique o endereÃ§o digitado.</p>
 	</div>
 	<div id="bottom">
 	</div>

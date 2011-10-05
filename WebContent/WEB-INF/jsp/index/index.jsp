@@ -1,6 +1,8 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html>
 <head>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <jsp:include page="../include/head.jsp" />
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
@@ -30,7 +32,7 @@
 			<tr>
 				<td> Nome </td> 
 				<td> Especialidade </td> 
-				<td> Pontuação </td>
+				<td> PontuaÃ§Ã£o </td>
 			</tr>
 			<c:forEach var="specialist" items="${specialist}">
 				<tr>
@@ -45,7 +47,7 @@
 		<h1> Ultimas 5 Perguntas </h1>
 		<table>
 			<tr>
-				<td> Título </td>
+				<td> TÃ­tulo </td>
 				<td> Especialidade </td> 
 				<td> Autor </td> 		
 			</tr>

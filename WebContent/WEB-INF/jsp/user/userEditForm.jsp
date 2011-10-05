@@ -1,5 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -7,7 +7,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <jsp:include page="../include/head.jsp" />
 <script type="text/javascript" src="<c:url value="/javascript/user/validateUserForm.js"/>"></script>
-<title>Cadastrar novo usu·rio</title>
+<title>Cadastrar novo usu√°rio</title>
 </head>
 <body>
 
