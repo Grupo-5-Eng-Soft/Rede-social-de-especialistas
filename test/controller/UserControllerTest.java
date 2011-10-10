@@ -12,13 +12,15 @@ import org.mockito.MockitoAnnotations;
 import br.com.caelum.vraptor.Result;
 import br.com.caelum.vraptor.Validator;
 import br.com.caelum.vraptor.util.test.MockResult;
+import br.com.caelum.vraptor.util.test.MockValidator;
+import br.com.caelum.vraptor.validator.ValidationException;
 import dao.UserDao;
 
 public class UserControllerTest {
 	
 	private @Mock UserDao dao;
 	private Result result = new MockResult();
-	private Validator validator;
+	private Validator validator = new MockValidator();
 	private UserController controller;
 	private UserSession userSession;
 
@@ -31,8 +33,15 @@ public class UserControllerTest {
 	@Test
 	public void shouldSaveUser() throws Exception {
 		User user = validUser();
-		controller.save(user, user.getLogin(), null);
+		controller.save(user, user.getPassword(), null);
 		verify(dao).save(user, null);
+	}
+	
+	@Test(expected=ValidationException.class)
+	public void shouldValidateUser() throws Exception {
+		User user = validUser();
+		user.setEmail("email-invalido");
+		controller.save(user, user.getPassword(), null);
 	}
 
 	private User validUser() {

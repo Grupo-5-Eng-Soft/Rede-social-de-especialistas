@@ -1,13 +1,10 @@
 package controller;
 
+import hash.HashCalculator;
+import infra.UserSession;
+
 import java.util.ArrayList;
 
-import javax.servlet.ServletRequest;
-
-import org.hibernate.Session;
-
-import infra.UserSession;
-import hash.HashCalculator;
 import model.User;
 import br.com.caelum.vraptor.Path;
 import br.com.caelum.vraptor.Post;
@@ -15,6 +12,7 @@ import br.com.caelum.vraptor.Resource;
 import br.com.caelum.vraptor.Result;
 import br.com.caelum.vraptor.Validator;
 import br.com.caelum.vraptor.validator.ValidationMessage;
+import br.com.caelum.vraptor.validator.Validations;
 import dao.UserDao;
 
 
@@ -68,32 +66,24 @@ public class UserController {
 	}
 
 	@Path("/usuarios/salvar/")
-	public void save(User user, String confirmation, ArrayList<Long> specialties_ids) {
-		if (user.getLogin().isEmpty()) {
-			validator.add(new ValidationMessage("Login é obrigatório.","user.login"));
-		}
-		if (dao.getUser(user.getLogin()) != null) {
-			validator.add(new ValidationMessage("Usuário já existente.","user.login"));
-		}
-		if (user.getEmail().isEmpty()) {
-			validator.add(new ValidationMessage("E-mail é obrigatório.","user.email"));
-		}
-		if (user.getEmail().split("@").length != 2) {
-			validator.add(new ValidationMessage("E-mail inválido.","user.email"));
-		}
-		if (dao.getUserByEmail(user.getEmail()) != null) {
-			validator.add(new ValidationMessage("E-mail já existente.","user.email"));
-		}
-		if (user.getPassword().isEmpty()) {
-			validator.add(new ValidationMessage("Senha é obrigatória.","user.password"));
-		}
-		if (!user.getPassword().equals(confirmation)) {
-			validator.add(new ValidationMessage("Senha não confere.","user.password"));
-		}
-		if (user.getPassword().length() < 6) {
-			validator.add(new ValidationMessage("Senha menor que 6 caracteres.","user.password"));
-		}
+	public void save(final User user, final String confirmation, ArrayList<Long> specialties_ids) {
+		validator.checking(new Validations() {{
+			that(!user.getLogin().isEmpty(), "user", "Login é obrigatorio");
+			
+			that(!user.getEmail().isEmpty(), "user.email", "E-mail é obrigatório.");
+			that(user.getEmail().split("@").length == 2, "user.email", "E-mail inválido.");
+
+			that(!user.getPassword().isEmpty(), "user.password", "Senha é obrigatória.");
+			that(user.getPassword().length() >= 6, "user.password", "Senha menor que 6 caracteres.");
+			that(user.getPassword().equals(confirmation), "user.password", "Senha não confere.");
+			
+			that(dao.getUser(user.getLogin()) == null, "user.login", "Usuário já existente.");
+			that(dao.getUserByEmail(user.getEmail()) == null, "user.email", "E-mail já existente.");
+			}
+		});
+
 		validator.onErrorRedirectTo(this).userForm();
+		
 		user.setActive(false);
 		user.setPasswordFromRawString(user.getPassword());
 		dao.save(user, specialties_ids);
