@@ -66,23 +66,8 @@ public class UserController {
 	}
 
 	@Path("/usuarios/salvar/")
-	public void save(final User user, final String confirmation, ArrayList<Long> specialties_ids) {
-		validator.checking(new Validations() {{
-			that(!user.getLogin().isEmpty(), "user", "Login é obrigatorio");
-			
-			that(!user.getEmail().isEmpty(), "user.email", "E-mail é obrigatório.");
-			that(user.getEmail().split("@").length == 2, "user.email", "E-mail inválido.");
-
-			that(!user.getPassword().isEmpty(), "user.password", "Senha é obrigatória.");
-			that(user.getPassword().length() >= 6, "user.password", "Senha menor que 6 caracteres.");
-			that(user.getPassword().equals(confirmation), "user.password", "Senha não confere.");
-			
-			that(dao.getUser(user.getLogin()) == null, "user.login", "Usuário já existente.");
-			that(dao.getUserByEmail(user.getEmail()) == null, "user.email", "E-mail já existente.");
-			}
-		});
-
-		validator.onErrorRedirectTo(this).userForm();
+	public void save(final User user, final String passwordConfirmation, ArrayList<Long> specialties_ids) {
+		validateUser(user, passwordConfirmation);
 		
 		user.setActive(false);
 		user.setPasswordFromRawString(user.getPassword());
@@ -137,6 +122,23 @@ public class UserController {
 		result.include("user",dao.listUser());
 	}
 	
-		
+	private void validateUser(final User user, final String passwordConfirmation) {
+		validator.checking(new Validations() {{
+			that(!user.getLogin().isEmpty(), "user", "Login é obrigatorio");
+			
+			that(!user.getEmail().isEmpty(), "user.email", "E-mail é obrigatório.");
+			that(user.getEmail().split("@").length == 2, "user.email", "E-mail inválido.");
+
+			that(!user.getPassword().isEmpty(), "user.password", "Senha é obrigatória.");
+			that(user.getPassword().length() >= 6, "user.password", "Senha menor que 6 caracteres.");
+			that(user.getPassword().equals(passwordConfirmation), "user.password", "Senha não confere.");
+			
+			that(dao.getUser(user.getLogin()) == null, "user.login", "Usuário já existente.");
+			that(dao.getUserByEmail(user.getEmail()) == null, "user.email", "E-mail já existente.");
+			}
+		});
+
+		validator.onErrorRedirectTo(this).userForm();
+	}
 
 }
