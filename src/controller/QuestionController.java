@@ -1,31 +1,34 @@
 package controller;
 
-import java.util.ArrayList;
-
 import infra.EmailSender;
 import infra.UserSession;
 import interceptor.annotations.LoggedUser;
+
+import java.util.ArrayList;
+
 import model.Question;
 import model.Specialist;
 import model.Specialty;
 import model.User;
-import model.Answer;
 import br.com.caelum.vraptor.Path;
 import br.com.caelum.vraptor.Resource;
 import br.com.caelum.vraptor.Result;
+import br.com.caelum.vraptor.Validator;
+import br.com.caelum.vraptor.validator.Validations;
 import dao.QuestionDao;
-import dao.AnswerDao;
 
 @Resource
 public class QuestionController {
 	private final Result result;
 	private final QuestionDao dao;
 	private final UserSession userSession;
+	private final Validator validator;
 	
-	public QuestionController(Result result, QuestionDao dao, UserSession userSession) {
+	public QuestionController(Result result, QuestionDao dao, UserSession userSession, Validator validator) {
 		this.result = result;
 		this.dao = dao;
 		this.userSession = userSession;
+		this.validator = validator;
 	}
 	
 	@LoggedUser
@@ -37,16 +40,18 @@ public class QuestionController {
 	@LoggedUser
 	@Path("/perguntas/salvar/")
 	public void save(Question question, Long specialtyId) {
-		ArrayList<Specialist> specialists;
+		validate(question, specialtyId);
+		
 		Specialty specialty = dao.getSpecialty(specialtyId);
-		specialists = dao.getSpecialists(specialty);
+		ArrayList<Specialist> specialists = dao.getSpecialists(specialty);
+		
 		sendEmailsToSpecialists(specialists, question);
 		question.setAuthor(userSession.getLoggedUser());
 		question.setSpecialty(specialty);
 		dao.save(question);
 		result.redirectTo(QuestionController.class).list();
 	}
-	
+
 	private void sendEmailsToSpecialists(ArrayList<Specialist> specialists, Question question) {
 		ArrayList<User> users = new ArrayList<User>();
 		String subject = "Nova pergunta na rede social de especialistas - " + question.getTitle();
@@ -69,4 +74,13 @@ public class QuestionController {
 		result.include("answer", question.getAnswers());
 	}
 
+	private void validate(final Question question, final Long specialtyId) {
+		validator.checking(new Validations() {{
+			that(dao.getSpecialty(specialtyId) != null, "specialty", "pergunta.deve.pertencer.a.uma.especialidade");
+			that(!question.getTitle().isEmpty(), "question.title", "titulo.pergunta.nao.pode.ser.vazio");
+			that(!question.getDescription().isEmpty(), "question.description", "conteudo.pergunta.nao.pode.ser.vazio");
+		}});
+		
+		validator.onErrorRedirectTo(this).form();
+	}
 }

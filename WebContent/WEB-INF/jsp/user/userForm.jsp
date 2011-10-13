@@ -43,13 +43,7 @@
 			<br />
 			<input type="submit" value="Enviar"/>
 		</form>
-		<div id="error">
-			<p>
-			<c:forEach items="${errors}" var="error">
-				${error.category} - ${error.message}<br />
-			</c:forEach>
-			</p>
-		</div>
+		<jsp:include page="../include/error.jsp" />
 	</div>
 	<div id="bottom"></div>
 </body>

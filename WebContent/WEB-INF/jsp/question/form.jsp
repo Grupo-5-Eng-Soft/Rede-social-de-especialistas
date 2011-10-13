@@ -5,6 +5,7 @@
 <head>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <jsp:include page="../include/head.jsp" />
+<script type="text/javascript" src="<c:url value="/javascript/question/validateQuestionForm.js"/>"></script>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <title>Nova pergunta</title>
 </head>
@@ -35,6 +36,7 @@
 			<input type="submit" value="Enviar" />
 			</p>
 		</form>
+		<jsp:include page="../include/error.jsp" />
 	</div>
 	<div id="bottom">
 	</div>

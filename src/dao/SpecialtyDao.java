@@ -5,15 +5,12 @@ import java.util.List;
 
 import model.Specialist;
 import model.Specialty;
-import model.User;
 
 import org.hibernate.Session;
-import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.criterion.Restrictions;
 
 import br.com.caelum.vraptor.ioc.Component;
-import br.com.caelum.vraptor.util.hibernate.SessionCreator;
 
 
 @Component
@@ -34,8 +31,11 @@ public class SpecialtyDao {
 		return this.session.createCriteria(Specialty.class).list();
 	}
 
-	public Specialty getSpecialty(long specialtyId) {
-		return (Specialty) this.session.get(Specialty.class, specialtyId);
+	public Specialty getSpecialty(Long specialtyId) {
+		if(specialtyId != null) {
+			return (Specialty) this.session.get(Specialty.class, specialtyId);
+		}
+		return null;
 	}
 
 	public ArrayList<Specialist> getSpecialists(Specialty specialty) {

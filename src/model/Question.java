@@ -8,7 +8,9 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
+
+import org.hibernate.validator.NotNull;
+import org.hibernate.validator.Valid;
 
 @Entity
 public class Question {
@@ -25,9 +27,13 @@ public class Question {
 	
 	@ManyToOne
 	private Specialty specialty;
-	
+
+	@Valid
+	@NotNull
 	private String title;
 	
+	@Valid
+	@NotNull
 	private String description;
 
 	public User getAuthor() {

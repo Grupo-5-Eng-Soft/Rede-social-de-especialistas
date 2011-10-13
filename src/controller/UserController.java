@@ -66,8 +66,8 @@ public class UserController {
 	}
 
 	@Path("/usuarios/salvar/")
-	public void save(final User user, final String passwordConfirmation, ArrayList<Long> specialties_ids) {
-		validateUser(user, passwordConfirmation);
+	public void save(User user, ArrayList<Long> specialties_ids) {
+		validateUser(user);
 		
 		user.setActive(false);
 		user.setPasswordFromRawString(user.getPassword());
@@ -122,19 +122,18 @@ public class UserController {
 		result.include("user",dao.listUser());
 	}
 	
-	private void validateUser(final User user, final String passwordConfirmation) {
+	private void validateUser(final User user) {
 		validator.checking(new Validations() {{
-			that(!user.getLogin().isEmpty(), "user", "Login é obrigatorio");
+			that(!user.getLogin().isEmpty(), "user", "login.obrigatorio");
 			
-			that(!user.getEmail().isEmpty(), "user.email", "E-mail é obrigatório.");
-			that(user.getEmail().split("@").length == 2, "user.email", "E-mail inválido.");
+			that(!user.getEmail().isEmpty(), "user.email", "email.obrigatorio");
+			that(user.getEmail().split("@").length == 2, "user.email", "email.invalido");
 
-			that(!user.getPassword().isEmpty(), "user.password", "Senha é obrigatória.");
-			that(user.getPassword().length() >= 6, "user.password", "Senha menor que 6 caracteres.");
-			that(user.getPassword().equals(passwordConfirmation), "user.password", "Senha não confere.");
+			that(!user.getPassword().isEmpty(), "user.password", "senha.obrigatoria");
+			that(user.getPassword().length() >= 6, "user.password", "senha.menor.que.6.caracteres");
 			
-			that(dao.getUser(user.getLogin()) == null, "user.login", "Usuário já existente.");
-			that(dao.getUserByEmail(user.getEmail()) == null, "user.email", "E-mail já existente.");
+			that(dao.getUser(user.getLogin()) == null, "user.login", "usuario.ja.existente");
+			that(dao.getUserByEmail(user.getEmail()) == null, "user.email", "email.ja.existente");
 			}
 		});
 

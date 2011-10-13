@@ -33,7 +33,7 @@ public class UserControllerTest {
 	@Test
 	public void shouldSaveUser() throws Exception {
 		User user = validUser();
-		controller.save(user, user.getPassword(), null);
+		controller.save(user, null);
 		verify(dao).save(user, null);
 	}
 	
@@ -41,7 +41,7 @@ public class UserControllerTest {
 	public void shouldValidateUser() throws Exception {
 		User user = validUser();
 		user.setEmail("email-invalido");
-		controller.save(user, user.getPassword(), null);
+		controller.save(user, null);
 	}
 
 	private User validUser() {
