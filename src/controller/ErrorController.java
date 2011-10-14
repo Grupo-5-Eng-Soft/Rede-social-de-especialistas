@@ -1,6 +1,7 @@
 package controller;
 
 
+import model.Specialty;
 import br.com.caelum.vraptor.Path;
 import br.com.caelum.vraptor.Resource;
 

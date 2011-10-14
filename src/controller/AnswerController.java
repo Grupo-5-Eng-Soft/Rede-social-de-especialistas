@@ -28,10 +28,14 @@ public class AnswerController {
 		this.userSession = userSession;
 	}
 	
-	@LoggedUser
 	@Path("/perguntas/{questionId}/responder/")
 	public void answer(Answer answer, Long questionId) {
 		Question question = dao.getQuestion(questionId);
+		Specialty specialty = question.getSpecialty();
+		if (!userSession.isSpecialistIn(specialty)) {
+			result.redirectTo(ErrorController.class).errorscreen();
+			return;
+		}
 		answer.setAuthor(userSession.getLoggedUser());
 		answer.setQuestion(question);
 		sendEmailToAuthor(question, answer);

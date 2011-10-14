@@ -26,6 +26,7 @@
 			<h3> Você não esta logado.</h3>
 			<a href="../login/">Login</a><br />
 		</c:if>
+		
 		<a href="../">Voltar</a>
 	</div>
 	<div id="bottom">

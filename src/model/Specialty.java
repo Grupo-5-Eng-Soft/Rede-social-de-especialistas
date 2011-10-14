@@ -9,6 +9,8 @@ import javax.persistence.OneToMany;
 
 import org.hibernate.validator.NotEmpty;
 
+import com.sun.org.apache.xpath.internal.operations.Equals;
+
 @Entity
 public class Specialty {
 	
@@ -41,8 +43,9 @@ public class Specialty {
 		return name;
 	}
 	
-	public String func(){
-		return "checked";
+	public boolean equals(Specialty s) {
+		return this.id == s.getId();
 	}
+	
 
 }

@@ -25,8 +25,8 @@ public class SpecialtyController {
 	@Admin
 	@Path("/especialidades/salvar/")
 	public void save(Specialty specialty) {
-			dao.save(specialty);
-			result.redirectTo(SpecialtyController.class).list();	
+		dao.save(specialty);
+		result.redirectTo(SpecialtyController.class).list();	
 	}
 	
 	@Path("/especialidades/listar/")

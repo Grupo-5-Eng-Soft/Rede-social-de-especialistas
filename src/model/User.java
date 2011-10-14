@@ -113,12 +113,5 @@ public class User implements Serializable {
 		this.specialists = specialists;
 	}
 
-	/*public List<Answer> getAnswer() {
-		return answer;
-	}
-
-	public void setAnswer(List<Answer> answer) {
-		this.answer = answer;
-	}*/
 }
 

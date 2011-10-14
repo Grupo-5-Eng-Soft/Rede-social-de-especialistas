@@ -42,7 +42,9 @@ function toggle(obj) {
 			</div>
 		</c:forEach>
 		<br />
-		<a href="#" onclick="toggle('maisinfo');">Responder</a>
+		<c:if test="isSpecialistIn">
+			<a href="#" onclick="toggle('maisinfo');">Responder</a>
+		</c:if>
 		<div id="maisinfo" style="display:none">
 			<form method="post" action="<c:url value="/perguntas/${question.id}/responder/"/>">
 					<textarea cols="80" rows="6" name="answer.description"></textarea><br />
