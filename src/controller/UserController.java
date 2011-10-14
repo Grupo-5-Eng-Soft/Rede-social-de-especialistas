@@ -55,8 +55,12 @@ public class UserController {
 			if (user.getPassword().equals(password) && user.isActive()) {
 				userSession.login(user);
 				result.redirectTo(IndexController.class).index();
-			} else {
+			} else if (!user.isActive()){
 				result.include("notAuthenticated", "Usuário com cadastro não confirmado. Verifique seu e-mail.");
+				result.redirectTo(UserController.class).loginForm();
+			}
+			else {
+				result.include("notAuthenticated", "Senha incorreta.");
 				result.redirectTo(UserController.class).loginForm();
 			}
 		} else {
