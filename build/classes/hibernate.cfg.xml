@@ -4,8 +4,13 @@
 
 <hibernate-configuration>
 	<session-factory>
-		<property name="hibernate.connection.username">root</property>
-		<property name="hibernate.connection.password"></property>
+	<!--==================================== ATENÇÃO =====================================--> 		
+	<!-- A configuração deve ser essa, senão vai quebrar no serv. de integração contínua! -->
+	<!-- Se o seu BD nao estiver congiurado desse jeito, ajuste as confs dele ao invés de -->
+	<!-- não mudar aqui!!!                                                                --> 
+	<!--==================================================================================-->
+		<property name="hibernate.connection.username">esgerosa</property>
+		<property name="hibernate.connection.password">alunoses</property>
 		<property name="hibernate.connection.url">jdbc:mysql://localhost/redesocial</property>
 		<property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
 		<property name="hibernate.dialect">org.hibernate.dialect.MySQL5InnoDBDialect</property>

@@ -4,6 +4,11 @@
 
 <hibernate-configuration>
 	<session-factory>
+	<!--==================================== ATENÇÃO =====================================--> 		
+	<!-- A configuração deve ser essa, senão vai quebrar no serv. de integração contínua! -->
+	<!-- Se o seu BD nao estiver congiurado desse jeito, ajuste as confs dele ao invés de -->
+	<!-- não mudar aqui!!!                                                                --> 
+	<!--==================================================================================-->
 		<property name="hibernate.connection.username">esgerosa</property>
 		<property name="hibernate.connection.password">alunoses</property>
 		<property name="hibernate.connection.url">jdbc:mysql://localhost/redesocial</property>
