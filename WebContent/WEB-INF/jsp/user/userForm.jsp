@@ -18,6 +18,8 @@
 	<jsp:include page="../include/header.jsp" />
 	
 	<jsp:include page="../include/menu.jsp" />
+	
+	<jsp:include page="../include/error.jsp" />
 
 	<div id="content">
 		<div id="tabs">
@@ -43,7 +45,6 @@
 			<br />
 			<input type="submit" value="Enviar"/>
 		</form>
-		<jsp:include page="../include/error.jsp" />
 	</div>
 	<div id="bottom"></div>
 </body>
