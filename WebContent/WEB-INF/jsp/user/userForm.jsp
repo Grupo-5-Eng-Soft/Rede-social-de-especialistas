@@ -19,13 +19,12 @@
 	
 	<jsp:include page="../include/menu.jsp" />
 	
-	<jsp:include page="../include/error.jsp" />
-
 	<div id="content">
 		<div id="tabs">
 			<h1>Cadastro</h1>
 			<a href="<c:url value="/login/"/>">Login</a> 
 		</div>
+		<jsp:include page="../include/error.jsp" />
 		<form method="post" action="../salvar/" >
 			<p>Login<br />
 			<input type="text" size="30" name="user.login"/><br />

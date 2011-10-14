@@ -33,9 +33,20 @@ public class UserDao {
 	
 	public void save(User user, ArrayList<Long> specialties_ids) {
 		Transaction tx = session.beginTransaction();
-		ArrayList<Specialist> specialists = new ArrayList<Specialist>();
 		session.save(user);
+		saveSpecialties(user, specialties_ids);
+		session.update(user);
 		tx.commit();
+	}
+	
+	public ArrayList<Specialist> getSpecialists(User user) {
+		return (ArrayList<Specialist>) this.session.createCriteria(Specialist.class)
+			.add(Restrictions.eq("user", user))
+			.list();
+	}
+
+	private void saveSpecialties(User user, ArrayList<Long> specialties_ids) {
+		ArrayList<Specialist> specialists = new ArrayList<Specialist>();
 		if (specialties_ids != null) {
 			for (long id : specialties_ids) {
 				Specialty s;
@@ -43,50 +54,33 @@ public class UserDao {
 				Specialist specialist = new Specialist(0);
 				specialist.setUser(user);
 				specialist.setSpecialty(s);
-				tx = session.beginTransaction();
 				session.save(specialist);
-				tx.commit();
 				specialists.add(specialist);
 			}
 			user.setSpecialists(specialists);
 		}
-		tx = session.beginTransaction();
-		session.update(user);
-		tx.commit();
 	}
 	
-	
-	
-	public void edit(User user,ArrayList<Long> specialties_ids) {
+	public void edit(User user, ArrayList<Long> specialties_ids) {
 		User u;
 		Transaction tx = session.beginTransaction();
-		ArrayList<Specialist> specialists = new ArrayList<Specialist>();
 		u = (User) session.load(User.class, user.getId());
 		u.setEmail(user.getEmail());
 		u.setLogin(user.getLogin());
 		session.update(u);
-		tx.commit();
-/*		if (specialties_ids != null) {
-			for (long id : specialties_ids) {
-				Specialty s;
-				s = (Specialty) this.session.get(Specialty.class, id);
-				Specialist specialist = new Specialist(0);
-				specialist.setUser(u);
-				specialist.setSpecialty(s);
-				tx = session.beginTransaction();
-				session.update(specialist);
-				tx.commit();
-				specialists.add(specialist);
-			}
-			user.setSpecialists(specialists);
-		}
-		tx = session.beginTransaction();
+		cleanSpecialists(u);
+		saveSpecialties(u, specialties_ids);
 		session.update(u);
-		tx.commit();*/
+		tx.commit();
 	}
 	
-	
-	
+	private void cleanSpecialists(User u) {
+		for (Specialist specialist : getSpecialists(u)) {
+			session.delete(specialist);
+		}
+		
+	}
+
 	public User getUser(long userId) {
 		return (User) this.session.get(User.class, userId);
 	}
