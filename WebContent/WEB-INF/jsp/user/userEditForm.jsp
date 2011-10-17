@@ -24,8 +24,6 @@
 			<h1>Editar</h1>
 		</div>
 		<form method="post" action="../../atualizacao/" >
-			<p>Login<br />
-			<input type="text" size="30" value="${user.login}" name="user.login"/><br />
 			Email<br />
 			<input type="text" size="30" value="${user.email}" name="user.email" /><br /><br />
 			Especialidades<br />
