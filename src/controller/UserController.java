@@ -72,7 +72,6 @@ public class UserController {
 	@Path("/usuarios/salvar/")
 	public void save(User user, ArrayList<Long> specialties_ids) {
 		validateUser(user);
-		
 		user.setActive(false);
 		user.setPasswordFromRawString(user.getPassword());
 		dao.save(user, specialties_ids);

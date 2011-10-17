@@ -105,7 +105,7 @@
   	padding: 15px 5px 10px 20px;	
 }
 
-#error p {
+#error p, #notice {
 	color: red;
 }
 label.error {

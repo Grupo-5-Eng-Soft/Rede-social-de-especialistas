@@ -1,14 +1,10 @@
 package controller;
 //8086 8123
 
-import infra.EmailSender;
 import hash.HashCalculator;
+import infra.EmailSender;
 import model.EmailConfirmation;
 import model.User;
-
-import org.apache.commons.mail.EmailException;
-import org.apache.commons.mail.SimpleEmail;
-
 import br.com.caelum.vraptor.Get;
 import br.com.caelum.vraptor.Resource;
 import br.com.caelum.vraptor.Result;
@@ -30,6 +26,7 @@ public class EmailConfirmationController {
 	public void createAndSendEmailConfirmation(User user) {
 		dao.saveEmailConfirmationFromUser(user);
 		sendEmail(user);
+		result.include("notice", "Seu cadastro foi efetuado com sucesso, verifique seu email.");
 		result.redirectTo(IndexController.class).index();
 	}
 	

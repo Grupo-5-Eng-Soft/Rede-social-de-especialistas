@@ -19,6 +19,7 @@
 	
 	<jsp:include page="../include/menu.jsp" />
 	<div id="content">
+		<div id="notice">${notice}</div>
 		<div id="column1">
 			<h1>Bem Vindo a Rede Social de Especialistas</h1>
 			<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam iaculis iaculis nibh bibendum venenatis. Vestibulum eu massa sed leo dapibus commodo. Fusce eu sem purus. Nunc eu turpis sapien. Nam tempus, risus a elementum faucibus, sapien mauris hendrerit sapien, quis consequat massa felis et risus. Sed accumsan vulputate blandit. Vestibulum ut aliquet tellus.
