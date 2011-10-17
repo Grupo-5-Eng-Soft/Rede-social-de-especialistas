@@ -6,16 +6,20 @@ import model.Specialty;
 import br.com.caelum.vraptor.Path;
 import br.com.caelum.vraptor.Resource;
 import br.com.caelum.vraptor.Result;
+import br.com.caelum.vraptor.Validator;
+import br.com.caelum.vraptor.validator.Validations;
 import dao.SpecialtyDao;
 
 @Resource
 public class SpecialtyController {
 	private final Result result;
 	private final SpecialtyDao dao;
+	private final Validator validator;
 	
-	public SpecialtyController(Result result, SpecialtyDao dao,UserSession userSession) {
+	public SpecialtyController(Result result, SpecialtyDao dao,UserSession userSession, Validator validator) {
 		this.result = result;
 		this.dao = dao;
+		this.validator = validator;
 	}
 	
 	@Admin
@@ -25,10 +29,20 @@ public class SpecialtyController {
 	@Admin
 	@Path("/especialidades/salvar/")
 	public void save(Specialty specialty) {
+		validate(specialty);
 		dao.save(specialty);
 		result.redirectTo(SpecialtyController.class).list();	
 	}
 	
+	private void validate(final Specialty specialty) {
+		validator.checking(new Validations() {{
+			that(!specialty.getName().isEmpty(), "specialty.name", "nome.especialidade.nao.vazio");
+			that(dao.getSpecialtyByName(specialty.getName()) == null, "specialty.name", "especialidade.existente.no.sistema");
+		}});
+		
+		validator.onErrorRedirectTo(this).specialtyForm();
+	}
+
 	@Path("/especialidades/listar/")
 	public void list() {
 		result.include("specialties", dao.list());

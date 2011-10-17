@@ -37,6 +37,11 @@ public class SpecialtyDao {
 		}
 		return null;
 	}
+	
+	public Specialty getSpecialtyByName(String name) {
+			return (Specialty) this.session.createCriteria(Specialty.class)
+				.add(Restrictions.ilike("name", name)).uniqueResult();	
+	}
 
 	public ArrayList<Specialist> getSpecialists(Specialty specialty) {
 		return (ArrayList<Specialist>) this.session.createCriteria(Specialist.class)

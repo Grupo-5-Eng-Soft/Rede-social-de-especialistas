@@ -26,6 +26,7 @@
 			<p><b>Título:</b><br /> <input type="text" size="40" name="specialty.name"/><br /><br />
 			<input type="submit" value="Enviar" /></p>
 		</form>
+		<jsp:include page="../include/error.jsp" />
 	</div>
 	<div id="bottom">
 	</div>
