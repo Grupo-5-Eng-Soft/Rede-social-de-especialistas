@@ -54,5 +54,16 @@ public class SpecialtyDao {
 		session.saveOrUpdate(specialty);
 		tx.commit();
 	}
+
+	public void delete(long specialtyId) {
+		Transaction tx = session.beginTransaction();
+		Specialty specialty = getSpecialty(specialtyId);
+		ArrayList<Specialist> specialists = getSpecialists(specialty);
+		for (Specialist specialist : specialists)
+			session.delete(specialist);
+		session.delete(specialty);
+		tx.commit();
+		
+	}
 	
 }

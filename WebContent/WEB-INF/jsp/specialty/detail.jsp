@@ -23,6 +23,7 @@
 			<a href="<c:url value="/perguntas/nova/"/>">Postar uma dúvida</a>
 			<c:if test="${userSession.loggedUser.admin}">
 				<a href="<c:url value="/especialidades/${specialty.id}/editar/"/>">Editar</a>
+				<a href="<c:url value="/especialidades/${specialty.id}/remover/" />">Remover</a>
 			</c:if>
 		</div>
 			<table>

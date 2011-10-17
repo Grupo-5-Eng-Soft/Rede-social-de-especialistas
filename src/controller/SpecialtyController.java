@@ -71,4 +71,11 @@ public class SpecialtyController {
 	public void edit(long specialtyId) {
 		result.include("specialty", dao.getSpecialty(specialtyId));
 	}
+	
+	@Admin
+	@Path("/especialidades/{specialtyId}/remover/")
+	public void delete(long specialtyId) {
+		dao.delete(specialtyId);
+		result.redirectTo(SpecialtyController.class).list();
+	}
 }
