@@ -21,6 +21,9 @@
 		<div id="tabs">
 			<h1>${specialty.name}</h1>
 			<a href="<c:url value="/perguntas/nova/"/>">Postar uma dúvida</a>
+			<c:if test="${userSession.loggedUser.admin}">
+				<a href="<c:url value="/especialidades/${specialty.id}/editar/"/>">Editar</a>
+			</c:if>
 		</div>
 			<table>
 				<tr>

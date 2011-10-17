@@ -48,5 +48,11 @@ public class SpecialtyDao {
 			.add(Restrictions.eq("specialty", specialty))
 			.list();
 	}
+
+	public void saveOrUpdate(Specialty specialty) {
+		Transaction tx = session.beginTransaction();
+		session.saveOrUpdate(specialty);
+		tx.commit();
+	}
 	
 }

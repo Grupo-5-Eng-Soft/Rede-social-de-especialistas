@@ -26,6 +26,12 @@ public class UserSession implements Serializable {
 		return this.loggedUser != null;
 	}
 	
+	public boolean isAdmin(){
+		if (this.loggedUser != null)
+			return this.loggedUser.isAdmin();
+		return false;
+	}
+	
 	public User getLoggedUser(){
 		return this.loggedUser;
 	}
