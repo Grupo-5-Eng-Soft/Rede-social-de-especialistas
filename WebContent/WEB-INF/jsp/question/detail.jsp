@@ -47,7 +47,7 @@ function toggle(obj) {
 			</div>
 		</c:forEach>
 		<br />
-		<c:if test="isSpecialistIn">
+		<c:if test="${isSpecialist}">
 			<a href="#" onclick="toggle('maisinfo');">Responder</a>
 		</c:if>
 		<div id="maisinfo" style="display:none">

@@ -42,7 +42,7 @@ public class UserSession implements Serializable {
 		for (Specialist specialist : loggedUser.getSpecialists()) {
 			if (specialist.getSpecialty().equals(specialty))
 				return true;
-		} 
+		}
 		return false;
 	}
 }

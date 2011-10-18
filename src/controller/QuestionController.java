@@ -75,7 +75,7 @@ public class QuestionController {
 	@Path("/perguntas/{questionId}/")
 	public void detail(Long questionId) {
 		Question question = dao.getQuestion(questionId);
-		result.include("isSpecialistAt", userSession.isSpecialistIn(question.getSpecialty()));
+		result.include("isSpecialist", userSession.isSpecialistIn(question.getSpecialty()));
 		result.include("question", question);
 		result.include("answer", question.getAnswers());
 	}
