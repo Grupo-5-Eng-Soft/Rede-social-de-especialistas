@@ -24,6 +24,10 @@
 		<form method="post" action="<c:url value="/perguntas/salvar/"/>">
 			<p>Título: <br />
 				<input type="text" size="40" name="question.title" /></p>
+			<c:if test="${!userSession.authenticated}">
+				<p>Email: <br />
+					<input type="text" size="40" name="question.title" /></p>
+			</c:if>
 			<p>Pergunta: <br />
 				<textarea cols="80" rows="6" name="question.description"></textarea></p>
 			<p>Especialidade: 

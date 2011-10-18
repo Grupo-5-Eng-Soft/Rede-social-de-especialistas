@@ -31,13 +31,13 @@ public class QuestionController {
 		this.validator = validator;
 	}
 	
-	@LoggedUser
+	
 	@Path("/perguntas/nova/")
 	public void form() {
 		result.include("specialties", dao.listSpecialties());
 	}
 	
-	@LoggedUser
+	
 	@Path("/perguntas/salvar/")
 	public void save(Question question, Long specialtyId) {
 		validate(question, specialtyId);
