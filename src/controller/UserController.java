@@ -88,15 +88,9 @@ public class UserController {
 	public void saveEdit(User user, ArrayList<Long> specialties_ids) {
 		user.setPassword(userSession.getLoggedUser().getPassword());
 		user.setRole(userSession.getLoggedUser().getRole());
+		user.setLogin(userSession.getLoggedUser().getLogin());
 		user.setActive(true);
 		user.setId(userSession.getLoggedUser().getId());
-		if (user.getLogin().isEmpty()) {
-			validator.add(new ValidationMessage("Login é obrigatório.","user.login"));
-		}
-		if (dao.getUser(user.getLogin()) != null && !userSession.getLoggedUser().getLogin().equals(user.getLogin())) {
-			validator.add(new ValidationMessage("Usuário já existente.","user.login"));
-			System.out.println("LOGIN2\n");
-		}
 		if (user.getEmail().isEmpty()) {
 			validator.add(new ValidationMessage("E-mail é obrigatório.","user.email"));
 		}
