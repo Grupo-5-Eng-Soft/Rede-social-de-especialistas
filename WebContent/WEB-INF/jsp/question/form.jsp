@@ -26,7 +26,7 @@
 				<input type="text" size="40" name="question.title" /></p>
 			<c:if test="${!userSession.authenticated}">
 				<p>Email: <br />
-					<input type="text" size="40" name="question.title" /></p>
+					<input type="text" size="40" name="question.email" /></p>
 			</c:if>
 			<p>Pergunta: <br />
 				<textarea cols="80" rows="6" name="question.description"></textarea></p>

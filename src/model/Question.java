@@ -22,6 +22,8 @@ public class Question {
 	@ManyToOne
 	private User author;
 	
+	private String email;
+	
 	@OneToMany(mappedBy="question")
 	private Collection<Answer> answers = new ArrayList<Answer>();
 	
@@ -82,6 +84,14 @@ public class Question {
 
 	public void setId(long id) {
 		this.id = id;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
 	}
 	
 }

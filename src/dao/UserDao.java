@@ -7,7 +7,6 @@ import model.Specialist;
 import model.Specialty;
 import model.User;
 
-import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.criterion.Order;

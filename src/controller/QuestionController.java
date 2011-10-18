@@ -2,7 +2,6 @@ package controller;
 
 import infra.EmailSender;
 import infra.UserSession;
-import interceptor.annotations.LoggedUser;
 
 import java.util.ArrayList;
 
@@ -46,7 +45,13 @@ public class QuestionController {
 		ArrayList<Specialist> specialists = dao.getSpecialists(specialty);
 		
 		sendEmailsToSpecialists(specialists, question);
-		question.setAuthor(userSession.getLoggedUser());
+		if(userSession.isAuthenticated()) {
+			question.setEmail(null);
+			question.setAuthor(userSession.getLoggedUser());
+		}
+		else {
+			question.setAuthor(null);
+		}
 		question.setSpecialty(specialty);
 		dao.save(question);
 		result.redirectTo(QuestionController.class).list();
