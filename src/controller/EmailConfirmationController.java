@@ -56,7 +56,7 @@ public class EmailConfirmationController {
 		HashCalculator hashCalculator = new HashCalculator(user.getLogin() + user.getEmail());
 		String hash = hashCalculator.getValue();
 		String message = "Confirme sua conta em http://linux.ime.usp.br:8080/rede-social-de-especialistas/usuarios/confirmar/"+user.getId()+"/"+hash;
-		Thread emailSenderThread = new Thread(new EmailSender(user, message, "Confirme sua conta"));
+		Thread emailSenderThread = new Thread(new EmailSender(user.getEmail(), message, "Confirme sua conta"));
 		emailSenderThread.start();
 	}
 }

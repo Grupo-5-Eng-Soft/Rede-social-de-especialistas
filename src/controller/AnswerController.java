@@ -4,12 +4,9 @@ import java.util.ArrayList;
 
 import infra.EmailSender;
 import infra.UserSession;
-import interceptor.annotations.LoggedUser;
 import model.Answer;
 import model.Question;
-import model.Specialist;
 import model.Specialty;
-import model.User;
 import br.com.caelum.vraptor.Path;
 import br.com.caelum.vraptor.Resource;
 import br.com.caelum.vraptor.Result;
@@ -44,11 +41,11 @@ public class AnswerController {
 	}
 	
 	private void sendEmailToAuthor(Question question, Answer answer) {
-		ArrayList<User> users = new ArrayList<User>();
+		ArrayList<String> receivers = new ArrayList<String>();
 		String subject = "Uma resposta para sua pergunta - " + question.getTitle();
 		String message = answer.getDescription();
-		users.add(question.getAuthor());
-		Thread thread = new Thread(new EmailSender(users, message, subject));
+		receivers.add(question.getAuthor().getEmail());
+		Thread thread = new Thread(new EmailSender(receivers, message, subject));
 		thread.start();
 	}
 	

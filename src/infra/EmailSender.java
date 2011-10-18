@@ -2,30 +2,26 @@ package infra;
 
 import java.util.ArrayList;
 
-import hash.HashCalculator;
 
-import model.User;
-
-import org.apache.commons.mail.Email;
 import org.apache.commons.mail.EmailException;
 import org.apache.commons.mail.SimpleEmail;
 
 public class EmailSender implements Runnable {
 	
-	private ArrayList<User> receivers;
+	private ArrayList<String> receivers;
 	private String message;
 	private String subject;
 	
 	
-	public EmailSender(ArrayList<User> receivers, String message, String subject) {
+	public EmailSender(ArrayList<String> receivers, String message, String subject) {
 		this.receivers = receivers;
 		this.message = message;
 		this.subject = subject;
 	}
 	
-	public EmailSender(User user, String message, String subject) {
-		receivers = new ArrayList<User>();
-		receivers.add(user);
+	public EmailSender(String email, String message, String subject) {
+		receivers = new ArrayList<String>();
+		receivers.add(email);
 		this.message = message;
 		this.subject = subject;
 	}
@@ -52,19 +48,18 @@ public class EmailSender implements Runnable {
 		}
 	}
 
-	private void sendEmailToMultipleReceivers(ArrayList<User> receivers, SimpleEmail email) throws EmailException {
-		for (User user : receivers)
-			email.addBcc(user.getEmail());
+	private void sendEmailToMultipleReceivers(ArrayList<String> receivers, SimpleEmail email) throws EmailException {
+		for (String destination : receivers)
+			email.addBcc(destination);
 		email.setFrom("grupo5.engsoft@gmail.com"); 
 		email.setMsg(this.message);
 		email.send();
 
 	}
 
-	private void sendEmailToOneReceiver(User destination, SimpleEmail email) {
-		String emailAddress = destination.getEmail();
+	private void sendEmailToOneReceiver(String destination, SimpleEmail email) {
 		try {
-			email.addTo(emailAddress);
+			email.addTo(destination);
 			email.setFrom("grupo5.engsoft@gmail.com"); 
 			email.setMsg(this.message);
 			email.send();

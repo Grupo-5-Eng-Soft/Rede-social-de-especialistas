@@ -8,7 +8,6 @@ import java.util.ArrayList;
 import model.Question;
 import model.Specialist;
 import model.Specialty;
-import model.User;
 import br.com.caelum.vraptor.Path;
 import br.com.caelum.vraptor.Resource;
 import br.com.caelum.vraptor.Result;
@@ -58,12 +57,12 @@ public class QuestionController {
 	}
 
 	private void sendEmailsToSpecialists(ArrayList<Specialist> specialists, Question question) {
-		ArrayList<User> users = new ArrayList<User>();
+		ArrayList<String> receivers = new ArrayList<String>();
 		String subject = "Nova pergunta na rede social de especialistas - " + question.getTitle();
 		String message = question.getDescription();
 		for (Specialist specialist : specialists)
-			users.add(specialist.getUser());
-		Thread thread = new Thread(new EmailSender(users, message, subject));
+			receivers.add(specialist.getUser().getEmail());
+		Thread thread = new Thread(new EmailSender(receivers, message, subject));
 		thread.start();
 	}
 	
