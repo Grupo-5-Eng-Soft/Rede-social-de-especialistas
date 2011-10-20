@@ -2,7 +2,6 @@ package infra;
 
 import java.util.ArrayList;
 
-
 import org.apache.commons.mail.EmailException;
 import org.apache.commons.mail.SimpleEmail;
 

@@ -37,7 +37,7 @@ public class UserSession implements Serializable {
 	}
 
 	public boolean isSpecialistIn(Specialty specialty) {
-		if (loggedUser == null)
+		if (!isAuthenticated())
 			return false;
 		for (Specialist specialist : loggedUser.getSpecialists()) {
 			if (specialist.getSpecialty().equals(specialty))

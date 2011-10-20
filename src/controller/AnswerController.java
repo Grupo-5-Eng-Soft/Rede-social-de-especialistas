@@ -1,9 +1,10 @@
 package controller;
 
-import java.util.ArrayList;
-
 import infra.EmailSender;
 import infra.UserSession;
+
+import java.util.ArrayList;
+
 import model.Answer;
 import model.Question;
 import model.Specialty;
@@ -35,21 +36,18 @@ public class AnswerController {
 		}
 		answer.setAuthor(userSession.getLoggedUser());
 		answer.setQuestion(question);
-		sendEmailToAuthor(question, answer);
+		sendEmailToAuthor(answer);
 		dao.save(answer);
 		result.redirectTo(QuestionController.class).detail(questionId);
 	}
 	
-	private void sendEmailToAuthor(Question question, Answer answer) {
+	private void sendEmailToAuthor(Answer answer) {
 		ArrayList<String> receivers = new ArrayList<String>();
+		Question question = answer.getQuestion();
 		String subject = "Uma resposta para sua pergunta - " + question.getTitle();
 		String message = answer.getDescription();
-		receivers.add(question.getAuthor().getEmail());
+		receivers.add(question.getEmail());
 		Thread thread = new Thread(new EmailSender(receivers, message, subject));
 		thread.start();
-	}
-	
-	public void save(Answer answer) {
-		dao.save(answer);
 	}
 }
