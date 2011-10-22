@@ -1,7 +1,9 @@
 3 - Usuário se cadastra
     Daqui temos:
-        Usuario:
+        Usuário:
             nome de login;
+            nome do usuário;
+            intituição;
             senha;
         Sistema:
             cadastraUsuario();
