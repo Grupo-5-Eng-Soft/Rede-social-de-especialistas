@@ -26,6 +26,10 @@
 		<form method="post" action="../../atualizacao/" >
 			Email<br />
 			<input type="text" size="30" value="${user.email}" name="user.email" /><br /><br />
+			Instituição<br />
+			<input type="text" size="30" name="user.institution" /><br />
+			Nome<br />
+			<input type="text" size="30" name="user.name" /><br />
 			Especialidades<br />
 			<c:forEach var="specialty" items="${specialties}">
 				<% String s = new String("");%>

@@ -30,6 +30,10 @@
 			<input type="text" size="30" name="user.login"/><br />
 			Email<br />
 			<input type="text" size="30" name="user.email" /><br />
+			Instituição<br />
+			<input type="text" size="30" name="user.institution" /><br />
+			Nome<br />
+			<input type="text" size="30" name="user.name" /><br />
 			Senha<br />
 			<input type="password" size="30" name="user.password" id="password"/><br />
 			Confirmação de senha<br />

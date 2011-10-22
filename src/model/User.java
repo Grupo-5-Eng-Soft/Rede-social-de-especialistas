@@ -29,6 +29,12 @@ public class User implements Serializable {
 	@NotEmpty
 	private String login;
 	
+	private String institution;
+	
+	public String getName() {
+		return name;
+	}
+
 	private String password;
 	
 	@NotEmpty
@@ -62,6 +68,21 @@ public class User implements Serializable {
 		this.login = login;
 	}
 
+	public String getInstitution() {
+		return institution;
+	}
+
+	public void setInstitution(String institution) {
+		this.institution = institution;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	private String name;
+	
+	
 	@NotEmpty
 	public String getPassword() {
 		return this.password;
