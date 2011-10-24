@@ -11,7 +11,6 @@ import br.com.caelum.vraptor.Post;
 import br.com.caelum.vraptor.Resource;
 import br.com.caelum.vraptor.Result;
 import br.com.caelum.vraptor.Validator;
-import br.com.caelum.vraptor.validator.ValidationMessage;
 import br.com.caelum.vraptor.validator.Validations;
 import dao.UserDao;
 
@@ -86,26 +85,20 @@ public class UserController {
 	
 	@Path("/usuarios/atualizacao/")
 	public void saveEdit(User user, ArrayList<Long> specialties_ids) {
-		user.setPassword(userSession.getLoggedUser().getPassword());
-		user.setRole(userSession.getLoggedUser().getRole());
-		user.setLogin(userSession.getLoggedUser().getLogin());
+		copyUnchangeableFields(user);
 		user.setActive(true);
-		user.setId(userSession.getLoggedUser().getId());
-		if (user.getEmail().isEmpty()) {
-			validator.add(new ValidationMessage("E-mail é obrigatório.","user.email"));
-		}
-		if (user.getEmail().split("@").length != 2) {
-			validator.add(new ValidationMessage("E-mail inválido.","user.email"));
-		}
-		if (dao.getUserByEmail(user.getEmail()) != null && !userSession.getLoggedUser().getEmail().equals(user.getEmail())) {
-			validator.add(new ValidationMessage("E-mail já existente.","user.email"));
-			System.out.println("EMAIL3\n");
-		}
-		validator.onErrorRedirectTo(this).userForm();
+		validateProfile(user);
 		dao.edit(user, specialties_ids);
 		userSession.getLoggedUser().setLogin(user.getLogin());
 		userSession.getLoggedUser().setEmail(user.getEmail());
 		result.redirectTo(IndexController.class).index();
+	}
+
+	private void copyUnchangeableFields(User user) {
+		user.setPassword(userSession.getLoggedUser().getPassword());
+		user.setRole(userSession.getLoggedUser().getRole());
+		user.setLogin(userSession.getLoggedUser().getLogin());
+		user.setId(userSession.getLoggedUser().getId());
 	}
 	
 	@Path("/usuarios/{userId}/")
@@ -119,12 +112,21 @@ public class UserController {
 		result.include("user",dao.listUser());
 	}
 	
-	private void validateUser(final User user) {
-		validator.checking(new Validations() {{
-			that(!user.getLogin().isEmpty(), "user", "login.obrigatorio");
-			
+	private void validateProfile(final User user) {
+		validator.checking(new Validations() {{			
 			that(!user.getEmail().isEmpty(), "user.email", "email.obrigatorio");
 			that(user.getEmail().split("@").length == 2, "user.email", "email.invalido");
+
+			that(dao.getUserByEmail(user.getEmail()).getId() == user.getId(),"user.email", "email.ja.existente");
+		}});
+		
+		validator.onErrorRedirectTo(this).userForm();
+	}
+	
+	private void validateUser(final User user) {
+		validateProfile(user);
+		validator.checking(new Validations() {{
+			that(!user.getLogin().isEmpty(), "user", "login.obrigatorio");
 
 			that(!user.getPassword().isEmpty(), "user.password", "senha.obrigatoria");
 			that(user.getPassword().length() >= 6, "user.password", "senha.menor.que.6.caracteres");
