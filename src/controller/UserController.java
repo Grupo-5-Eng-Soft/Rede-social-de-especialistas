@@ -11,6 +11,7 @@ import br.com.caelum.vraptor.Post;
 import br.com.caelum.vraptor.Resource;
 import br.com.caelum.vraptor.Result;
 import br.com.caelum.vraptor.Validator;
+import br.com.caelum.vraptor.validator.ValidationMessage;
 import br.com.caelum.vraptor.validator.Validations;
 import dao.UserDao;
 
@@ -88,6 +89,9 @@ public class UserController {
 		copyUnchangeableFields(user);
 		user.setActive(true);
 		validateProfile(user);
+		if(dao.getUserByEmail(user.getEmail()).getId() == user.getId()) {
+			validator.add(new ValidationMessage("user.email", "email.ja.existente"));
+		}
 		dao.edit(user, specialties_ids);
 		userSession.getLoggedUser().setLogin(user.getLogin());
 		userSession.getLoggedUser().setEmail(user.getEmail());
@@ -116,8 +120,6 @@ public class UserController {
 		validator.checking(new Validations() {{			
 			that(!user.getEmail().isEmpty(), "user.email", "email.obrigatorio");
 			that(user.getEmail().split("@").length == 2, "user.email", "email.invalido");
-
-			that(dao.getUserByEmail(user.getEmail()).getId() == user.getId(),"user.email", "email.ja.existente");
 		}});
 		
 		validator.onErrorRedirectTo(this).userForm();
