@@ -45,7 +45,7 @@
 		</table>
 		
 		
-		<h1> Ultimas 5 Perguntas </h1>
+		<h1> Últimas 5 Perguntas </h1>
 		<table>
 			<tr>
 				<td> Título </td>
