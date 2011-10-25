@@ -48,9 +48,9 @@
 		<h1> Últimas 5 Perguntas </h1>
 		<table>
 			<tr>
-				<td> Título </td>
-				<td> Especialidade </td> 
-				<td> Autor </td> 		
+				<td width="180"> Título </td>
+				<td width="180"> Especialidade </td> 
+				<td width="180"> Autor </td> 		
 			</tr>
 			<c:forEach var="question" items="${question}">
 				<tr>
