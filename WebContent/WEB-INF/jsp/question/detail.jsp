@@ -31,11 +31,12 @@ function toggle(obj) {
 	<div id="content">
 		<div id="question">
 			<h2>${question.title}</h2>
+			<h6>Especialidade: ${question.specialty.name}</h6>
 			<c:if test="${question.author != null}">
-				<h6>Autor: ${question.author.login} - Especialidade: ${question.specialty.name}</h6>
+				<h6>Autor: ${question.author.login} </h6>
 			</c:if>
 			<c:if test="${question.author == null}">
-				<h6>Autor: ${question.email} - Especialidade: ${question.specialty.name}</h6>
+				<h6>Autor: ${question.email} </h6>
 			</c:if>
 			<h4>${question.description}<br /><br /></h4>
 		</div>
