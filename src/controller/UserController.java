@@ -75,7 +75,7 @@ public class UserController {
 		user.setActive(false);
 		user.setPasswordFromRawString(user.getPassword());
 		dao.save(user, specialties_ids);
-		result.redirectTo(EmailConfirmationController.class).createAndSendEmailConfirmation(user);
+		result.redirectTo(EmailConfirmationController.class).createAndSendEmailConfirmation(user, null);
 	}
 
 	@Path("/usuarios/editar/{userId}/")
@@ -87,15 +87,27 @@ public class UserController {
 	@Path("/usuarios/atualizacao/")
 	public void saveEdit(User user, ArrayList<Long> specialties_ids) {
 		copyUnchangeableFields(user);
-		user.setActive(true);
 		validateProfile(user);
-		if(dao.getUserByEmail(user.getEmail()).getId() == user.getId()) {
+		User userByEmail = dao.getUserByEmail(user.getEmail());
+		if (userByEmail != null && userByEmail.getId() != user.getId()) {
 			validator.add(new ValidationMessage("user.email", "email.ja.existente"));
 		}
-		dao.edit(user, specialties_ids);
-		userSession.getLoggedUser().setLogin(user.getLogin());
-		userSession.getLoggedUser().setEmail(user.getEmail());
-		result.redirectTo(IndexController.class).index();
+		if (user.getEmail() != userSession.getLoggedUser().getEmail()) {
+			user.setActive(false);
+			dao.edit(user, specialties_ids);
+			userSession.logout();
+			result.redirectTo(EmailConfirmationController.class).
+				createAndSendEmailConfirmation(user, "Sua conta foi editada com susesso," +
+				" verifique a sua caixa de mensagens para confirmar a mudança do seu email.");
+			
+		}
+		else {
+			user.setActive(true);
+			userSession.getLoggedUser().setLogin(user.getLogin());
+			userSession.getLoggedUser().setEmail(user.getEmail());
+			result.redirectTo(IndexController.class).index();
+			dao.edit(user, specialties_ids);
+		}
 	}
 
 	private void copyUnchangeableFields(User user) {

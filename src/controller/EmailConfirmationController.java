@@ -23,10 +23,12 @@ public class EmailConfirmationController {
 		this.users = users;
 	}
 	
-	public void createAndSendEmailConfirmation(User user) {
+	public void createAndSendEmailConfirmation(User user, String message) {
 		dao.saveEmailConfirmationFromUser(user);
 		sendEmail(user);
-		result.include("notice", "Seu cadastro foi efetuado com sucesso, verifique seu email.");
+		if (message == null)
+			message = "Seu cadastro foi efetuado com sucesso, verifique seu email.";
+		result.include("notice", message);
 		result.redirectTo(IndexController.class).index();
 	}
 	
@@ -52,6 +54,7 @@ public class EmailConfirmationController {
 		result.include("message", "Parabéns, sua conta foi ativada!");
 	}
 
+	
 	private void sendEmail(User user) {
 		HashCalculator hashCalculator = new HashCalculator(user.getLogin() + user.getEmail());
 		String hash = hashCalculator.getValue();

@@ -61,15 +61,11 @@ public class UserDao {
 	}
 	
 	public void edit(User user, ArrayList<Long> specialties_ids) {
-		User u;
 		Transaction tx = session.beginTransaction();
-		u = (User) session.load(User.class, user.getId());
-		u.setEmail(user.getEmail());
-		u.setLogin(user.getLogin());
-		session.update(u);
-		cleanSpecialists(u);
-		saveSpecialties(u, specialties_ids);
-		session.update(u);
+		session.update(user);
+		cleanSpecialists(user);
+		saveSpecialties(user, specialties_ids);
+		session.update(user);
 		tx.commit();
 	}
 	
