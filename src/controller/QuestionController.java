@@ -1,5 +1,6 @@
 package controller;
 
+import infra.Email;
 import infra.EmailSender;
 import infra.UserSession;
 
@@ -43,7 +44,6 @@ public class QuestionController {
 		Specialty specialty = dao.getSpecialty(specialtyId);
 		ArrayList<Specialist> specialists = dao.getSpecialists(specialty);
 		
-		sendEmailsToSpecialists(specialists, question);
 		if(userSession.isAuthenticated()) {
 			question.setEmail(null);
 			question.setAuthor(userSession.getLoggedUser());
@@ -53,13 +53,16 @@ public class QuestionController {
 		}
 		question.setSpecialty(specialty);
 		dao.save(question);
+		sendEmailsToSpecialists(specialists, question);
 		result.redirectTo(QuestionController.class).list();
 	}
 
 	private void sendEmailsToSpecialists(ArrayList<Specialist> specialists, Question question) {
 		ArrayList<String> receivers = new ArrayList<String>();
 		String subject = "Nova pergunta na rede social de especialistas - " + question.getTitle();
-		String message = question.getDescription();
+		
+		String message = Email.templateForMessage(question.getDescription(), question.getId());
+	
 		for (Specialist specialist : specialists)
 			receivers.add(specialist.getUser().getEmail());
 		Thread thread = new Thread(new EmailSender(receivers, message, subject));

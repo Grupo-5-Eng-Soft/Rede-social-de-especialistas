@@ -62,10 +62,8 @@ public class UserDao {
 	
 	public void edit(User user, ArrayList<Long> specialties_ids) {
 		Transaction tx = session.beginTransaction();
-		session.update(user);
 		cleanSpecialists(user);
 		saveSpecialties(user, specialties_ids);
-		session.update(user);
 		tx.commit();
 	}
 	
