@@ -1,5 +1,6 @@
 package controller;
 
+import infra.Email;
 import infra.EmailSender;
 import infra.UserSession;
 
@@ -46,12 +47,7 @@ public class AnswerController {
 		Question question = answer.getQuestion();
 		String subject = "Uma resposta para sua pergunta - " + question.getTitle();
 		
-		String message = 
-						answer.getDescription() +
-						'\n' +
-						"Link para a pergunta: " +
-						"http://linux.ime.usp.br:8080/rede-social-de-especialistas/perguntas/" +
-						answer.getQuestion().getId() + '/';
+		String message = Email.templateForMessage(answer.getDescription(), answer.getQuestion().getId());
 		
 		receivers.add(question.getEmail());
 		Thread thread = new Thread(new EmailSender(receivers, message, subject));

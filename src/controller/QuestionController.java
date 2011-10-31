@@ -1,5 +1,6 @@
 package controller;
 
+import infra.Email;
 import infra.EmailSender;
 import infra.UserSession;
 
@@ -59,12 +60,8 @@ public class QuestionController {
 	private void sendEmailsToSpecialists(ArrayList<Specialist> specialists, Question question) {
 		ArrayList<String> receivers = new ArrayList<String>();
 		String subject = "Nova pergunta na rede social de especialistas - " + question.getTitle();
-		String message = 
-						question.getDescription() +
-						'\n' +
-						"Link para a pergunta: " +
-						"http://linux.ime.usp.br:8080/rede-social-de-especialistas/perguntas/" +
-						question.getId() + '/';
+		
+		String message = Email.templateForMessage(question.getDescription(), question.getId());
 	
 		for (Specialist specialist : specialists)
 			receivers.add(specialist.getUser().getEmail());
