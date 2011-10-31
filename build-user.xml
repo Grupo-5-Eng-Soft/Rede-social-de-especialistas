@@ -1,4 +1,8 @@
 <project>
+	<target name="build-subprojects">
+	</target>
+	<target name="build-project">
+	</target>
     <target depends="build-subprojects,build-project" name="build">
         <antcall target="war"/>
     </target>
