@@ -93,7 +93,7 @@ public class UserController {
 			validator.add(new ValidationMessage("user.email", "email.ja.existente"));
 		}
 		if (user.getEmail() != userSession.getLoggedUser().getEmail()) {
-			user.setActive(false);
+			userByEmail.setActive(false);
 			dao.edit(user, specialties_ids);
 			userSession.logout();
 			result.redirectTo(EmailConfirmationController.class).
