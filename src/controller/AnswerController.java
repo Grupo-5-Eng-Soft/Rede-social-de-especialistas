@@ -36,8 +36,8 @@ public class AnswerController {
 		}
 		answer.setAuthor(userSession.getLoggedUser());
 		answer.setQuestion(question);
-		sendEmailToAuthor(answer);
 		dao.save(answer);
+		sendEmailToAuthor(answer);
 		result.redirectTo(QuestionController.class).detail(questionId);
 	}
 	
@@ -45,7 +45,14 @@ public class AnswerController {
 		ArrayList<String> receivers = new ArrayList<String>();
 		Question question = answer.getQuestion();
 		String subject = "Uma resposta para sua pergunta - " + question.getTitle();
-		String message = answer.getDescription();
+		
+		String message = 
+						answer.getDescription() +
+						'\n' +
+						"Link para a pergunta: " +
+						"http://linux.ime.usp.br:8080/rede-social-de-especialistas/perguntas/" +
+						answer.getQuestion().getId() + '/';
+		
 		receivers.add(question.getEmail());
 		Thread thread = new Thread(new EmailSender(receivers, message, subject));
 		thread.start();
