@@ -133,6 +133,14 @@ public class User implements Serializable {
 	public void setSpecialists(List<Specialist> specialists) {
 		this.specialists = specialists;
 	}
+	
+	public boolean isSpecialistIn(Specialty specialty) {
+		for (Specialist specialist : getSpecialists()) {
+			if (specialist.getSpecialty().equals(specialty))
+				return true;
+		}
+		return false;
+	}
 
 }
 

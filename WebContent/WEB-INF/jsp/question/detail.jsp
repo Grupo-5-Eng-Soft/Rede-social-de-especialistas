@@ -43,12 +43,22 @@ function toggle(obj) {
 		<c:forEach var="answer" items="${question.answers}">
 			<div id="answer">
 				<h5>Resposta para: ${question.title}</h5>
-				<h6>Especialista: ${answer.author.login}</h6>
+				<c:if test="${answer.author.isSpecialistIn(question.getSpecialty())}">
+					<h6>Especialista: 
+				</c:if>
+				<c:if test="${!answer.author.isSpecialistIn(question.getSpecialty())}">
+					<h6>Autor: 
+				</c:if>
+				${answer.author.login}</h6>
 				<p>${answer.description}<br /><br /></p>
 			</div>
 		</c:forEach>
 		<br />
-		<c:if test="${isSpecialist}">
+		<!-- <c:if test="${isSpecialist}">
+			<a href="#" onclick="toggle('maisinfo');">Responder</a>
+		</c:if> 
+		foi combinado que qualquer um pode responder uma pergunta, desde que esteja logado-->
+		<c:if test="${userSession.authenticated}">
 			<a href="#" onclick="toggle('maisinfo');">Responder</a>
 		</c:if>
 		<div id="maisinfo" style="display:none">

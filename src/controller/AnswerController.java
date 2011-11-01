@@ -31,7 +31,12 @@ public class AnswerController {
 	public void answer(Answer answer, Long questionId) {
 		Question question = dao.getQuestion(questionId);
 		Specialty specialty = question.getSpecialty();
-		if (!userSession.isSpecialistIn(specialty)) {
+		/*if (!userSession.isSpecialistIn(specialty)) {
+			result.redirectTo(ErrorController.class).errorscreen();
+			return;
+		}*/
+		/*Foi combinado que qualquer pessoa, desde que esteja logada, pode responder uma pergunta.*/
+		if (!userSession.isAuthenticated()) {
 			result.redirectTo(ErrorController.class).errorscreen();
 			return;
 		}
