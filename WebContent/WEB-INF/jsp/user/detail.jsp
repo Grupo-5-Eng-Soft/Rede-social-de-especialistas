@@ -19,16 +19,34 @@
 	<jsp:include page="../include/menu.jsp" />
 	<div id="content">
 		<h1>${user.login}</h1>
+		<c:if test="${userSession.getLoggedUser().isAdmin()}">
+			<c:if test="${!user.getCertified()}">
+				<a href="<c:url value="/usuario/certificado/${user.id}"/>">Certificar</a>
+			</c:if>
+			<c:if test="${user.getCertified()}">
+				<a href="<c:url value="/usuario/certificado/${user.id}"/>">Descertificar</a>
+			</c:if>		
+		</c:if>
+		
 		<br />
 		<b>Especialidades: </b>
 		<ul>
+		<table>
+			<tr>
+				<td width="180"> Especialidade </td> 
+				<td width="100"> Pontuação </td>
+			</tr>
 			<c:forEach var="specialist" items="${user.specialists}">
-				<li><a href="<c:url value="/especialidades/${specialist.specialty.id}/"/>">${specialist.specialty.name}</a></li>			
+				<tr>
+					<td> <li><a href="<c:url value="/especialidades/${specialist.specialty.id}/"/>">${specialist.specialty.name}</a></li></td>
+					<td>${specialist.score}</td>
+				</tr>
 			</c:forEach>
+		</table>
 		</ul>
 	</div>
 	<div id="bottom">
 	</div> 
-</body>
+</body>	
                
 </html>

@@ -38,6 +38,12 @@ public class UserDao {
 		tx.commit();
 	}
 	
+	public void updateUser(User user) {
+		Transaction tx = session.beginTransaction();
+		session.update(user);
+		tx.commit();
+	}
+	
 	public ArrayList<Specialist> getSpecialists(User user) {
 		return (ArrayList<Specialist>) this.session.createCriteria(Specialist.class)
 			.add(Restrictions.eq("user", user))

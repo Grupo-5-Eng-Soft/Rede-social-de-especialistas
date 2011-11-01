@@ -37,6 +37,9 @@ public class User implements Serializable {
 
 	private String password;
 	
+	@NotNull
+	private boolean certified;
+	
 	@NotEmpty
 	private String email;
 	
@@ -132,6 +135,14 @@ public class User implements Serializable {
 
 	public void setSpecialists(List<Specialist> specialists) {
 		this.specialists = specialists;
+	}
+	
+	public boolean getCertified() {
+		return certified;
+	}
+	
+	public void setCertified(boolean certified) {
+		this.certified = certified;
 	}
 	
 	public boolean isSpecialistIn(Specialty specialty) {

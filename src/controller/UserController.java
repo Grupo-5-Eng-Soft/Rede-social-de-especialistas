@@ -4,6 +4,7 @@ import hash.HashCalculator;
 import infra.UserSession;
 
 import java.util.ArrayList;
+import interceptor.annotations.Admin;
 
 import model.User;
 import br.com.caelum.vraptor.Path;
@@ -73,6 +74,7 @@ public class UserController {
 	public void save(User user, ArrayList<Long> specialties_ids) {
 		validateUser(user);
 		user.setActive(false);
+		user.setCertified(false);
 		user.setPasswordFromRawString(user.getPassword());
 		dao.save(user, specialties_ids);
 		result.redirectTo(EmailConfirmationController.class).createAndSendEmailConfirmation(user, null);
@@ -151,6 +153,15 @@ public class UserController {
 		});
 
 		validator.onErrorRedirectTo(this).userForm();
+	}
+	
+	@Admin
+	@Path("/usuario/certificado/{userId}")
+	public void certify(Long userId) {
+		User user = dao.getUser(userId);
+		user.setCertified(!user.getCertified());
+		dao.updateUser(user);
+		result.redirectTo(UserController.class).detail(userId);
 	}
 
 }
