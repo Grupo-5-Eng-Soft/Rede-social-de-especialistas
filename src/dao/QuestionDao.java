@@ -14,6 +14,7 @@ import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.criterion.Criterion;
+import org.hibernate.criterion.Junction;
 import org.hibernate.criterion.LogicalExpression;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
@@ -77,15 +78,13 @@ public class QuestionDao {
 	}
 
 	public List<Question> listAvaiableQuestionsOf(User loggedUser) {
-		Criterion publicQuestionsCriterion = Restrictions.eq("publicQuestion", true);
-		Criterion privateQuestionsCriterion = Restrictions.in("specialty", loggedUser.getSpecialtiesOfSpecialists());
-		Criterion isQuestionAuthorCriterion = Restrictions.eq("author", loggedUser);
-		Criterion publicOrPrivate = Restrictions.or(publicQuestionsCriterion, privateQuestionsCriterion);
-		Criterion avaiableQuestionsCriterion = Restrictions.or(publicOrPrivate, isQuestionAuthorCriterion);
+		Criterion avaiableQuestionsCriterion = Restrictions.disjunction().
+		  add(Restrictions.eq("publicQuestion", true)).
+		  add(Restrictions.in("specialty", loggedUser.getSpecialtiesOfSpecialists())).
+		  add(Restrictions.eq("author", loggedUser));
 		Criteria avaiableQuestionsCriteria = this.session.
 				createCriteria(Question.class).
 				add(avaiableQuestionsCriterion);
-		
 		return avaiableQuestionsCriteria.list();
 	}
 	
