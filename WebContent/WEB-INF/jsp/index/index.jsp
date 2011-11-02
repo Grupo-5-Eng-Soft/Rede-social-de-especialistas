@@ -53,11 +53,13 @@
 				<td width="180"> Autor </td> 		
 			</tr>
 			<c:forEach var="question" items="${question}">
-				<tr>
-					<td> <a href="<c:url value="/perguntas/${question.id}/"/>">${question.title}</a></td>
-					<td> <a href="<c:url value="/especialidades/${question.specialty.id}/"/>">${question.specialty.name}</a></td>
-					<td> <a href="<c:url value="/usuarios/${question.author.id}/"/>">${question.author.login}</a></td>
-				</tr>
+				<c:if test="${question.publicQuestion || userSession.authenticated && userSession.loggedUser.isSpecialistIn(question.specialty)}">
+					<tr>
+						<td> <a href="<c:url value="/perguntas/${question.id}/"/>">${question.title}</a></td>
+						<td> <a href="<c:url value="/especialidades/${question.specialty.id}/"/>">${question.specialty.name}</a></td>
+						<td> <a href="<c:url value="/usuarios/${question.author.id}/"/>">${question.author.login}</a></td>
+					</tr>
+				</c:if>
 			</c:forEach>
 		</table>
 		</div>
