@@ -43,7 +43,7 @@
 			<input name="user.role" type="radio" value="ADMIN"/>Administrador<br /><br />
 			Especialidades<br />
 			<c:forEach var="specialty" items="${specialties}">
-			<input name="specialties_ids" type="checkbox" value="${specialty.id}"> ${specialty.name}<br />
+				<input name="specialties_ids" type="checkbox" value="${specialty.id}"> ${specialty.name}<br />
 			</c:forEach>
 			<br />
 			<input type="submit" value="Enviar"/>

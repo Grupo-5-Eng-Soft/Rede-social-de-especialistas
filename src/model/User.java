@@ -153,5 +153,13 @@ public class User implements Serializable {
 		return false;
 	}
 
+	public List<Specialty> getSpecialtiesOfSpecialists() {
+		List<Specialty> specialties = new ArrayList<Specialty>();
+		for (Specialist specialist : this.specialists) {
+			specialties.add(specialist.getSpecialty());
+		}
+		return specialties;
+	}
+
 }
 

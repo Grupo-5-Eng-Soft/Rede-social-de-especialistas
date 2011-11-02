@@ -3,6 +3,7 @@ package model;
 import java.util.ArrayList;
 import java.util.Collection;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -37,6 +38,10 @@ public class Question {
 	@Valid
 	@NotNull
 	private String description;
+	
+	@Valid
+	@NotNull
+	private boolean publicQuestion = true;
 
 	public User getAuthor() {
 		return author;
@@ -92,6 +97,14 @@ public class Question {
 
 	public String getEmail() {
 		return this.getAuthor() == null ? this.email : this.getAuthor().getEmail();
+	}
+
+	public boolean isPublicQuestion() {
+		return publicQuestion;
+	}
+
+	public void setPublicQuestion(boolean publicQuestion) {
+		this.publicQuestion = publicQuestion;
 	}
 	
 }

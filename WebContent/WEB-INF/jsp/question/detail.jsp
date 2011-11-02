@@ -32,6 +32,12 @@ function toggle(obj) {
 		<div id="question">
 			<h2>${question.title}</h2>
 			<h6>Especialidade: ${question.specialty.name}</h6>
+			<c:if test="${question.publicQuestion}">
+				<h6>Dúvida pública</h6>
+			</c:if>
+			<c:if test="${!question.publicQuestion}">
+				<h6>Dúvida privada</h6>
+			</c:if>
 			<c:if test="${question.author != null}">
 				<h6>Autor: ${question.author.login} </h6>
 			</c:if>

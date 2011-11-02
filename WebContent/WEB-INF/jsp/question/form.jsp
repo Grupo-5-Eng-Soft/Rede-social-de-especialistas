@@ -26,10 +26,18 @@
 				<input type="text" size="40" name="question.title" /></p>
 			<c:if test="${!userSession.authenticated}">
 				<p>Email: <br />
-					<input type="text" size="40" name="question.email" /></p>
+					<input type="text" size="40" name="question.email" />
+				</p>
+			</c:if>
+			<c:if test="${userSession.authenticated}">
+				<p>Visibilidade: <br />
+					<input type="radio" name="question.publicQuestion" value="true" /> Pública<br />
+					<input type="radio" name="question.publicQuestion" value="false" /> Privada (só os especialistas certificados poderão vizualizar/responder)
+				</p>
 			</c:if>
 			<p>Pergunta: <br />
-				<textarea cols="80" rows="6" name="question.description"></textarea></p>
+				<textarea cols="80" rows="6" name="question.description"></textarea>
+			</p>
 			<p>Especialidade: 
 				<select name="specialtyId">
 					<c:forEach var="specialty" items="${specialties}">

@@ -8,10 +8,15 @@ import model.Answer;
 import model.Question;
 import model.Specialist;
 import model.Specialty;
+import model.User;
 
+import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.hibernate.criterion.Criterion;
+import org.hibernate.criterion.LogicalExpression;
 import org.hibernate.criterion.Order;
+import org.hibernate.criterion.Restrictions;
 
 import br.com.caelum.vraptor.ioc.Component;
 
@@ -53,7 +58,7 @@ public class QuestionDao {
 		return (Question) this.session.get(Question.class, questionId);
 	}
 
-	public ArrayList<Specialist> getSpecialists(Specialty specialty) {
+	public List<Specialist> getSpecialists(Specialty specialty) {
 		SpecialtyDao dao = new SpecialtyDao(session);
 		return dao.getSpecialists(specialty);
 	}
@@ -62,6 +67,26 @@ public class QuestionDao {
 	public List<Question> getLastQuestions() {
 		return this.session.createCriteria(Question.class).addOrder( Order.desc("id")).setMaxResults(5).list();
 
+	}
+
+	public List<Question> listPublicQuestions() {
+		List<Question> publicQuestions = (List<Question>) this.session.createCriteria(Question.class).
+				add(Restrictions.eq("publicQuestion", true)).
+				list();
+		return publicQuestions;
+	}
+
+	public List<Question> listAvaiableQuestionsOf(User loggedUser) {
+		Criterion publicQuestionsCriterion = Restrictions.eq("publicQuestion", true);
+		Criterion privateQuestionsCriterion = Restrictions.in("specialty", loggedUser.getSpecialtiesOfSpecialists());
+		Criterion isQuestionAuthorCriterion = Restrictions.eq("author", loggedUser);
+		Criterion publicOrPrivate = Restrictions.or(publicQuestionsCriterion, privateQuestionsCriterion);
+		Criterion avaiableQuestionsCriterion = Restrictions.or(publicOrPrivate, isQuestionAuthorCriterion);
+		Criteria avaiableQuestionsCriteria = this.session.
+				createCriteria(Question.class).
+				add(avaiableQuestionsCriterion);
+		
+		return avaiableQuestionsCriteria.list();
 	}
 	
 }

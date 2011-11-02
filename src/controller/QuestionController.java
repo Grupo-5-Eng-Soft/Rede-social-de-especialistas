@@ -5,6 +5,7 @@ import infra.EmailSender;
 import infra.UserSession;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import model.Question;
 import model.Specialist;
@@ -42,7 +43,7 @@ public class QuestionController {
 		validate(question, specialtyId);
 		
 		Specialty specialty = dao.getSpecialty(specialtyId);
-		ArrayList<Specialist> specialists = dao.getSpecialists(specialty);
+		List<Specialist> specialists = dao.getSpecialists(specialty);
 		
 		if(userSession.isAuthenticated()) {
 			question.setEmail(null);
@@ -57,7 +58,7 @@ public class QuestionController {
 		result.redirectTo(QuestionController.class).list();
 	}
 
-	private void sendEmailsToSpecialists(ArrayList<Specialist> specialists, Question question) {
+	private void sendEmailsToSpecialists(List<Specialist> specialists, Question question) {
 		ArrayList<String> receivers = new ArrayList<String>();
 		String subject = "Nova pergunta na rede social de especialistas - " + question.getTitle();
 		
@@ -71,7 +72,10 @@ public class QuestionController {
 	
 	@Path("/perguntas/")
 	public void list() {
-		result.include("questions", dao.listQuestions());
+		if (!userSession.isAuthenticated())
+			result.include("questions", dao.listPublicQuestions());
+		else
+			result.include("questions", dao.listAvaiableQuestionsOf(userSession.getLoggedUser()));
 	}
 	
 	@Path("/perguntas/{questionId}/")
