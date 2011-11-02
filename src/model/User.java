@@ -137,7 +137,7 @@ public class User implements Serializable {
 		this.specialists = specialists;
 	}
 	
-	public boolean getCertified() {
+	public boolean isCertified() {
 		return certified;
 	}
 	

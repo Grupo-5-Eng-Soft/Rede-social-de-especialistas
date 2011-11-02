@@ -159,7 +159,7 @@ public class UserController {
 	@Path("/usuario/certificado/{userId}")
 	public void certify(Long userId) {
 		User user = dao.getUser(userId);
-		user.setCertified(!user.getCertified());
+		user.setCertified(!user.isCertified());
 		dao.updateUser(user);
 		result.redirectTo(UserController.class).detail(userId);
 	}

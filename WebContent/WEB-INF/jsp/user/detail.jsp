@@ -3,10 +3,10 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<jsp:include page="../include/head.jsp" />
-<title>Usuário: ${user.login}</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+	<jsp:include page="../include/head.jsp" />
+	<title>Usuário: ${user.login}</title>
 </head>
 <body>
 
@@ -18,23 +18,25 @@
 	
 	<jsp:include page="../include/menu.jsp" />
 	<div id="content">
-		<h1>${user.login}</h1>
-		<c:if test="${userSession.getLoggedUser().isAdmin()}">
-			<c:if test="${!user.getCertified()}">
-				<a href="<c:url value="/usuario/certificado/${user.id}"/>">Certificar</a>
+		<div id="tabs">
+			<h1>${user.login}</h1>
+			<c:if test="${userSession.loggedUser.admin}">
+				<c:if test="${!user.certified}">
+					<a href="<c:url value="/usuario/certificado/${user.id}"/>">Certificar</a>
+				</c:if>
+				<c:if test="${user.certified}">
+					<a href="<c:url value="/usuario/certificado/${user.id}"/>">Descertificar</a>
+				</c:if>		
 			</c:if>
-			<c:if test="${user.getCertified()}">
-				<a href="<c:url value="/usuario/certificado/${user.id}"/>">Descertificar</a>
-			</c:if>		
-		</c:if>
-		
+		</div>
 		<br />
-		<b>Especialidades: </b>
+		<br />
+		<h3>Especialidades: </h3>
 		<ul>
 		<table>
 			<tr>
-				<td width="180"> Especialidade </td> 
-				<td width="100"> Pontuação </td>
+				<th width="180"> </th> 
+				<th width="100"> Pontuação </th>
 			</tr>
 			<c:forEach var="specialist" items="${user.specialists}">
 				<tr>
