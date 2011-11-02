@@ -11,6 +11,7 @@
     <property name="debuglevel" value="source,lines,vars"/>
     <property name="target" value="1.6"/>
     <property name="source" value="1.6"/>
+    <path id="Server Library [Tomcat] (unbound).libraryclasspath"/>
     <path id="Web App Libraries.libraryclasspath">
         <pathelement location="WebContent/WEB-INF/lib/activation.jar"/>
         <pathelement location="WebContent/WEB-INF/lib/antlr-2.7.6.jar"/>
@@ -22,6 +23,8 @@
         <pathelement location="WebContent/WEB-INF/lib/commons-email-1.2-javadoc.jar"/>
         <pathelement location="WebContent/WEB-INF/lib/commons-email-1.2-sources.jar"/>
         <pathelement location="WebContent/WEB-INF/lib/commons-email-1.2.jar"/>
+        <pathelement location="WebContent/WEB-INF/lib/commons-fileupload-1.2.1.jar"/>
+        <pathelement location="WebContent/WEB-INF/lib/commons-io-1.4.jar"/>
         <pathelement location="WebContent/WEB-INF/lib/commons-logging.jar"/>
         <pathelement location="WebContent/WEB-INF/lib/dom4j-1.6.1.jar"/>
         <pathelement location="WebContent/WEB-INF/lib/guava-r07.jar"/>
@@ -59,9 +62,12 @@
         <pathelement location="WebContent/WEB-INF/lib/vraptor-3.3.1.jar"/>
         <pathelement location="WebContent/WEB-INF/lib/xstream-1.3.1.jar"/>
     </path>
+    <path id="EAR Libraries.libraryclasspath"/>
     <path id="rede-social-de-especialistas.classpath">
         <pathelement location="build/classes"/>
+        <path refid="Server Library [Tomcat] (unbound).libraryclasspath"/>
         <path refid="Web App Libraries.libraryclasspath"/>
+        <path refid="EAR Libraries.libraryclasspath"/>
         <pathelement location="WebContent/WEB-INF/lib/mail.jar"/>
         <pathelement location="WebContent/WEB-INF/lib/commons-email-1.2.jar"/>
         <pathelement location="WebContent/WEB-INF/lib/activation.jar"/>
@@ -117,6 +123,7 @@
         <mkdir dir="${junit.output.dir}"/>
         <junit fork="yes" printsummary="withOutAndErr">
             <formatter type="xml"/>
+            <test name="controller.AnswerControllerTest" todir="${junit.output.dir}"/>
             <test name="controller.EmailConfirmationControllerTest" todir="${junit.output.dir}"/>
             <test name="controller.QuestionControllerTest" todir="${junit.output.dir}"/>
             <test name="controller.SpecialtyControllerTest" todir="${junit.output.dir}"/>
