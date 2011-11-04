@@ -4,4 +4,5 @@
 	<div class="item"><a href="<c:url value="/usuarios/listar/"/>">Usuários</a></div>
 	<div class="item"><a href="<c:url value="/especialidades/listar/"/>">Especialidades</a></div>
 	<div class="item"><a href="<c:url value="/perguntas/"/>">Perguntas</a></div>
+	<div class="item"><a href="<c:url value="/"/>">Voltar a página inicial</a></div>
 </div>
