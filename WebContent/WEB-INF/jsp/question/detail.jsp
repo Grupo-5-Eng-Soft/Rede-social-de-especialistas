@@ -67,6 +67,10 @@ function toggle(obj) {
 		<c:if test="${userSession.authenticated}">
 			<a href="#" onclick="toggle('maisinfo');">Responder</a>
 		</c:if>
+		<c:if test="${!userSession.authenticated}">
+			<b>Para responder esta pergunta você precisa estar logado.</b><br/>
+			<a href="<c:url value="/login/"/>">Login</a>
+		</c:if>
 		<div id="maisinfo" style="display:none">
 			<form method="post" action="<c:url value="/perguntas/${question.id}/responder/"/>">
 					<textarea cols="80" rows="6" name="answer.description"></textarea><br />
