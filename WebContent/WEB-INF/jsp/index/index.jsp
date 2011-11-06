@@ -53,6 +53,8 @@
 					<td> Especialidade </td> 
 					<td> Autor </td> 		
 				</tr>
+				<!-- Quebrado!!!
+				question é uma lista de questões 
 				<c:forEach var="question" items="${question}">
 					<c:if test="${question.publicQuestion || userSession.authenticated && userSession.loggedUser.isSpecialistIn(question.specialty)}">
 						<tr>
@@ -67,6 +69,7 @@
 						</tr>
 					</c:if>
 				</c:forEach>
+				-->
 			</table>
 			</div>
 			<div id="clear"></div>
