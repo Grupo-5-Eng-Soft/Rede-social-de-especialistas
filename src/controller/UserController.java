@@ -99,7 +99,7 @@ public class UserController {
 			dao.edit(user, specialties_ids);
 			userSession.logout();
 			result.redirectTo(EmailConfirmationController.class).
-				createAndSendEmailConfirmation(user, "Sua conta foi editada com susesso," +
+				createAndSendEmailConfirmation(user, "Sua conta foi editada com sucesso," +
 				" verifique a sua caixa de mensagens para confirmar a mudança do seu email.");
 			
 		}
