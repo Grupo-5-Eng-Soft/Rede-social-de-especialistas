@@ -92,17 +92,23 @@
 	font-size: 13px;
 }
 #content #column1 {
-  	width: 500px;
+	float:left;	
+	width: 500px;
   	height: auto;
-  	padding: 15px 5px 10px 20px;	
+  	padding: 15px 5px 0px 20px;
 }
 #content #column2 {
-	position:absolute;
-	top: 154px;
-	left: 700px;
-  	width: 350px;
-  	height: auto;
-  	padding: 15px 5px 10px 20px;	
+	float: right;	
+  	width: 400px;
+	height: auto;
+	padding: 15px 5px 0px 20px;
+}
+#content #column2 td{
+	width: 180px;
+}
+
+#content #clear{
+	clear:both;	
 }
 
 #error p, #notice {

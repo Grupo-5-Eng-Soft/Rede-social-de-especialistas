@@ -29,23 +29,18 @@
 				</c:if>		
 			</c:if>
 		</div>
-		<br />
-		<br />
-		<h3>Especialidades: </h3>
-		<ul>
 		<table>
 			<tr>
-				<th width="180"> </th> 
-				<th width="100"> Pontuação </th>
+				<td width="180"> Especialidades </td> 
+				<td width="180"> Pontuação </td>
 			</tr>
 			<c:forEach var="specialist" items="${user.specialists}">
-				<tr>
-					<td> <li><a href="<c:url value="/especialidades/${specialist.specialty.id}/"/>">${specialist.specialty.name}</a></li></td>
+				<tr>			
+					<td><a href="<c:url value="/especialidades/${specialist.specialty.id}/"/>">${specialist.specialty.name}</a></td>
 					<td>${specialist.score}</td>
 				</tr>
 			</c:forEach>
 		</table>
-		</ul>
 	</div>
 	<div id="bottom">
 	</div> 
