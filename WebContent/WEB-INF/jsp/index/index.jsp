@@ -53,23 +53,6 @@
 					<td> Especialidade </td> 
 					<td> Autor </td> 		
 				</tr>
-				<!-- Quebrado!!!
-				question é uma lista de questões 
-				<c:forEach var="question" items="${question}">
-					<c:if test="${question.publicQuestion || userSession.authenticated && userSession.loggedUser.isSpecialistIn(question.specialty)}">
-						<tr>
-							<td> <a href="<c:url value="/perguntas/${question.id}/"/>">${question.title}</a></td>
-							<td> <a href="<c:url value="/especialidades/${question.specialty.id}/"/>">${question.specialty.name}</a></td>
-							<c:if test="${question.author != null}">
-								<td> <a href="<c:url value="/usuarios/${question.author.id}/"/>">${question.author.login}</a></td>
-							</c:if>
-							<c:if test="${question.author == null}">
-								<td>${question.email}</td>
-							</c:if>
-						</tr>
-					</c:if>
-				</c:forEach>
-				-->
 			</table>
 			</div>
 			<div id="clear"></div>
