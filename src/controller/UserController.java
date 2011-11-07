@@ -84,10 +84,8 @@ public class UserController {
 	@Path("/usuarios/editar/{userId}/")
 	@LoggedUser
 	public void userEditForm(final long userId){
-		System.out.println("Vai editar: "+userId);
 		if (userSession.getLoggedUser().getId() != userId) {
 			result.redirectTo(ErrorController.class).errorscreen();
-			System.out.println("mas é o: "+userSession.getLoggedUser().getId());
 		}
 		result.include("user", userSession.getLoggedUser());
 		result.include("specialties", dao.listSpecialty());

@@ -1,9 +1,14 @@
 package controller;
 
 import static org.mockito.Mockito.*;
+
+import java.util.ArrayList;
+
+import hash.HashCalculator;
 import infra.UserSession;
 import model.User;
 
+import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
@@ -23,7 +28,7 @@ public class UserControllerTest {
 	private Result result = new MockResult();
 	private Validator validator = new MockValidator();
 	private UserController controller;
-	private UserSession userSession = mock(UserSession.class);
+	private @Mock UserSession userSession;
 
 	@Before
 	public void setUp() throws Exception {
@@ -54,22 +59,99 @@ public class UserControllerTest {
 		otherUser.setEmail("outroemail@gmail.com");
 		otherUser.setId(666);
 		stubMockedUserSession(loggedUser);
-		stubResult();
+		when(result.redirectTo(ErrorController.class)).thenReturn(new ErrorController());
 		controller.userEditForm(otherUser.getId());
 		verify(result).redirectTo(ErrorController.class);
 	}
 	
-	private void stubResult() {
-		when(result.redirectTo(ErrorController.class)).thenReturn(new ErrorController());
+	@Test
+	public void shouldContinueActiveWhenEmailWasNotEdited() {
+		User loggedUser = validUser();
+		User editedUser = validUser();
+		editedUser.setName(loggedUser.getName() + " mais um sobrenome");
 		
+		stubMockedUserSession(loggedUser);
+		// quando buscar pelo email, deve retornar o usuario nao editado
+		when(dao.getUserByEmail(editedUser.getEmail())).thenReturn(loggedUser);
+		
+		controller.saveEdit(editedUser, new ArrayList<Long>());
+		verify(dao).edit(editedUser, new ArrayList<Long>());
+		assertEquals(true, editedUser.isActive());
+	}
+	
+	@Test
+	public void shouldNotContinueActiveWhenEmailWasEdited() {
+		User loggedUser = validUser();
+		User editedUser = validUser();
+		loggedUser.setEmail("original@gmail.com");
+		editedUser.setEmail("novo@gmail.com");
+		
+		stubMockedUserSession(loggedUser);
+		// quando buscar pelo email, deve retornar null, pois nao existia no bd
+		when(dao.getUserByEmail(editedUser.getEmail())).thenReturn(null);
+		
+		controller.saveEdit(editedUser, new ArrayList<Long>());
+		verify(dao).edit(editedUser, new ArrayList<Long>());
+		assertEquals(false, editedUser.isActive());
+	}
+	
+	@Test
+	public void shouldAuthenticate() {
+		User user = setupUserToauthenticate();
+		
+		controller.authenticate(user.getLogin(), "teste1234");
+		verify(userSession).login(user);
+	}
+	
+	@Test
+	public void shouldNotAuthenticateWhenIsNotActive() {
+		result = mock(Result.class);
+		controller = new UserController(result, validator, dao, userSession);
+		User user = setupUserToauthenticate();
+		user.setActive(false);
+		
+		UserController spy = spy(controller);  
+		when(result.redirectTo(UserController.class)).thenReturn(spy);
+		controller.authenticate(user.getLogin(), "teste1234");
+		
+		verify(spy).loginForm();
+	}
+	
+	@Test
+	public void shouldNotAuthenticateWithWrongPassword() {
+		result = mock(Result.class);
+		controller = new UserController(result, validator, dao, userSession);
+		User user = setupUserToauthenticate();
+		user.setActive(true);
+		
+		UserController spy = spy(controller);  
+		when(result.redirectTo(UserController.class)).thenReturn(spy);
+		controller.authenticate(user.getLogin(), "essa senha esta errada");
+		
+		verify(spy).loginForm();
 	}
 
+	private User setupUserToauthenticate() {
+		User user = validUser();
+		user.setActive(true);
+		HashCalculator encryption = new HashCalculator("teste1234");
+		String password = encryption.getValue();
+		user.setPassword(password);
+		
+		// quando buscar pelo login deve retornar o usuario que quer logar
+		when(dao.getUser(user.getLogin())).thenReturn(user);
+		return user;
+	}
+	
 	private User validUser() {
 		User user = new User();
 		user.setId(1);
 		user.setEmail("teste@blabla.bla");
 		user.setLogin("teste");
-		user.setPassword("teste1234");
+		HashCalculator encryption = new HashCalculator("teste1234");
+		String password = encryption.getValue();
+		user.setPassword(password);
+		//user.setActive(true);
 		return user;
 	}
 	
