@@ -19,13 +19,17 @@
 	<jsp:include page="../include/menu.jsp" />
 	<div id="content">
 		<div id="tabs">
-			<h1>${user.login}</h1>
+			<h1>${user.name} (${user.login})
+			<c:if test="${user.certified}">
+				<img src="../../img/star.png" height="25" style="vertical-align:text-top;">
+			</c:if>
+			</h1>
 			<c:if test="${userSession.loggedUser.admin}">
 				<c:if test="${!user.certified}">
 					<a href="<c:url value="/usuario/certificado/${user.id}"/>">Certificar</a>
 				</c:if>
 				<c:if test="${user.certified}">
-					<a href="<c:url value="/usuario/certificado/${user.id}"/>">Descertificar</a>
+					<a href="<c:url value="/usuario/certificado/${user.id}"/>">Remover certificação</a>
 				</c:if>		
 			</c:if>
 		</div>

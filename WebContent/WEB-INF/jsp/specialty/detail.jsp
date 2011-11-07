@@ -20,7 +20,7 @@
 	<div id="content">
 		<div id="tabs">
 			<h1>${specialty.name}</h1>
-			<a href="<c:url value="/perguntas/nova/"/>">Postar uma dúvida</a>
+			<a href="<c:url value="/perguntas/nova/${specialty.id}"/>">Postar uma dúvida</a>
 			<c:if test="${userSession.loggedUser.admin}">
 				<a href="<c:url value="/especialidades/${specialty.id}/editar/"/>">Editar</a>
 				<a href="<c:url value="/especialidades/${specialty.id}/remover/" />">Remover</a>

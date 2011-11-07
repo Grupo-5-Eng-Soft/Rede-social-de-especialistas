@@ -19,9 +19,17 @@
 	
 	<jsp:include page="../include/menu.jsp" />
 
+
 	<div id="content">
 		<div id="tabs">
 			<h1>Editar</h1>
+		</div>
+		<div id="error">
+			<p>
+			<c:forEach items="${errors}" var="error">
+				${error.category} - ${error.message}<br />
+			</c:forEach>
+			</p>
 		</div>
 		<form method="post" action="../../atualizacao/" >
 			Email<br />
@@ -43,13 +51,6 @@
 			<br />
 			<input type="submit" value="Atualizar"/>
 		</form>
-		<div id="error">
-			<p>
-			<c:forEach items="${errors}" var="error">
-				${error.category} - ${error.message}<br />
-			</c:forEach>
-			</p>
-		</div>
 	</div>
 	<div id="bottom"></div>
 </body>

@@ -38,18 +38,27 @@ public class UserDao {
 		tx.commit();
 	}
 	
+// só funciona porque um objeto altera o outro
 	public void updateUser(User user) {
 		Transaction tx = session.beginTransaction();
 		session.update(user);
 		tx.commit();
 	}
 	
-	public ArrayList<Specialist> getSpecialists(User user) {
-		return (ArrayList<Specialist>) this.session.createCriteria(Specialist.class)
-			.add(Restrictions.eq("user", user))
-			.list();
+	public void edit(User newUser, ArrayList<Long> specialties_ids) {
+		Transaction tx = session.beginTransaction();
+		User user = (User) session.load(User.class, newUser.getId());
+		cleanSpecialists(user);
+		saveSpecialties(user, specialties_ids);
+// copiando o objeto remapeado: carece de refatoração, não?
+		user.setActive(newUser.isActive());
+		user.setEmail(newUser.getEmail());
+		user.setInstitution(newUser.getInstitution());
+		user.setName(newUser.getName());
+		session.update(user);
+		tx.commit();
 	}
-
+	
 	private void saveSpecialties(User user, ArrayList<Long> specialties_ids) {
 		ArrayList<Specialist> specialists = new ArrayList<Specialist>();
 		if (specialties_ids != null) {
@@ -66,18 +75,10 @@ public class UserDao {
 		}
 	}
 	
-	public void edit(User user, ArrayList<Long> specialties_ids) {
-		Transaction tx = session.beginTransaction();
-		cleanSpecialists(user);
-		saveSpecialties(user, specialties_ids);
-		tx.commit();
-	}
-	
 	private void cleanSpecialists(User u) {
 		for (Specialist specialist : getSpecialists(u)) {
 			session.delete(specialist);
 		}
-		
 	}
 
 	public User getUser(long userId) {
@@ -100,6 +101,12 @@ public class UserDao {
 		return null;
 	}
 	
+	public ArrayList<Specialist> getSpecialists(User user) {
+		return (ArrayList<Specialist>) this.session.createCriteria(Specialist.class)
+			.add(Restrictions.eq("user", user))
+			.list();
+	}
+	
 	public List<Specialty> listSpecialty() {
 		return this.session.createCriteria(Specialty.class).list();
 	}
@@ -108,9 +115,7 @@ public class UserDao {
 		return this.session.createCriteria(User.class).list();
 	}
 	
-	
 	public List<Specialist> getTopSpecialists() {
 		return this.session.createCriteria(Specialist.class).addOrder( Order.desc("score")).setMaxResults(5).list();
-
 	}
 }

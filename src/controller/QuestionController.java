@@ -32,11 +32,16 @@ public class QuestionController {
 	}
 	
 	
+	@Path("/perguntas/nova/{specialtyId}")
+	public void form(Long specialtyId) {
+		result.include("specialties", dao.listSpecialties());
+		result.include("questionId", specialtyId);
+	}
+
 	@Path("/perguntas/nova/")
 	public void form() {
 		result.include("specialties", dao.listSpecialties());
 	}
-	
 	
 	@Path("/perguntas/salvar/")
 	public void save(Question question, Long specialtyId) {
@@ -93,6 +98,6 @@ public class QuestionController {
 			that(!question.getDescription().isEmpty(), "question.description", "conteudo.pergunta.nao.pode.ser.vazio");
 		}});
 		
-		validator.onErrorRedirectTo(this).form();
+		validator.onErrorRedirectTo(this).form(specialtyId);
 	}
 }

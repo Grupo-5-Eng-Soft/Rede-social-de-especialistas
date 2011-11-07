@@ -41,7 +41,7 @@
 			<p>Especialidade: 
 				<select name="specialtyId">
 					<c:forEach var="specialty" items="${specialties}">
-						<option value="${specialty.id}">${specialty.name}</option>
+						<option value="${specialty.id}"<c:if test="${specialty.id == questionId}"> selected="selected"</c:if>>${specialty.name}</option>
 					</c:forEach>
 				</select>
 			<br /><br />		

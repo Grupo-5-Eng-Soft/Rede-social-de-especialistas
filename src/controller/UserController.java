@@ -91,24 +91,27 @@ public class UserController {
 		copyUnchangeableFields(user);
 		validateProfile(user);
 		User userByEmail = dao.getUserByEmail(user.getEmail());
-		if (userByEmail != null && userByEmail.getId() != user.getId()) {
-			validator.add(new ValidationMessage("user.email", "email.ja.existente"));
-		}
-		if (user.getEmail() != userSession.getLoggedUser().getEmail()) {
-			userByEmail.setActive(false);
+		
+		// o e-mail mudou e é novo
+		if (userByEmail == null) {
+			user.setActive(false);
 			dao.edit(user, specialties_ids);
 			userSession.logout();
 			result.redirectTo(EmailConfirmationController.class).
-				createAndSendEmailConfirmation(user, "Sua conta foi editada com sucesso," +
-				" verifique a sua caixa de mensagens para confirmar a mudança do seu email.");
-			
+			createAndSendEmailConfirmation(user, "Sua conta foi editada com sucesso," +
+			" verifique a sua caixa de mensagens para confirmar a mudança do seu email.");
 		}
 		else {
-			user.setActive(true);
-			userSession.getLoggedUser().setLogin(user.getLogin());
-			userSession.getLoggedUser().setEmail(user.getEmail());
-			result.redirectTo(IndexController.class).index();
-			dao.edit(user, specialties_ids);
+			// o e-mail não mudou
+			if (userByEmail.getId() == user.getId()) {
+				dao.edit(user, specialties_ids);
+				result.redirectTo(IndexController.class).index();
+			}
+			// o e-mail mudou e não é novo
+			else {
+				 validator.add(new ValidationMessage("user.email", "email.ja.existente"));
+				 validator.onErrorRedirectTo(this).userEditForm(user.getId());
+			}
 		}
 	}
 
