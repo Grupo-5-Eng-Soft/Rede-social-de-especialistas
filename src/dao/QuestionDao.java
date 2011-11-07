@@ -94,10 +94,20 @@ public class QuestionDao {
 	}
 
 	private Criteria avaiableQuestionsCriteria(User loggedUser) {
-		Criterion avaiableQuestionsCriterion = Restrictions.disjunction().
-		  add(Restrictions.eq("publicQuestion", true)).
-		  add(Restrictions.in("specialty", loggedUser.getSpecialtiesOfSpecialists())).
-		  add(Restrictions.eq("author", loggedUser));
+		Criterion avaiableQuestionsCriterion;
+		// nao estava funcionando se as especialidades fossem vazias
+		// por isso tive que separar em dois casos
+		if (!loggedUser.getSpecialtiesOfSpecialists().isEmpty()) {
+			avaiableQuestionsCriterion = Restrictions.disjunction().
+			  add(Restrictions.eq("publicQuestion", true)).
+			  add(Restrictions.in("specialty", loggedUser.getSpecialtiesOfSpecialists())).
+			  add(Restrictions.eq("author", loggedUser));
+		}
+		else {
+			avaiableQuestionsCriterion = Restrictions.disjunction().
+			  add(Restrictions.eq("publicQuestion", true)).
+			  add(Restrictions.eq("author", loggedUser));
+		}
 		Criteria avaiableQuestionsCriteria = this.session.
 				createCriteria(Question.class).
 				add(avaiableQuestionsCriterion);
