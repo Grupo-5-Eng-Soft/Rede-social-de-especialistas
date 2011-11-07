@@ -65,19 +65,36 @@ public class QuestionDao {
 	}
 
 	
-	public List<Question> getLastQuestions() {
-		return this.session.createCriteria(Question.class).addOrder( Order.desc("id")).setMaxResults(5).list();
+	public List<Question> getLastQuestions(User loggedUser) {
+		Criteria criteria; 
+		if (loggedUser == null)
+			criteria = publicQuestionsCriteria();
+		else {
+			criteria = avaiableQuestionsCriteria(loggedUser);
+			criteria = publicQuestionsCriteria();
+		}
+		return criteria.addOrder(Order.desc("creationDate")).setMaxResults(5).list();
 
 	}
 
 	public List<Question> listPublicQuestions() {
-		List<Question> publicQuestions = (List<Question>) this.session.createCriteria(Question.class).
-				add(Restrictions.eq("publicQuestion", true)).
-				list();
+		Criteria publicQuestionsCriteria = publicQuestionsCriteria();
+		List<Question> publicQuestions = (List<Question>) publicQuestionsCriteria.list();
 		return publicQuestions;
 	}
 
+	private Criteria publicQuestionsCriteria() {
+		Criteria publicQuestionsCriteria = this.session.createCriteria(Question.class).
+				add(Restrictions.eq("publicQuestion", true));
+		return publicQuestionsCriteria;
+	}
+
 	public List<Question> listAvaiableQuestionsOf(User loggedUser) {
+		Criteria avaiableQuestionsCriteria = avaiableQuestionsCriteria(loggedUser);
+		return avaiableQuestionsCriteria.list();
+	}
+
+	private Criteria avaiableQuestionsCriteria(User loggedUser) {
 		Criterion avaiableQuestionsCriterion = Restrictions.disjunction().
 		  add(Restrictions.eq("publicQuestion", true)).
 		  add(Restrictions.in("specialty", loggedUser.getSpecialtiesOfSpecialists())).
@@ -85,7 +102,7 @@ public class QuestionDao {
 		Criteria avaiableQuestionsCriteria = this.session.
 				createCriteria(Question.class).
 				add(avaiableQuestionsCriterion);
-		return avaiableQuestionsCriteria.list();
+		return avaiableQuestionsCriteria;
 	}
 	
 }

@@ -2,6 +2,7 @@ package model;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -34,6 +35,9 @@ public class Question {
 	@Valid
 	@NotNull
 	private String title;
+	
+	@NotNull
+	private Date creationDate;
 	
 	@Valid
 	@NotNull
@@ -105,6 +109,14 @@ public class Question {
 
 	public void setPublicQuestion(boolean publicQuestion) {
 		this.publicQuestion = publicQuestion;
+	}
+
+	public Date getData() {
+		return creationDate;
+	}
+
+	public void setData(Date data) {
+		this.creationDate = data;
 	}
 	
 }

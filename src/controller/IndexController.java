@@ -27,7 +27,7 @@ public class IndexController {
 	@Path("/")
 	public void index() {
 		result.include("specialist", userdao.getTopSpecialists());
-		result.include("question", questiondao.getLastQuestions());
+		result.include("question", questiondao.getLastQuestions(session.getLoggedUser()));
 
 
 	}

@@ -5,6 +5,7 @@ import infra.EmailSender;
 import infra.UserSession;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import model.Question;
@@ -46,6 +47,8 @@ public class QuestionController {
 	@Path("/perguntas/salvar/")
 	public void save(Question question, Long specialtyId) {
 		validate(question, specialtyId);
+		
+		question.setData(new Date());
 		
 		Specialty specialty = dao.getSpecialty(specialtyId);
 		List<Specialist> specialists = dao.getSpecialists(specialty);
