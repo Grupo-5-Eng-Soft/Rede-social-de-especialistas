@@ -11,6 +11,7 @@ import java.util.List;
 import model.Question;
 import model.Specialist;
 import model.Specialty;
+import model.User;
 import br.com.caelum.vraptor.Path;
 import br.com.caelum.vraptor.Resource;
 import br.com.caelum.vraptor.Result;
@@ -89,10 +90,29 @@ public class QuestionController {
 	@Path("/perguntas/{questionId}/")
 	public void detail(Long questionId) {
 		Question question = dao.getQuestion(questionId);
+		if (!isAvaiable(question)) {
+			result.redirectTo(ErrorController.class).errorscreen();
+			return;
+		}
 		result.include("isSpecialist", userSession.isSpecialistIn(question.getSpecialty()));
 		result.include("question", question);
 		result.include("answer", question.getAnswers());
 	}
+
+	private boolean isAvaiable(Question question) {
+		User loggedUser = userSession.getLoggedUser();
+		if (question.isPublicQuestion())
+			return true;
+		if (loggedUser == null)
+			return false;
+		if (loggedUser.equals(question.getAuthor()))
+			return true;
+		List<Specialty> specialties = loggedUser.getSpecialtiesOfSpecialists();
+		if (specialties.contains(question.getSpecialty()))
+			return true;
+		return false;
+	}
+
 
 	private void validate(final Question question, final Long specialtyId) {
 		validator.checking(new Validations() {{

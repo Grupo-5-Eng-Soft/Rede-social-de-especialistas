@@ -71,7 +71,6 @@ public class QuestionDao {
 			criteria = publicQuestionsCriteria();
 		else {
 			criteria = avaiableQuestionsCriteria(loggedUser);
-			criteria = publicQuestionsCriteria();
 		}
 		return criteria.addOrder(Order.desc("creationDate")).setMaxResults(5).list();
 

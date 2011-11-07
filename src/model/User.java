@@ -158,4 +158,8 @@ public class User implements Serializable {
 	public void setSpecialists(List<Specialist> specialists) {
 		this.specialists = specialists;
 	}
+	
+	public boolean equals(User u) {
+		return u.getId() == this.id;
+	}
 }
