@@ -40,6 +40,7 @@ public class AnswerControllerTest {
 		Answer answer = anAnswerToQuestion(question);
 		
 		when(session.getLoggedUser()).thenReturn(user);
+		when(session.isAuthenticated()).thenReturn(true);
 		when(session.isSpecialistIn(vraptor)).thenReturn(true);
 		
 		when(dao.getQuestion(1l)).thenReturn(question);

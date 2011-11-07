@@ -3,6 +3,7 @@ package controller;
 import hash.HashCalculator;
 import infra.UserSession;
 import interceptor.annotations.Admin;
+import interceptor.annotations.LoggedUser;
 import interceptor.annotations.ModifiesUser;
 
 import java.util.ArrayList;
@@ -83,8 +84,12 @@ public class UserController {
 
 	@ModifiesUser
 	@Path("/usuarios/editar/{userId}/")
-	public void userEditForm(long userId){
-		result.include("user",dao.getUser(userId));
+	@LoggedUser
+	public void userEditForm(final long userId){
+		if (userSession.getLoggedUser().getId() != userId) {
+			result.redirectTo(ErrorController.class).errorscreen();
+		}
+		result.include("user", userSession.getLoggedUser());
 		result.include("specialties", dao.listSpecialty());
 	}
 	
