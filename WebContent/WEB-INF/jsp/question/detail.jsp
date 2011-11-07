@@ -55,7 +55,11 @@ function toggle(obj) {
 				<c:if test="${!answer.author.isSpecialistIn(question.getSpecialty())}">
 					<h6>Autor: 
 				</c:if>
-				${answer.author.login}</h6>
+				${answer.author.login}
+				<c:if test="${answer.author.certified}">
+					<img src="<c:url value="/img/star.png"/>"  style="vertical-align:text-top;">
+				</c:if>
+				</h6>
 				<p>${answer.description}<br /><br /></p>
 			</div>
 		</c:forEach>

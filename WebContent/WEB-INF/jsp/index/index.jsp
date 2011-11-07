@@ -37,8 +37,15 @@
 				</tr>
 				<c:forEach var="specialist" items="${specialist}">
 					<tr>
-						<td> <a href="<c:url value="/usuarios/${specialist.user.id}/"/>">${specialist.user.login}</a></td>
-						<td> <a href="<c:url value="/especialidades/${specialist.specialty.id}/"/>">${specialist.specialty.name}</a></td>
+						<td>
+							<a href="<c:url value="/usuarios/${specialist.user.id}/"/>">${specialist.user.login}</a>
+							<c:if test="${specialist.user.certified}">
+								<img src="<c:url value="/img/star.png"/>">
+							</c:if>
+						</td>
+						<td> 
+							<a href="<c:url value="/especialidades/${specialist.specialty.id}/"/>">${specialist.specialty.name}</a>
+						</td>
 						<td>${specialist.score}</td>
 					</tr>
 				</c:forEach>

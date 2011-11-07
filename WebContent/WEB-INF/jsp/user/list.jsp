@@ -25,7 +25,12 @@
 		</div>
 		<ul>
 			<c:forEach var="user" items="${user}">
-				<li><a href="<c:url value="/usuarios/${user.id}/"/>">${user.login}</a></li>
+				<li>
+					<a href="<c:url value="/usuarios/${user.id}/"/>">${user.login}</a>
+					<c:if test="${user.certified}">
+						<img src="<c:url value="/img/star.png"/>">
+					</c:if>
+				</li>
 			</c:forEach>
 		</ul>
 	</div>
