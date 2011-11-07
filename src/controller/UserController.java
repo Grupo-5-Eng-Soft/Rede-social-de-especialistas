@@ -92,7 +92,7 @@ public class UserController {
 		validateProfile(user);
 		User userByEmail = dao.getUserByEmail(user.getEmail());
 		
-		// o e-mail mudou e é novo
+		// o e-mail mudou e nao existia no bd
 		if (userByEmail == null) {
 			user.setActive(false);
 			dao.edit(user, specialties_ids);
@@ -104,10 +104,11 @@ public class UserController {
 		else {
 			// o e-mail não mudou
 			if (userByEmail.getId() == user.getId()) {
+				user.setActive(true);
 				dao.edit(user, specialties_ids);
 				result.redirectTo(IndexController.class).index();
 			}
-			// o e-mail mudou e não é novo
+			// o e-mail mudou e existia no bd
 			else {
 				 validator.add(new ValidationMessage("user.email", "email.ja.existente"));
 				 validator.onErrorRedirectTo(this).userEditForm(user.getId());
