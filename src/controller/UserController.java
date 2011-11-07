@@ -2,9 +2,10 @@ package controller;
 
 import hash.HashCalculator;
 import infra.UserSession;
+import interceptor.annotations.Admin;
+import interceptor.annotations.ModifiesUser;
 
 import java.util.ArrayList;
-import interceptor.annotations.Admin;
 
 import model.User;
 import br.com.caelum.vraptor.Path;
@@ -23,7 +24,7 @@ public class UserController {
 	private final UserDao dao;
 	private final UserSession userSession;
 	private final Validator validator;
-
+	
 	public UserController(Result result, Validator validator, UserDao dao, UserSession userSession) {
 		this.userSession = userSession;
 		this.result = result;
@@ -80,6 +81,7 @@ public class UserController {
 		result.redirectTo(EmailConfirmationController.class).createAndSendEmailConfirmation(user, null);
 	}
 
+	@ModifiesUser
 	@Path("/usuarios/editar/{userId}/")
 	public void userEditForm(long userId){
 		result.include("user",dao.getUser(userId));
@@ -123,6 +125,7 @@ public class UserController {
 		user.setId(userSession.getLoggedUser().getId());
 	}
 	
+	@ModifiesUser
 	@Path("/usuarios/{userId}/")
 	public void detail(long userId) {
 		result.include("user", dao.getUser(userId));
@@ -160,6 +163,7 @@ public class UserController {
 	}
 	
 	@Admin
+	@ModifiesUser
 	@Path("/usuario/certificado/{userId}")
 	public void certify(Long userId) {
 		User user = dao.getUser(userId);
