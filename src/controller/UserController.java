@@ -113,6 +113,7 @@ public class UserController {
 			if (userByEmail.getId() == user.getId()) {
 				user.setActive(true);
 				dao.edit(user, specialties_ids);
+				userSession.login(user);
 				result.redirectTo(IndexController.class).index();
 			}
 			// o e-mail mudou e existia no bd
