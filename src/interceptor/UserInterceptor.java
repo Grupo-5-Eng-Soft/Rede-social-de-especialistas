@@ -45,14 +45,15 @@ public class UserInterceptor implements Interceptor{
 		User daoUser = users.getUser(userIdViaURL);
 		User loggedUser = session.getLoggedUser();
 		
-		if(daoUser == null) {
+		if (daoUser == null) {
 			result.notFound();
 			return;
 		}
-		if(loggedUser.getId() == daoUser.getId()) {
-			stack.next(method, instance);
-		} else {
+		if (loggedUser == null || loggedUser.getId() != daoUser.getId()) {
 			result.use(http()).sendError(HttpServletResponse.SC_UNAUTHORIZED);
+			
+		} else {
+			stack.next(method, instance);
 		}
 	}
 }
