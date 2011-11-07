@@ -5,6 +5,7 @@ import infra.UserSession;
 
 import java.util.ArrayList;
 import interceptor.annotations.Admin;
+import interceptor.annotations.LoggedUser;
 
 import model.User;
 import br.com.caelum.vraptor.Path;
@@ -81,8 +82,14 @@ public class UserController {
 	}
 
 	@Path("/usuarios/editar/{userId}/")
-	public void userEditForm(long userId){
-		result.include("user",dao.getUser(userId));
+	@LoggedUser
+	public void userEditForm(final long userId){
+		System.out.println("Vai editar: "+userId);
+		if (userSession.getLoggedUser().getId() != userId) {
+			result.redirectTo(ErrorController.class).errorscreen();
+			System.out.println("mas é o: "+userSession.getLoggedUser().getId());
+		}
+		result.include("user", userSession.getLoggedUser());
 		result.include("specialties", dao.listSpecialty());
 	}
 	
