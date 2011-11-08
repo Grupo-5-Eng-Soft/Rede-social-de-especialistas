@@ -23,6 +23,7 @@
 	<div id="content">
 		<div id="tabs">
 			<h1>Editar</h1>
+			<a href="<c:url value="/usuarios/trocarsenha/"/>">Trocar senha</a>
 		</div>
 		<div id="error">
 			<p>
@@ -38,12 +39,6 @@
 			<input type="text" size="30" value="${user.institution}" name="user.institution" /><br />
 			Nome<br />
 			<input type="text" size="30" value="${user.name}" name="user.name" /><br />
-			Antiga senha<br />
-			<input type="password" size="30" name="user.oldPassword" id="oldPassword"/><br />
-			Senha<br />
-			<input type="password" size="30" name="user.password" id="password"/><br />
-			Confirmação de senha<br />
-			<input type="password" size="30" name="confirmation" /><br /><br />
 			Especialidades<br />
 			<c:forEach var="specialty" items="${specialties}">
 				<% String s = new String("");%>

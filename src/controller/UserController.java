@@ -85,6 +85,33 @@ public class UserController {
 		dao.save(user, specialties_ids);
 		result.redirectTo(EmailConfirmationController.class).createAndSendEmailConfirmation(user, null);
 	}
+	
+	@LoggedUser
+	@Path("/usuarios/trocarsenha/")
+	public void changePasswordForm() {
+		
+	}
+	
+	@LoggedUser
+	@Path("/usuarios/salvarsenha/")
+	public void changePasswordForm(String newPassword, String oldPassword) {
+		User loggedUser = userSession.getLoggedUser();
+		HashCalculator encryption = new HashCalculator(oldPassword);
+		oldPassword = encryption.getValue();
+		if (oldPassword.equals(loggedUser.getPassword())) {
+			User userToUpdate = dao.getUser(loggedUser.getId());
+			userToUpdate.setPasswordFromRawString(newPassword);
+			dao.updateUser(userToUpdate);
+			result.include("notice", "Troca de senha efetuada com sucesso.");
+			result.redirectTo(IndexController.class).index();
+		}
+		else {
+			result.include("error", "Senha incorreta.");
+			validator.add(new ValidationMessage("Senha incorreta", "Mudança de senha"));
+			validator.onErrorRedirectTo(this).changePasswordForm();
+		}
+		
+	}
 
 	@ModifiesUser
 	@Path("/usuarios/editar/{userId}/")
@@ -102,15 +129,6 @@ public class UserController {
 		copyUnchangeableFields(user);
 		validateProfile(user);
 		User userByEmail = dao.getUserByEmail(user.getEmail());
-		
-		if(user.getPassword() != null){
-			if(user.getOldPassword().equals(userSession.getLoggedUser().getPassword()))
-				user.setPasswordFromRawString(user.getPassword());
-			else {
-				validator.add(new ValidationMessage("Incorreta", "Senha Antiga"));
-				validator.onErrorRedirectTo(this).userEditForm(user.getId());
-			}
-		}
 		
 		// o e-mail mudou e nao existia no bd
 		if (userByEmail == null) {
@@ -138,7 +156,7 @@ public class UserController {
 	}
 
 	private void copyUnchangeableFields(User user) {
-		//user.setPassword(userSession.getLoggedUser().getPassword());
+		user.setPassword(userSession.getLoggedUser().getPassword());
 		user.setRole(userSession.getLoggedUser().getRole());
 		user.setLogin(userSession.getLoggedUser().getLogin());
 		user.setId(userSession.getLoggedUser().getId());
