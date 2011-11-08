@@ -168,7 +168,6 @@ public class UserController {
 	}
 	
 	@Admin
-	@ModifiesUser
 	@Path("/usuario/certificado/{userId}")
 	public void certify(Long userId) {
 		User user = dao.getUser(userId);
