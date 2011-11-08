@@ -3,6 +3,7 @@ package model;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
+import java.util.HashMap;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -13,6 +14,8 @@ import javax.persistence.OneToMany;
 
 import org.hibernate.validator.NotNull;
 import org.hibernate.validator.Valid;
+
+import com.sun.org.apache.xalan.internal.xsltc.runtime.Hashtable;
 
 @Entity
 public class Question {
@@ -119,4 +122,14 @@ public class Question {
 		this.creationDate = data;
 	}
 	
+	public Hashtable getAnswersAuthorsQualification() {
+		User author;
+		Hashtable answersAuthors = new Hashtable();
+		for (Answer answer : this.answers) {
+			author = answer.getAuthor();
+			answersAuthors.put(author.getLogin(), author.isSpecialistIn(this.specialty));
+			answersAuthors.get(author.getLogin());
+		}
+		return answersAuthors;
+	}
 }

@@ -49,10 +49,10 @@ function toggle(obj) {
 		<c:forEach var="answer" items="${question.answers}">
 			<div id="answer">
 				<h5>Resposta para: ${question.title}</h5>
-				<c:if test="${answer.author.isSpecialistIn(question.getSpecialty())}">
+				<c:if test="${answerAuthorsQualification.get(answer.author.login)}">
 					<h6>Especialista: 
 				</c:if>
-				<c:if test="${!answer.author.isSpecialistIn(question.getSpecialty())}">
+				<c:if test="${!answerAuthorsQualification.get(answer.author.login)}">
 					<h6>Autor: 
 				</c:if>
 				${answer.author.login}

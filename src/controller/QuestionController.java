@@ -97,6 +97,7 @@ public class QuestionController {
 		result.include("isSpecialist", userSession.isSpecialistIn(question.getSpecialty()));
 		result.include("question", question);
 		result.include("answer", question.getAnswers());
+		result.include("answerAuthorsQualification", question.getAnswersAuthorsQualification());
 	}
 
 	private boolean isAvaiable(Question question) {
