@@ -32,6 +32,9 @@
 				<p>${notFound}</p>
 				<p>${notAuthenticated}</p>
 			</div>
+			<div id="tabs">
+				<a href="<c:url value="/usuarios/recuperar/"/>"><i>Recuperar senha</i></a>
+			</div>
 			<p><input type="submit" value="Enviar" /></p>
 		</form>
 	</div>	

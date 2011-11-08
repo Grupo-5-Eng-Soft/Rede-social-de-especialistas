@@ -7,6 +7,8 @@ import interceptor.annotations.LoggedUser;
 import interceptor.annotations.ModifiesUser;
 
 import java.util.ArrayList;
+import java.util.Random;
+import java.lang.Math;
 
 import model.User;
 import br.com.caelum.vraptor.Path;
@@ -95,15 +97,18 @@ public class UserController {
 	
 	@Path("/usuarios/atualizacao/")
 	public void saveEdit(User user, ArrayList<Long> specialties_ids) {
+		if(user.getPassword() != null){
+			user.setPasswordFromRawString(user.getPassword());
+		}
 		copyUnchangeableFields(user);
 		validateProfile(user);
 		User userByEmail = dao.getUserByEmail(user.getEmail());
 		
 		// o e-mail mudou e nao existia no bd
 		if (userByEmail == null) {
-			user.setActive(false);
 			dao.edit(user, specialties_ids);
 			userSession.logout();
+			user.setActive(false);
 			result.redirectTo(EmailConfirmationController.class).
 			createAndSendEmailConfirmation(user, "Sua conta foi editada com sucesso," +
 			" verifique a sua caixa de mensagens para confirmar a mudança do seu email.");
@@ -125,7 +130,7 @@ public class UserController {
 	}
 
 	private void copyUnchangeableFields(User user) {
-		user.setPassword(userSession.getLoggedUser().getPassword());
+		//user.setPassword(userSession.getLoggedUser().getPassword());
 		user.setRole(userSession.getLoggedUser().getRole());
 		user.setLogin(userSession.getLoggedUser().getLogin());
 		user.setId(userSession.getLoggedUser().getId());
@@ -174,6 +179,35 @@ public class UserController {
 		user.setCertified(!user.isCertified());
 		dao.updateUser(user);
 		result.redirectTo(UserController.class).detail(userId);
+	}
+	
+	@Path("/usuarios/recuperar/")
+	public void recoverPassword() {
+		/*User user = dao.getUser(userId);
+		result.redirectTo(EmailConfirmationController.class).createAndSendEmailConfirmation(user, null);*/
+	}
+	
+	@Path("/usuarios/recuperar/enviar/")
+	public void sendPassword(String email) {
+		User user = dao.getUserByEmail(email);
+		String cod = geraSenha();
+		if(user != null) {
+			user.setPasswordFromRawString(cod);
+			dao.updateUser(user);
+			result.redirectTo(EmailConfirmationController.class).createAndSendEmailRecover(user, "Sua nova senha eh: " + cod + "\n\n" +
+					"Aconselhamos que mude a sua senha em Editar Perfil no topo direito da pagina.\n Obrigado.");
+		}
+		/*else
+			result.redirectTo();*/
+	}
+	
+	private String geraSenha() {
+		String s = new String();
+		Random random = new Random(System.currentTimeMillis());
+		while(s.length() < 6) {
+			s = s.concat(String.valueOf(Long.toHexString(random.nextInt()%16)));
+		}
+		return s;
 	}
 
 }

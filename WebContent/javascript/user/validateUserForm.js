@@ -17,6 +17,10 @@ $(document).ready(function(){
             "confirmation":{
                 required: true,
                 equalTo: "#password"
+            },
+            "email": {
+                required: true,
+                email: true
             }
         },
         messages:{
@@ -36,6 +40,10 @@ $(document).ready(function(){
             "confirmation":{
                 required: "O campo confirma&ccedil;&atilde;o de senha &eacute; obrigat&oacute;rio.",
                 equalTo: "O campo confirma&ccedil;&atilde;o de senha deve ser id&ecirc;ntico ao campo senha."
+            },
+            "email": {
+                required: "O campo e-mail &eacute; obrigat&oacute;rio.",
+                email: "O campo e-mail deve conter um e-mail v&aacute;lido."
             }
         }
     });

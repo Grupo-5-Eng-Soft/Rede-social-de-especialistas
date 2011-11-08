@@ -55,6 +55,7 @@ public class UserDao {
 		user.setEmail(newUser.getEmail());
 		user.setInstitution(newUser.getInstitution());
 		user.setName(newUser.getName());
+		user.setPassword(newUser.getPassword());
 		session.update(user);
 		tx.commit();
 	}

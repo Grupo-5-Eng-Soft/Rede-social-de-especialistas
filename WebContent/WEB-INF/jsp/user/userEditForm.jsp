@@ -38,6 +38,10 @@
 			<input type="text" size="30" value="${user.institution}" name="user.institution" /><br />
 			Nome<br />
 			<input type="text" size="30" value="${user.name}" name="user.name" /><br />
+			Senha<br />
+			<input type="password" size="30" name="user.password" id="password"/><br />
+			Confirmação de senha<br />
+			<input type="password" size="30" name="confirmation" /><br /><br />
 			Especialidades<br />
 			<c:forEach var="specialty" items="${specialties}">
 				<% String s = new String("");%>
