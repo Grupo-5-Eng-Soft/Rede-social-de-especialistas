@@ -94,11 +94,11 @@ public class UserController {
 	
 	@LoggedUser
 	@Path("/usuarios/salvarsenha/")
-	public void changePasswordForm(String newPassword, String oldPassword) {
+	public void changePasswordForm(String newPassword, String oldPassword, String confirmation) {
 		User loggedUser = userSession.getLoggedUser();
 		HashCalculator encryption = new HashCalculator(oldPassword);
 		oldPassword = encryption.getValue();
-		if (oldPassword.equals(loggedUser.getPassword())) {
+		if (oldPassword.equals(loggedUser.getPassword()) && confirmation.equals(newPassword)) {
 			User userToUpdate = dao.getUser(loggedUser.getId());
 			userToUpdate.setPasswordFromRawString(newPassword);
 			dao.updateUser(userToUpdate);
@@ -106,7 +106,12 @@ public class UserController {
 			result.redirectTo(IndexController.class).index();
 		}
 		else {
-			result.include("error", "Senha incorreta.");
+			if (!oldPassword.equals(loggedUser.getPassword())) {
+				result.include("error", "Senha incorreta.");
+			}
+			if (!confirmation.equals(newPassword)) {
+				result.include("error", "Confirmação de senha incorreta.");
+			}
 			validator.add(new ValidationMessage("Senha incorreta", "Mudança de senha"));
 			validator.onErrorRedirectTo(this).changePasswordForm();
 		}
