@@ -4,6 +4,8 @@
 	<target name="build-project">
 	</target>
     <target depends="build-subprojects,build-project" name="build">
+        <antcall target="test"/> <!-- mudar no junit do build também -->
+        <antcall target="junitreport"/>
         <antcall target="war"/>
     </target>
     <target name="war">

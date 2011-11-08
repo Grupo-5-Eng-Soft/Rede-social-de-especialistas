@@ -91,6 +91,8 @@
     </target>
     <target depends="clean" name="cleanall"/>
     <target depends="build-subprojects,build-project" name="build">
+        <antcall target="test"/>
+        <antcall target="junitreport"/>
         <antcall target="war"/>
     </target>
     <target name="build-subprojects"/>
@@ -119,7 +121,7 @@
         <property name="build.compiler" value="org.eclipse.jdt.core.JDTCompilerAdapter"/>
         <antcall target="build"/>
     </target>
-    <target name="rede-social-de-especialistas">
+    <target name="teste">
         <mkdir dir="${junit.output.dir}"/>
         <junit fork="yes" printsummary="withOutAndErr">
             <formatter type="xml"/>
