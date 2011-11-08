@@ -111,7 +111,7 @@
 	clear:both;	
 }
 
-#error p, #notice {
+#error p, #notice, #error {
 	color: red;
 }
 label.error {

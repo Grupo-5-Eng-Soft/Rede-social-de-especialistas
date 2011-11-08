@@ -191,8 +191,6 @@ public class UserController {
 	
 	@Path("/usuarios/recuperarsenha/")
 	public void recoverPassword() {
-		/*User user = dao.getUser(userId);
-		result.redirectTo(EmailConfirmationController.class).createAndSendEmailConfirmation(user, null);*/
 	}
 	
 	@Path("/usuarios/enviarsenha/")
@@ -207,10 +205,13 @@ public class UserController {
 			emailSenderThread.start();
 			user.setPasswordFromRawString(cod);
 			dao.updateUser(user);
+			result.include("notice", "Verifique a sua senha nova no seu email.");
 			result.redirectTo(IndexController.class).index();
 		}
-		/*else
-			result.redirectTo();*/
+		else {
+			result.include("errorMessage", "Não foi possível encontrar um usuário com esse email. Verifique se você digitou corretamente.");
+			result.redirectTo(UserController.class).recoverPassword();
+		}
 	}
 	
 	private String geraSenha() {

@@ -21,11 +21,13 @@
 	
 	<div id="content">
 		<div id="tabs">
-			<h1>Cadastro</h1>
-			<a href="<c:url value="/login/"/>">Login</a> 
+			<h1>Recuperação de senha</h1>
+		</div>
+		<div id="error">
+			${errorMessage}
 		</div>
 		<form method="post" action="<c:url value="/usuarios/enviarsenha/"/>" >
-			Email<br />
+			Informe o email utilizado no cadastro: <br />
 			<input type="text" size="30" name="email" /><br />
 			
 			<input type="submit" value="Enviar"/>
