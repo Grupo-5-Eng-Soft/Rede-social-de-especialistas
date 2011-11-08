@@ -1,6 +1,8 @@
 package controller;
 
 import hash.HashCalculator;
+import infra.Email;
+import infra.EmailSender;
 import infra.UserSession;
 import interceptor.annotations.Admin;
 import interceptor.annotations.LoggedUser;
@@ -187,21 +189,25 @@ public class UserController {
 		result.redirectTo(UserController.class).detail(userId);
 	}
 	
-	@Path("/usuarios/recuperar/")
+	@Path("/usuarios/recuperarsenha/")
 	public void recoverPassword() {
 		/*User user = dao.getUser(userId);
 		result.redirectTo(EmailConfirmationController.class).createAndSendEmailConfirmation(user, null);*/
 	}
 	
-	@Path("/usuarios/recuperar/enviar/")
+	@Path("/usuarios/enviarsenha/")
 	public void sendPassword(String email) {
 		User user = dao.getUserByEmail(email);
 		String cod = geraSenha();
-		if(user != null) {
+		if (user != null) {
+			String message = "Sua nova senha eh: " + cod + "\n\n" +
+					"Aconselhamos que mude a sua senha em Editar Perfil no topo direito da pagina.\n Obrigado.";
+			EmailSender emailSender = new EmailSender(email, message, "Rede Social de Especialistas - Recuperação de Senha");
+			Thread emailSenderThread = new Thread(emailSender);
+			emailSenderThread.start();
 			user.setPasswordFromRawString(cod);
 			dao.updateUser(user);
-			result.redirectTo(EmailConfirmationController.class).createAndSendEmailRecover(user, "Sua nova senha eh: " + cod + "\n\n" +
-					"Aconselhamos que mude a sua senha em Editar Perfil no topo direito da pagina.\n Obrigado.");
+			result.redirectTo(IndexController.class).index();
 		}
 		/*else
 			result.redirectTo();*/

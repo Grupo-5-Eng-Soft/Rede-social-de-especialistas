@@ -24,7 +24,7 @@
 			<h1>Cadastro</h1>
 			<a href="<c:url value="/login/"/>">Login</a> 
 		</div>
-		<form method="post" action="./enviar/" >
+		<form method="post" action="<c:url value="/usuarios/enviarsenha/"/>" >
 			Email<br />
 			<input type="text" size="30" name="email" /><br />
 			

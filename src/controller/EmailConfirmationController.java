@@ -32,11 +32,6 @@ public class EmailConfirmationController {
 		result.redirectTo(IndexController.class).index();
 	}
 	
-	public void createAndSendEmailRecover(User user, String message) {
-		sendPasswordEmail(user, message);
-		result.redirectTo(IndexController.class).index();
-	}
-	
 	@Get("/usuarios/confirmar/{userId}/{hash}")
 	public void confirmUser(long userId, String hash) {
 		User user = users.getUser(userId);
@@ -68,8 +63,4 @@ public class EmailConfirmationController {
 		emailSenderThread.start();
 	}
 	
-	private void sendPasswordEmail(User user, String message) {
-		Thread emailSenderThread = new Thread(new EmailSender(user.getEmail(), message, "Recuperação de Senha"));
-		emailSenderThread.start();
-	}
 }
