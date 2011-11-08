@@ -131,7 +131,6 @@ public class UserController {
 		user.setId(userSession.getLoggedUser().getId());
 	}
 	
-	@ModifiesUser
 	@Path("/usuarios/{userId}/")
 	public void detail(long userId) {
 		result.include("user", dao.getUser(userId));
