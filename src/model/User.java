@@ -32,6 +32,8 @@ public class User implements Serializable {
 	@NotEmpty
 	private String password;
 
+	private String oldPassword = "";
+	
 	@NotEmpty
 	private String email;
 	
@@ -161,5 +163,14 @@ public class User implements Serializable {
 	
 	public boolean equals(User u) {
 		return u.getId() == this.id;
+	}
+
+	public String getOldPassword() {
+		return oldPassword;
+	}
+
+	public void setOldPassword(String oldPassword) {
+		HashCalculator encryption = new HashCalculator(oldPassword);
+		this.oldPassword = encryption.getValue();
 	}
 }

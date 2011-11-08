@@ -97,12 +97,18 @@ public class UserController {
 	
 	@Path("/usuarios/atualizacao/")
 	public void saveEdit(User user, ArrayList<Long> specialties_ids) {
-		if(user.getPassword() != null){
-			user.setPasswordFromRawString(user.getPassword());
-		}
 		copyUnchangeableFields(user);
 		validateProfile(user);
 		User userByEmail = dao.getUserByEmail(user.getEmail());
+		
+		if(user.getPassword() != null){
+			if(user.getOldPassword().equals(userSession.getLoggedUser().getPassword()))
+				user.setPasswordFromRawString(user.getPassword());
+			else {
+				validator.add(new ValidationMessage("Incorreta", "Senha Antiga"));
+				validator.onErrorRedirectTo(this).userEditForm(user.getId());
+			}
+		}
 		
 		// o e-mail mudou e nao existia no bd
 		if (userByEmail == null) {
@@ -202,12 +208,18 @@ public class UserController {
 	}
 	
 	private String geraSenha() {
-		String s = new String();
-		Random random = new Random(System.currentTimeMillis());
-		while(s.length() < 6) {
-			s = s.concat(String.valueOf(Long.toHexString(random.nextInt()%16)));
-		}
-		return s;
+		 String letras = "ABCDEFGHIJKLMNOPQRSTUVYWXZ0123456789"; 
+	     Random random = new Random();
+	     
+	     String armazenaChaves = "";
+	     int index = -1;
+	     for( int i = 0; i < 9; i++ ) {
+	         index = random.nextInt( letras.length() );
+	         armazenaChaves += letras.substring( index, index + 1 );
+	     }
+	     System.out.println( armazenaChaves );
+	     
+	     return armazenaChaves;
 	}
 
 }

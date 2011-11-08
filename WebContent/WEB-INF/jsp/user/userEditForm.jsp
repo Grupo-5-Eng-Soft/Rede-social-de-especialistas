@@ -38,6 +38,8 @@
 			<input type="text" size="30" value="${user.institution}" name="user.institution" /><br />
 			Nome<br />
 			<input type="text" size="30" value="${user.name}" name="user.name" /><br />
+			Antiga senha<br />
+			<input type="password" size="30" name="user.oldPassword" id="oldPassword"/><br />
 			Senha<br />
 			<input type="password" size="30" name="user.password" id="password"/><br />
 			Confirmação de senha<br />
