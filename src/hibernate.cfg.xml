@@ -24,6 +24,7 @@
 		<mapping class="model.Specialist" />
 		<mapping class="model.Answer" />
 		<mapping class="model.Question" />
+		<mapping class="model.AnswerAvaliation" />
 		
 	</session-factory>
 </hibernate-configuration>

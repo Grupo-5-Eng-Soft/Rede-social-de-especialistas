@@ -4,6 +4,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 
 @Entity
 public class Answer {
@@ -17,6 +18,9 @@ public class Answer {
 	
 	@ManyToOne
 	private Question question;
+	
+	@OneToOne
+	private AnswerAvaliation avaliation;
 	
 	private String description;
 
