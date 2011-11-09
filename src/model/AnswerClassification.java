@@ -16,8 +16,6 @@ public class AnswerClassification {
 	@GeneratedValue
 	private long id;
 	
-	// pense bem antes de fazer setters e getters aqui para nao causar inconsistencia 
-	// com a pontuacao total de cada especialidades para cada usuario
 	@OneToOne
 	private Answer answer;
 	
@@ -33,8 +31,9 @@ public class AnswerClassification {
 		User author = answer.getAuthor();
 		//TODO: o que fazer se o autor da resposta nao for especialista?
 		Specialist specialistAt = author.getSpecialistAt(answer.getQuestion().getSpecialty());
-		if (specialistAt != null)
+		if (specialistAt != null) {
 			specialistAt.addScore(score);
+		}
 		this.answer = answer;
 		this.score = score;
 	}

@@ -143,7 +143,7 @@ public class QuestionController {
 		Question question = answer.getQuestion();
 		
 		//TODO: refatorar isso em um interceptor
-		if (!isAvaiable(question) && question.getAuthor().equals(userSession.getLoggedUser())) {
+		if ((!isAvaiable(question) && question.getAuthor().equals(userSession.getLoggedUser())) || question.isFinalized()) {
 			result.redirectTo(ErrorController.class).errorscreen();
 			return;
 		}

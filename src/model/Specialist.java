@@ -56,7 +56,7 @@ public class Specialist implements Serializable {
 	}
 
 	public void addScore(Integer score) {
-		this.score += this.score;
+		this.score += score;
 	}
 	
 }
