@@ -118,6 +118,14 @@ public class User implements Serializable {
 		}
 		return specialties;
 	}
+	
+	public Specialist getSpecialistAt(Specialty specialty) {
+		for (Specialist specialist : this.specialists) {
+			if (specialist.getSpecialty().equals(specialty))
+				return specialist;
+		}
+		return null;
+	}
 
 	public void setId(long id) {
 		this.id = id;

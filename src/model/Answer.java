@@ -20,7 +20,7 @@ public class Answer {
 	private Question question;
 	
 	@OneToOne
-	private AnswerAvaliation avaliation;
+	private AnswerClassification classification;
 	
 	private String description;
 
@@ -54,6 +54,11 @@ public class Answer {
 
 	public void setQuestion(Question question) {
 		this.question = question;
+	}
+
+	public void setClassification(AnswerClassification classification) {
+		this.classification = classification;
+		
 	}
 	
 }

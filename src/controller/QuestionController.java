@@ -8,6 +8,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import model.Answer;
+import model.AnswerClassification;
 import model.Question;
 import model.Specialist;
 import model.Specialty;
@@ -120,7 +122,6 @@ public class QuestionController {
 		return false;
 	}
 
-
 	private void validate(final Question question, final Long specialtyId) {
 		validator.checking(new Validations() {{
 			that(dao.getSpecialty(specialtyId) != null, "specialty", "pergunta.deve.pertencer.a.uma.especialidade");
@@ -131,24 +132,26 @@ public class QuestionController {
 		validator.onErrorRedirectTo(this).form(specialtyId);
 	}
 	
-	@Path("/perguntas/{questionId}/finalizar/formulario/")
-	public void finalizeForm(Long questionId) {
-		result.include("questionId", questionId);
+	@Path("/perguntas/{answerId}/finalizar/formulario/")
+	public void finalizeForm(Long answerId) {
+		result.include("answerId", answerId);
 	}
 	
-	@Path("perguntas/{questionId}/finalizar/")
-	public void finalizeQuestion(Long questionId, Integer score) {
-		//TODO: guardar o score, ainda vamos decidir como fazer isso... 
-		Question question = dao.getQuestion(questionId);
+	@Path("/perguntas/{answerId}/finalizar/")
+	public void finalizeQuestion(Long answerId, Integer score) {
+		Answer answer = dao.getAnswer(answerId);
+		Question question = answer.getQuestion();
+		
 		//TODO: refatorar isso em um interceptor
 		if (!isAvaiable(question) && question.getAuthor().equals(userSession.getLoggedUser())) {
 			result.redirectTo(ErrorController.class).errorscreen();
 			return;
 		}
 		
+		AnswerClassification classification = new AnswerClassification(answer, score);
 		question.setFinalized(true);
-		dao.updateQuestion(question);
-		result.redirectTo(this).detail(questionId);
+		dao.saveClassificationAndUpdateQuestion(question, classification);
+		result.redirectTo(this).detail(question.getId());
 	}
 	
 }

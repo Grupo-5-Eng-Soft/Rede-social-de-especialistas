@@ -51,4 +51,12 @@ public class Specialist implements Serializable {
 		this.specialty = specialty;
 	}
 	
+	public boolean equals(Specialist s) {
+		return (s.getUser().equals(this.user) && s.getSpecialty().equals(this.specialty));
+	}
+
+	public void addScore(Integer score) {
+		this.score += this.score;
+	}
+	
 }
