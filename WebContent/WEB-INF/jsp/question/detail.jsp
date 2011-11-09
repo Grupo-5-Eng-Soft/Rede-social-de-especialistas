@@ -63,7 +63,7 @@ function toggle(obj) {
 				<p>${answer.description}<br /><br /></p>
 				<p>
 					<c:if test="${isQuestionAuthor && answer.author.id != question.author.id && !question.finalized}">
-						<a href="<c:url value="/perguntas/${question.id}/finalizar/formulario/"/>">Estou satisfeito com essa resposta</a>
+						<a href="<c:url value="/perguntas/${answer.id}/finalizar/formulario/"/>">Estou satisfeito com essa resposta</a>
 					</c:if>
 				</p>
 			</div>

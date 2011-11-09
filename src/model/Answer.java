@@ -4,6 +4,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 
 @Entity
 public class Answer {
@@ -17,6 +18,9 @@ public class Answer {
 	
 	@ManyToOne
 	private Question question;
+	
+	@OneToOne
+	private AnswerClassification classification;
 	
 	private String description;
 
@@ -50,6 +54,11 @@ public class Answer {
 
 	public void setQuestion(Question question) {
 		this.question = question;
+	}
+
+	public void setClassification(AnswerClassification classification) {
+		this.classification = classification;
+		
 	}
 	
 }

@@ -5,6 +5,7 @@ import java.util.Collection;
 import java.util.List;
 
 import model.Answer;
+import model.AnswerClassification;
 import model.Question;
 import model.Specialist;
 import model.Specialty;
@@ -118,6 +119,21 @@ public class QuestionDao {
 		Transaction tx = session.beginTransaction();
 		session.update(question);
 		tx.commit();
+	}
+
+	public void saveClassificationAndUpdateQuestion(Question question, AnswerClassification classification) {
+		Transaction tx = session.beginTransaction();
+		session.save(classification);
+		session.update(classification.getAnswer());
+		Specialist specialistAt = classification.getAnswer().getAuthor().getSpecialistAt(question.getSpecialty());
+		System.out.println("\n\n\n\n========================");
+		System.out.println(specialistAt);
+		System.out.println("========================\n\n\n");
+		if (specialistAt != null)
+			session.update(specialistAt);
+		session.update(question);
+		tx.commit();
+		
 	}
 	
 }
