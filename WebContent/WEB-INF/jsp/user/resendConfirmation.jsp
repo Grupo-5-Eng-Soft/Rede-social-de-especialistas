@@ -24,6 +24,9 @@
 			<h1>Reenviar Confirmação</h1>
 			<a href="<c:url value="/login/"/>">Login</a> 
 		</div>
+		<div id="error">
+			${errorMessage}
+		</div>
 		<form method="post" action="./enviar/" >
 			Email<br />
 			<input type="text" size="30" name="email" /><br />

@@ -217,7 +217,7 @@ public class UserController {
 	@Path("/usuarios/enviarsenha/")
 	public void sendPassword(String email) {
 		User user = dao.getUserByEmail(email);
-		String cod = geraSenha();
+		String cod = randomPassword();
 		if (user != null) {
 			String message = "Sua nova senha eh: " + cod + "\n\n" +
 					"Aconselhamos que mude a sua senha em Editar Perfil no topo direito da pagina.\n Obrigado.";
@@ -235,7 +235,7 @@ public class UserController {
 		}
 	}
 	
-	private String geraSenha() {
+	private String randomPassword() {
 		 String letters = "ABCDEFGHIJKLMNOPQRSTUVYWXZ0123456789"; 
 	     Random random = new Random();
 	     
@@ -245,20 +245,23 @@ public class UserController {
 	         index = random.nextInt( letters.length() );
 	         code += letters.substring( index, index + 1 );
 	     }
-	     System.out.println( code );
-	     
 	     return code;
 	}
 	
 	@Path("/usuarios/reenviar/cadastro/")
-	public void reenviarConfirmacao() {
+	public void resendConfirmation() {
 		
 	}
 	
 	@Path("/usuarios/reenviar/cadastro/enviar/")
 	public void sendNewConfirmation(String email) {
 		User user = dao.getUserByEmail(email);
-		result.redirectTo(EmailConfirmationController.class).createAndSendEmailConfirmation(user, null, true);
+		if(user == null) {
+			result.include("errorMessage", "Não foi possível encontrar um cadastro com esse email. Verifique se você digitou corretamente.");
+			result.redirectTo(UserController.class).resendConfirmation();
+		}
+		else
+			result.redirectTo(EmailConfirmationController.class).createAndSendEmailConfirmation(user, null, true);
 	}
 
 }
