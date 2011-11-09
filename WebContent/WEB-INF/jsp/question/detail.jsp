@@ -31,10 +31,10 @@ function toggle(obj) {
 	<div id="content">
 		<div id="question">
 			<h2>${question.title}</h2>
-			<h6>Especialidade: ${question.specialty.name}</h6>
-			<c:if test="${question.publicQuestion}">
-				<h6>Dúvida pública</h6>
+			<c:if test="${question.finalized}">
+				<h3>Pergunta finalizada</h3>
 			</c:if>
+			<h6>Especialidade: ${question.specialty.name}</h6>
 			<c:if test="${!question.publicQuestion}">
 				<h6>Dúvida privada</h6>
 			</c:if>
@@ -61,6 +61,11 @@ function toggle(obj) {
 				</c:if>
 				</h6>
 				<p>${answer.description}<br /><br /></p>
+				<p>
+					<c:if test="${isQuestionAuthor && answer.author.id != question.author.id && !question.finalized}">
+						<a href="<c:url value="/perguntas/${question.id}/finalizar/formulario/"/>">Estou satisfeito com essa resposta</a>
+					</c:if>
+				</p>
 			</div>
 		</c:forEach>
 		<br />

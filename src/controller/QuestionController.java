@@ -90,15 +90,21 @@ public class QuestionController {
 	@Path("/perguntas/{questionId}/")
 	public void detail(Long questionId) {
 		Question question = dao.getQuestion(questionId);
+		//TODO: refatorar isso em um interceptor
 		if (!isAvaiable(question)) {
 			result.redirectTo(ErrorController.class).errorscreen();
 			return;
 		}
+		if (userSession.getLoggedUser() == null)
+			result.include("isQuestionAuthor", false);
+		else
+			result.include("isQuestionAuthor", question.getAuthor().equals(userSession.getLoggedUser()));
 		result.include("isSpecialist", userSession.isSpecialistIn(question.getSpecialty()));
 		result.include("question", question);
 		result.include("answer", question.getAnswers());
 		result.include("answerAuthorsQualification", question.getAnswersAuthorsQualification());
 	}
+	
 
 	private boolean isAvaiable(Question question) {
 		User loggedUser = userSession.getLoggedUser();
@@ -124,4 +130,25 @@ public class QuestionController {
 		
 		validator.onErrorRedirectTo(this).form(specialtyId);
 	}
+	
+	@Path("/perguntas/{questionId}/finalizar/formulario/")
+	public void finalizeForm(Long questionId) {
+		result.include("questionId", questionId);
+	}
+	
+	@Path("perguntas/{questionId}/finalizar/")
+	public void finalizeQuestion(Long questionId, Integer score) {
+		//TODO: guardar o score, ainda vamos decidir como fazer isso... 
+		Question question = dao.getQuestion(questionId);
+		//TODO: refatorar isso em um interceptor
+		if (!isAvaiable(question) && question.getAuthor().equals(userSession.getLoggedUser())) {
+			result.redirectTo(ErrorController.class).errorscreen();
+			return;
+		}
+		
+		question.setFinalized(true);
+		dao.updateQuestion(question);
+		result.redirectTo(this).detail(questionId);
+	}
+	
 }

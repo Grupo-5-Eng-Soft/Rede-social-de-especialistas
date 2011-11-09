@@ -113,5 +113,11 @@ public class QuestionDao {
 				add(avaiableQuestionsCriterion);
 		return avaiableQuestionsCriteria;
 	}
+
+	public void updateQuestion(Question question) {
+		Transaction tx = session.beginTransaction();
+		session.update(question);
+		tx.commit();
+	}
 	
 }

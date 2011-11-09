@@ -49,6 +49,10 @@ public class Question {
 	@Valid
 	@NotNull
 	private boolean publicQuestion = true;
+	
+	@Valid
+	@NotNull
+	private boolean finalized = false;
 
 	public User getAuthor() {
 		return author;
@@ -131,5 +135,13 @@ public class Question {
 			answersAuthors.get(author.getLogin());
 		}
 		return answersAuthors;
+	}
+
+	public boolean isFinalized() {
+		return finalized;
+	}
+
+	public void setFinalized(boolean finalized) {
+		this.finalized = finalized;
 	}
 }
