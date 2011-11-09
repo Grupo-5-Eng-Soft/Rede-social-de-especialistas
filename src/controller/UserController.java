@@ -1,7 +1,6 @@
 package controller;
 
 import hash.HashCalculator;
-import infra.Email;
 import infra.EmailSender;
 import infra.UserSession;
 import interceptor.annotations.Admin;
@@ -10,7 +9,6 @@ import interceptor.annotations.ModifiesUser;
 
 import java.util.ArrayList;
 import java.util.Random;
-import java.lang.Math;
 
 import model.User;
 import br.com.caelum.vraptor.Path;
@@ -83,7 +81,7 @@ public class UserController {
 		user.setCertified(false);
 		user.setPasswordFromRawString(user.getPassword());
 		dao.save(user, specialties_ids);
-		result.redirectTo(EmailConfirmationController.class).createAndSendEmailConfirmation(user, null);
+		result.redirectTo(EmailConfirmationController.class).createAndSendEmailConfirmation(user, null, false);
 	}
 	
 	@LoggedUser
@@ -142,7 +140,7 @@ public class UserController {
 			user.setActive(false);
 			result.redirectTo(EmailConfirmationController.class).
 			createAndSendEmailConfirmation(user, "Sua conta foi editada com sucesso," +
-			" verifique a sua caixa de mensagens para confirmar a mudança do seu email.");
+			" verifique a sua caixa de mensagens para confirmar a mudança do seu email.", false);
 		}
 		else {
 			// o e-mail não mudou
@@ -238,18 +236,29 @@ public class UserController {
 	}
 	
 	private String geraSenha() {
-		 String letras = "ABCDEFGHIJKLMNOPQRSTUVYWXZ0123456789"; 
+		 String letters = "ABCDEFGHIJKLMNOPQRSTUVYWXZ0123456789"; 
 	     Random random = new Random();
 	     
-	     String armazenaChaves = "";
+	     String code = "";
 	     int index = -1;
 	     for( int i = 0; i < 9; i++ ) {
-	         index = random.nextInt( letras.length() );
-	         armazenaChaves += letras.substring( index, index + 1 );
+	         index = random.nextInt( letters.length() );
+	         code += letters.substring( index, index + 1 );
 	     }
-	     System.out.println( armazenaChaves );
+	     System.out.println( code );
 	     
-	     return armazenaChaves;
+	     return code;
+	}
+	
+	@Path("/usuarios/reenviar/cadastro/")
+	public void reenviarConfirmacao() {
+		
+	}
+	
+	@Path("/usuarios/reenviar/cadastro/enviar/")
+	public void sendNewConfirmation(String email) {
+		User user = dao.getUserByEmail(email);
+		result.redirectTo(EmailConfirmationController.class).createAndSendEmailConfirmation(user, null, true);
 	}
 
 }

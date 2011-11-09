@@ -35,6 +35,9 @@
 			<div id="tabs">
 				<a href="<c:url value="/usuarios/recuperarsenha/"/>"><i>Recuperar senha</i></a>
 			</div>
+			<div id="tabs">
+				<a href="<c:url value="/usuarios/reenviar/cadastro/"/>"><i>Nao recebeu o email de cadastro? Clique aqui.</i></a>
+			</div>
 			<p><input type="submit" value="Enviar" /></p>
 		</form>
 	</div>	

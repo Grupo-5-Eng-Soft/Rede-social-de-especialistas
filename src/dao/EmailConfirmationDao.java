@@ -16,11 +16,14 @@ public class EmailConfirmationDao {
 		this.session = session;
 	}
 	
-	public void saveEmailConfirmationFromUser(User user) {
+	public void saveEmailConfirmationFromUser(User user, boolean reenvio) {
 		EmailConfirmation confirmation = new EmailConfirmation();
 		confirmation.setUser(user);
 		Transaction tx = session.beginTransaction();
-		session.save(confirmation);
+		if(reenvio)
+			session.update(confirmation);
+		else
+			session.save(confirmation);
 		tx.commit();
 	}
 	

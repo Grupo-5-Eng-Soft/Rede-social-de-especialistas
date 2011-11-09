@@ -29,8 +29,8 @@ public class EmailConfirmationControllerTest {
 	@Test
 	public void shouldSaveUser() throws Exception {
 		User user = validUser();
-		controller.createAndSendEmailConfirmation(user, null);
-		verify(dao).saveEmailConfirmationFromUser(user);
+		controller.createAndSendEmailConfirmation(user, null, false);
+		verify(dao).saveEmailConfirmationFromUser(user, false);
 	}
 
 	private User validUser() {

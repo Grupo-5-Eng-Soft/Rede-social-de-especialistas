@@ -23,8 +23,8 @@ public class EmailConfirmationController {
 		this.users = users;
 	}
 	
-	public void createAndSendEmailConfirmation(User user, String message) {
-		dao.saveEmailConfirmationFromUser(user);
+	public void createAndSendEmailConfirmation(User user, String message, boolean forward) {
+		dao.saveEmailConfirmationFromUser(user, forward);
 		sendEmail(user);
 		if (message == null)
 			message = "Seu cadastro foi efetuado com sucesso, verifique seu email.";
