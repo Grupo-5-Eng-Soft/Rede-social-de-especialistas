@@ -95,7 +95,7 @@ public class QuestionDao {
 	}
 
 	private Criteria avaiableQuestionsCriteria(User loggedUser) {
-		Criterion avaiableQuestionsCriterion;
+		Criterion avaiableQuestionsCriterion = null;
 		// nao estava funcionando se as especialidades fossem vazias
 		// por isso tive que separar em dois casos
 		if (!loggedUser.getSpecialtiesOfSpecialists().isEmpty()) {

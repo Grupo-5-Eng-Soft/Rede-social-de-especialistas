@@ -42,6 +42,10 @@ public class AnswerController {
 		}
 		answer.setAuthor(userSession.getLoggedUser());
 		answer.setQuestion(question);
+		if(userSession.getLoggedUser().isSpecialistIn(specialty))
+			question.setAnswered(true);
+		else if(question.getAuthor().equals(userSession.getLoggedUser()))
+			question.setAnswered(false);
 		dao.save(answer);
 		sendEmailToAuthor(answer);
 		result.redirectTo(QuestionController.class).detail(questionId);

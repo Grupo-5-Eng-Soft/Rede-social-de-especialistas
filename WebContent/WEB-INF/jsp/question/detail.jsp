@@ -34,6 +34,11 @@ function toggle(obj) {
 			<c:if test="${question.finalized}">
 				<h3>Pergunta finalizada</h3>
 			</c:if>
+			<c:if test="${!question.finalized}">
+				<c:if test="${question.answered}">
+					<h3>Pergunta Respondida</h3>
+				</c:if>
+			</c:if>
 			<h6>Especialidade: ${question.specialty.name}</h6>
 			<c:if test="${!question.publicQuestion}">
 				<h6>Dúvida privada</h6>

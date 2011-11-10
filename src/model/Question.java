@@ -53,6 +53,10 @@ public class Question {
 	@Valid
 	@NotNull
 	private boolean finalized = false;
+	
+	@Valid
+	@NotNull
+	private boolean answered = false;
 
 	public User getAuthor() {
 		return author;
@@ -143,5 +147,13 @@ public class Question {
 
 	public void setFinalized(boolean finalized) {
 		this.finalized = finalized;
+	}
+
+	public boolean isAnswered() {
+		return answered;
+	}
+
+	public void setAnswered(boolean answered) {
+		this.answered = answered;
 	}
 }
