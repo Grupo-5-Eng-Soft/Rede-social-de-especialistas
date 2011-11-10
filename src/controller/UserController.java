@@ -59,7 +59,7 @@ public class UserController {
 			password = encryption.getValue();
 			if (user.getPassword().equals(password) && user.isActive()) {
 				userSession.login(user);
-				result.redirectTo(IndexController.class).index();
+				result.redirectTo(UserController.class).detail(user.getId());
 			} else if (!user.isActive()){
 				result.include("notAuthenticated", "Usuário com cadastro não confirmado. Verifique seu e-mail.");
 				result.redirectTo(UserController.class).loginForm();
