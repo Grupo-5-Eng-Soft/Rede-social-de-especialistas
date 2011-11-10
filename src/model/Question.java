@@ -14,8 +14,8 @@ import javax.persistence.OneToMany;
 
 import org.hibernate.validator.NotNull;
 import org.hibernate.validator.Valid;
-
-import com.sun.org.apache.xalan.internal.xsltc.runtime.Hashtable;
+import java.util.AbstractMap;
+import java.util.HashMap;
 
 @Entity
 public class Question {
@@ -126,9 +126,9 @@ public class Question {
 		this.creationDate = data;
 	}
 	
-	public Hashtable getAnswersAuthorsQualification() {
+	public HashMap<String, Boolean> getAnswersAuthorsQualification() {
 		User author;
-		Hashtable answersAuthors = new Hashtable();
+		HashMap<String, Boolean> answersAuthors = new HashMap<String, Boolean>();
 		for (Answer answer : this.answers) {
 			author = answer.getAuthor();
 			answersAuthors.put(author.getLogin(), author.isSpecialistIn(this.specialty));
