@@ -117,8 +117,9 @@ public class QuestionController {
 		if (loggedUser.equals(question.getAuthor()))
 			return true;
 		List<Specialty> specialties = loggedUser.getSpecialtiesOfSpecialists();
-		if (specialties.contains(question.getSpecialty()))
-			return true;
+		for(Specialty s : specialties)
+			if(s.equals(question.getSpecialty()))
+				return true;
 		return false;
 	}
 
