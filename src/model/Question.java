@@ -7,14 +7,16 @@ import java.util.HashMap;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.Transient;
 
 import org.hibernate.validator.NotNull;
 import org.hibernate.validator.Valid;
-import java.util.AbstractMap;
 import java.util.HashMap;
 
 @Entity
@@ -50,13 +52,9 @@ public class Question {
 	@NotNull
 	private boolean publicQuestion = true;
 	
-	@Valid
 	@NotNull
-	private boolean finalized = false;
-	
-	@Valid
-	@NotNull
-	private boolean answered = false;
+	@Enumerated(EnumType.STRING)
+	private QuestionStatus status = QuestionStatus.OPEN;
 
 	public User getAuthor() {
 		return author;
@@ -141,19 +139,26 @@ public class Question {
 		return answersAuthors;
 	}
 
+	public QuestionStatus getStatus() {
+		return status;
+	}
+
+	public void setStatus(QuestionStatus status) {
+		this.status = status;
+	}
+	
+	@Transient
 	public boolean isFinalized() {
-		return finalized;
+		return status == QuestionStatus.FINALIZED;
 	}
-
-	public void setFinalized(boolean finalized) {
-		this.finalized = finalized;
-	}
-
+	
+	@Transient
 	public boolean isAnswered() {
-		return answered;
+		return status == QuestionStatus.ANSWERED;
 	}
-
-	public void setAnswered(boolean answered) {
-		this.answered = answered;
+	
+	@Transient
+	public boolean isOpen() {
+		return status == QuestionStatus.OPEN;
 	}
 }

@@ -8,6 +8,7 @@ import java.util.ArrayList;
 
 import model.Answer;
 import model.Question;
+import model.QuestionStatus;
 import model.Specialty;
 import br.com.caelum.vraptor.Path;
 import br.com.caelum.vraptor.Resource;
@@ -42,10 +43,10 @@ public class AnswerController {
 		}
 		answer.setAuthor(userSession.getLoggedUser());
 		answer.setQuestion(question);
-		if(userSession.getLoggedUser().isSpecialistIn(specialty))
-			question.setAnswered(true);
-		else if(question.getAuthor().equals(userSession.getLoggedUser()))
-			question.setAnswered(false);
+		if(question.getAuthor().equals(userSession.getLoggedUser()))
+			question.setStatus(QuestionStatus.OPEN);
+		else if(userSession.getLoggedUser().isSpecialistIn(specialty))
+			question.setStatus(QuestionStatus.ANSWERED);
 		dao.save(answer);
 		sendEmailToAuthor(answer);
 		result.redirectTo(QuestionController.class).detail(questionId);

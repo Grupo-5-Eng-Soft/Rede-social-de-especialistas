@@ -167,9 +167,7 @@ public class UserController {
 	
 	@Path("/usuarios/{userId}/")
 	public void detail(long userId) {
-		User user = dao.getUser(userId);
-		result.include("user", user);
-		result.include("listOfSpcialty", user.getSpecialtiesOfSpecialists());
+		result.include("user", dao.getUser(userId));
 	}
 	
 	

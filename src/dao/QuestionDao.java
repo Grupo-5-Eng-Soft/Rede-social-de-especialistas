@@ -95,7 +95,7 @@ public class QuestionDao {
 	}
 
 	private Criteria avaiableQuestionsCriteria(User loggedUser) {
-		Criterion avaiableQuestionsCriterion = null;
+		Criterion avaiableQuestionsCriterion;
 		// nao estava funcionando se as especialidades fossem vazias
 		// por isso tive que separar em dois casos
 		if (!loggedUser.getSpecialtiesOfSpecialists().isEmpty()) {
@@ -114,6 +114,16 @@ public class QuestionDao {
 				add(avaiableQuestionsCriterion);
 		return avaiableQuestionsCriteria;
 	}
+	/** Isso é para saber somente quais são as perguntas das especialidades de cada usuario. Isso é para colocar no seu perfil. 
+	public List<Question> listQuestionsOfSpecialties(User loggedUser) {
+		Criteria avaiableQuestion;
+		Criterion avaiableQuestionsCriterion = null;
+		if(loggedUser.getSpecialtiesOfSpecialists() != null)
+			avaiableQuestionsCriterion = Restrictions.disjunction().add(Restrictions.in("specialty", loggedUser.getSpecialtiesOfSpecialists()));
+		avaiableQuestion = this.session.createCriteria(Question.class).add(avaiableQuestionsCriterion);
+		
+		return avaiableQuestion.list();
+	}**/
 
 	public void updateQuestion(Question question) {
 		Transaction tx = session.beginTransaction();

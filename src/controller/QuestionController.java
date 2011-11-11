@@ -13,6 +13,7 @@ import model.AnswerClassification;
 import model.Question;
 import model.Specialist;
 import model.Specialty;
+import model.QuestionStatus;
 import model.User;
 import br.com.caelum.vraptor.Path;
 import br.com.caelum.vraptor.Resource;
@@ -144,13 +145,13 @@ public class QuestionController {
 		Question question = answer.getQuestion();
 		
 		//TODO: refatorar isso em um interceptor
-		if ((!isAvaiable(question) && question.getAuthor().equals(userSession.getLoggedUser())) || question.isFinalized()) {
+		if ((!isAvaiable(question) && question.getAuthor().equals(userSession.getLoggedUser())) || question.getStatus().equals("finalized")) {
 			result.redirectTo(ErrorController.class).errorscreen();
 			return;
 		}
 		
 		AnswerClassification classification = new AnswerClassification(answer, score);
-		question.setFinalized(true);
+		question.setStatus(QuestionStatus.FINALIZED);
 		dao.saveClassificationAndUpdateQuestion(question, classification);
 		result.redirectTo(this).detail(question.getId());
 	}
