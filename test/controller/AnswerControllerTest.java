@@ -6,6 +6,7 @@ import static org.mockito.Mockito.when;
 import infra.UserSession;
 import model.Answer;
 import model.Question;
+import model.Role;
 import model.Specialty;
 import model.User;
 
@@ -36,7 +37,8 @@ public class AnswerControllerTest {
 		User user = mock(User.class);
 		Specialty vraptor = mock(Specialty.class);
 		
-		Question question = aQuestionWithSpecialty(vraptor);
+		User author = createAuthor();
+		Question question = aQuestionWithSpecialty(author, vraptor);
 		Answer answer = anAnswerToQuestion(question);
 		
 		when(session.getLoggedUser()).thenReturn(user);
@@ -49,11 +51,25 @@ public class AnswerControllerTest {
 		verify(dao).save(answer);
 	}
 	
-	private Question aQuestionWithSpecialty(Specialty specialty) {
+	private User createAuthor() {
+		User user = new User();
+		
+		user.setId(1);
+		user.setEmail("chico@email.com");
+		user.setLogin("chico");
+		user.setSpecialists(null);
+		user.setActive(true);
+		user.setRole(Role.USER);
+		
+		return user;
+	}
+
+	private Question aQuestionWithSpecialty(User author, Specialty specialty) {
 		Question question = new Question();
 		question.setTitle("Titulo da pergunta.");
 		question.setSpecialty(specialty);
 		question.setEmail("email@abc.x");
+		question.setAuthor(author);
 		return question;
 	}
 	
