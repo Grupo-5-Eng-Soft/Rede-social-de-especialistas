@@ -111,12 +111,21 @@ public class User implements Serializable {
 		return false;
 	}
 
-	public List<Specialty> getSpecialtiesOfSpecialists() {
+	public List<Specialty> getSpecialties() {
 		List<Specialty> specialties = new ArrayList<Specialty>();
 		for (Specialist specialist : this.specialists) {
 			specialties.add(specialist.getSpecialty());
 		}
 		return specialties;
+	}
+	
+	public List<String> getSpecialtiesNames() {
+		List<String> names = new ArrayList<String>();
+		List<Specialty> specialties = getSpecialties();
+		for (Specialty specialty : specialties) {
+			names.add(specialty.getName());
+		}
+		return names;
 	}
 	
 	public Specialist getSpecialistAt(Specialty specialty) {

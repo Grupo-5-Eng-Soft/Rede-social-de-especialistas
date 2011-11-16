@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -40,14 +41,8 @@
 			Nome<br />
 			<input type="text" size="30" value="${user.name}" name="user.name" /><br />
 			Especialidades<br />
-			<c:forEach var="specialty" items="${specialties}">
-				<% String s = new String("");%>
-				<c:forEach var="userspecialty" items="${user.specialists }">
-					<c:if test="${specialty.id == userspecialty.specialty.id }"> 	
-						<% s = "checked"; %>
-					</c:if>
-				</c:forEach>
-				<input name="specialties_ids" <%= s %> type="checkbox" value="${specialty.id}"> ${specialty.name}<br />
+			<c:forEach items="${specialties}" var="spec">
+				<input type='checkbox' name='specialties_ids' value='${spec.id}' ${fn:contains(userSpecialties, spec.name) ? 'checked' : ''}> ${spec.name}<br/>
 			</c:forEach>
 			<br />
 			<input type="submit" value="Atualizar"/>

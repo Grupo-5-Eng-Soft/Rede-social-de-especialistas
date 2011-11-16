@@ -98,10 +98,10 @@ public class QuestionDao {
 		Criterion avaiableQuestionsCriterion;
 		// nao estava funcionando se as especialidades fossem vazias
 		// por isso tive que separar em dois casos
-		if (!loggedUser.getSpecialtiesOfSpecialists().isEmpty()) {
+		if (!loggedUser.getSpecialties().isEmpty()) {
 			avaiableQuestionsCriterion = Restrictions.disjunction().
 			  add(Restrictions.eq("publicQuestion", true)).
-			  add(Restrictions.in("specialty", loggedUser.getSpecialtiesOfSpecialists())).
+			  add(Restrictions.in("specialty", loggedUser.getSpecialties())).
 			  add(Restrictions.eq("author", loggedUser));
 		}
 		else {

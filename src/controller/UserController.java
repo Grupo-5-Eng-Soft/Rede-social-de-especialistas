@@ -125,6 +125,7 @@ public class UserController {
 		}
 		result.include("user", userSession.getLoggedUser());
 		result.include("specialties", dao.listSpecialty());
+		result.include("userSpecialties", userSession.getLoggedUser().getSpecialtiesNames());
 	}
 	
 	@Path("/usuarios/atualizacao/")
