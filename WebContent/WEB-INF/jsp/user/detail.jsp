@@ -21,7 +21,7 @@
 		<div id="tabs">
 			<h1>${user.name} (${user.login})
 			<c:if test="${user.certified}">
-				<imgcert> <img src="<c:url value="/img/star.png"/>"> <span> TOOLTIP </span> </imgcert>
+				<imgcert> <img src="<c:url value="/img/star.png"/>"> <span> Especialista certificado pelo CCSL  </span> </imgcert>
 			</c:if>
 			</h1>
 			<c:if test="${userSession.loggedUser.admin}">
