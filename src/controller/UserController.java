@@ -6,9 +6,13 @@ import infra.UserSession;
 import interceptor.annotations.Admin;
 import interceptor.annotations.LoggedUser;
 import interceptor.annotations.ModifiesUser;
+import interceptor.annotations.NotSpecialist;
+import interceptor.annotations.Specialist;
 
 import java.util.ArrayList;
 import java.util.Random;
+
+import org.mockito.Spy;
 
 import model.User;
 import br.com.caelum.vraptor.Path;
@@ -59,7 +63,10 @@ public class UserController {
 			password = encryption.getValue();
 			if (user.getPassword().equals(password) && user.isActive()) {
 				userSession.login(user);
-				result.redirectTo(UserController.class).detail(user.getId());
+				if (user.isSpecialist())
+					result.redirectTo(UserController.class).specialistInitialPage();
+				else
+					result.redirectTo(UserController.class).notSpecialistInitialPage();
 			} else if (!user.isActive()){
 				result.include("notAuthenticated", "Usuário com cadastro não confirmado. Verifique seu e-mail.");
 				result.redirectTo(UserController.class).loginForm();
@@ -263,6 +270,20 @@ public class UserController {
 		}
 		else
 			result.redirectTo(EmailConfirmationController.class).createAndSendEmailConfirmation(user, null, true);
+	}
+
+	@LoggedUser
+	@Specialist
+	@Path("/usuarios/inicio/especialista/")
+	public void specialistInitialPage() {
+		
+	}
+	
+	@LoggedUser
+	@NotSpecialist
+	@Path("/usuarios/inicio/comum/")
+	public void notSpecialistInitialPage() {
+		
 	}
 
 }
