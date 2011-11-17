@@ -1,40 +1,42 @@
 package model;
 
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+
 import java.util.ArrayList;
 
 import org.junit.Test;
-import static org.junit.Assert.*;
 
 public class UserTest {
 
 	@Test
 	public void getSpecialistTest() {
-		Specialty specialty = new Specialty();
-		specialty.setId(1);
-		specialty.setName("Archimedes");
+		Specialty archimedes = specialtyWithNameAndId("Archimedes", 1);
 		
 		User user = new User();
 		user.setId(1);
 
 		Specialist specialist = new Specialist();
-		specialist.setSpecialty(specialty);
+		specialist.setSpecialty(archimedes);
 		specialist.setUser(user);
 		
 		ArrayList<Specialist> specialists = new ArrayList<Specialist>();
 		specialists.add(specialist);
 		user.setSpecialists(specialists);
 		
-		Specialty newSpecialty = new Specialty();
-		newSpecialty.setId(1);
-		newSpecialty.setName("Archimedes");
+		Specialty otherArchimedes = specialtyWithNameAndId("Archimedes", 1);
+		Specialty linux = specialtyWithNameAndId("Linux", 2);
 		
-		Specialty newSpecialty2 = new Specialty();
-		newSpecialty2.setId(2);
-		newSpecialty2.setName("Linux");
+		assertNotNull(user.getSpecialistAt(otherArchimedes));
+		assertNull(user.getSpecialistAt(linux));
 		
-		assertNotNull(user.getSpecialistAt(newSpecialty));
-		assertNull(user.getSpecialistAt(newSpecialty2));
-		
+	}
+
+	private Specialty specialtyWithNameAndId(String name, int id) {
+		Specialty specialty = new Specialty();
+		specialty.setId(id);
+		specialty.setName(name);
+		return specialty;
 	}
 	
 }
