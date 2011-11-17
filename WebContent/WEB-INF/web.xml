@@ -21,4 +21,9 @@
 		<error-code>404</error-code>
 		<location>/WEB-INF/jsp/error/404.jsp</location>
 	</error-page>
+	
+  	<context-param>
+    	<param-name>br.com.caelum.vraptor.encoding</param-name>
+    	<param-value>UTF-8</param-value>
+	</context-param>
 </web-app>
