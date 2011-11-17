@@ -93,18 +93,10 @@ img, a img {
 
 imgcert{
 position:relative;
-font:12px arial, verdana, helvetica, sans-serif;
 padding:0;
-color:#039;
-text-decoration:none;
-border-bottom:2px dotted #039;
-cursor:help;
-z-index:24;
 }
 imgcert:hover{
 background:transparent;
-color:#f00;
-z-index:25;
 }
 imgcert span{display: none}
 imgcert:hover span{
@@ -114,9 +106,8 @@ width:230px;
 top:3em;
 right-align:justify;
 left:0;
-font: 12px arial, verdana, helvetica, sans-serif;
-padding:5px 10px;
 border:1px solid #999;
-background:#e0ffff;
-color:#000;
+background:#EEE;
+font: 12px/160% Arial, sans-serif;
+color: #494949;
 }
