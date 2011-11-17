@@ -21,7 +21,7 @@
 		<div id="tabs">
 			<h1>${user.name} (${user.login})
 			<c:if test="${user.certified}">
-				<img src="<c:url value="/img/star.png"/>">
+				<imgcert> <img src="<c:url value="/img/star.png"/>"> <span> TOOLTIP </span> </imgcert>
 			</c:if>
 			</h1>
 			<c:if test="${userSession.loggedUser.admin}">
