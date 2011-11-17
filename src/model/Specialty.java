@@ -2,14 +2,13 @@ package model;
 
 
 import java.util.Collection;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
 import org.hibernate.validator.NotEmpty;
-
-import com.sun.org.apache.xpath.internal.operations.Equals;
 
 @Entity
 public class Specialty {
@@ -47,5 +46,8 @@ public class Specialty {
 		return this.id == s.getId();
 	}
 	
-
+	@Override
+	public String toString() {
+		return this.name;
+	}
 }
