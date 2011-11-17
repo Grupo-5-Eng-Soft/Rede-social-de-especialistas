@@ -1,5 +1,6 @@
 package controller;
 
+import static br.com.caelum.vraptor.view.Results.http;
 import infra.Email;
 import infra.EmailSender;
 import infra.UserSession;
@@ -8,12 +9,14 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.servlet.http.HttpServletResponse;
+
 import model.Answer;
 import model.AnswerClassification;
 import model.Question;
+import model.QuestionStatus;
 import model.Specialist;
 import model.Specialty;
-import model.QuestionStatus;
 import model.User;
 import br.com.caelum.vraptor.Path;
 import br.com.caelum.vraptor.Resource;
@@ -95,7 +98,7 @@ public class QuestionController {
 		Question question = dao.getQuestion(questionId);
 		//TODO: refatorar isso em um interceptor
 		if (!isAvaiable(question)) {
-			result.redirectTo(ErrorController.class).errorscreen();
+			result.use(http()).sendError(HttpServletResponse.SC_UNAUTHORIZED);
 			return;
 		}
 		if (userSession.getLoggedUser() == null)
@@ -146,7 +149,7 @@ public class QuestionController {
 		
 		//TODO: refatorar isso em um interceptor
 		if ((!isAvaiable(question) && question.getAuthor().equals(userSession.getLoggedUser())) || question.getStatus().equals("finalized")) {
-			result.redirectTo(ErrorController.class).errorscreen();
+			result.use(http()).sendError(HttpServletResponse.SC_UNAUTHORIZED);
 			return;
 		}
 		

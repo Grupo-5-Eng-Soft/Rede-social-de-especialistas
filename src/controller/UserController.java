@@ -1,5 +1,6 @@
 package controller;
 
+import static br.com.caelum.vraptor.view.Results.http;
 import hash.HashCalculator;
 import infra.EmailSender;
 import infra.UserSession;
@@ -9,6 +10,8 @@ import interceptor.annotations.ModifiesUser;
 
 import java.util.ArrayList;
 import java.util.Random;
+
+import javax.servlet.http.HttpServletResponse;
 
 import model.User;
 import br.com.caelum.vraptor.Path;
@@ -121,7 +124,7 @@ public class UserController {
 	@LoggedUser
 	public void userEditForm(final long userId){
 		if (userSession.getLoggedUser().getId() != userId) {
-			result.redirectTo(ErrorController.class).errorscreen();
+			result.use(http()).sendError(HttpServletResponse.SC_UNAUTHORIZED);
 		}
 		result.include("user", userSession.getLoggedUser());
 		result.include("specialties", dao.listSpecialty());

@@ -1,14 +1,20 @@
 package controller;
 
-import static org.mockito.Mockito.*;
+import static br.com.caelum.vraptor.view.Results.http;
+import static org.junit.Assert.assertEquals;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.spy;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+import hash.HashCalculator;
+import infra.UserSession;
 
 import java.util.ArrayList;
 
-import hash.HashCalculator;
-import infra.UserSession;
+import javax.servlet.http.HttpServletResponse;
+
 import model.User;
 
-import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
@@ -19,21 +25,24 @@ import br.com.caelum.vraptor.Validator;
 import br.com.caelum.vraptor.util.test.MockResult;
 import br.com.caelum.vraptor.util.test.MockValidator;
 import br.com.caelum.vraptor.validator.ValidationException;
-import br.com.caelum.vraptor.InterceptionException;
+import br.com.caelum.vraptor.view.HttpResult;
 import dao.UserDao;
 
 public class UserControllerTest {
 	
 	private @Mock UserDao dao;
+	private @Mock Result mockResult;
 	private Result result = new MockResult();
 	private Validator validator = new MockValidator();
 	private UserController controller;
 	private @Mock UserSession userSession;
+	private @Mock HttpResult http;
 
 	@Before
 	public void setUp() throws Exception {
 		MockitoAnnotations.initMocks(this);
 		controller = new UserController(result, validator, dao, userSession);
+		when(mockResult.use(http())).thenReturn(http);
 	}
 
 	@Test
@@ -52,16 +61,15 @@ public class UserControllerTest {
 
 	@Test
 	public void shouldNotAllowToEditOtherUser() {
-		result = mock(Result.class);
-		controller = new UserController(result, validator, dao, userSession);
+		controller = new UserController(mockResult, validator, dao, userSession);
+		
 		User loggedUser = validUser();
 		User otherUser = validUser();
 		otherUser.setEmail("outroemail@gmail.com");
 		otherUser.setId(666);
 		stubMockedUserSession(loggedUser);
-		when(result.redirectTo(ErrorController.class)).thenReturn(new ErrorController());
 		controller.userEditForm(otherUser.getId());
-		verify(result).redirectTo(ErrorController.class);
+		verify(http).sendError(HttpServletResponse.SC_UNAUTHORIZED);
 	}
 	
 	@Test

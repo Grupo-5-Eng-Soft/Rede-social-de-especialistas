@@ -14,7 +14,7 @@
   
 	<error-page>
 		<error-code>401</error-code>
-		<location>/WEB-INF/jsp/index/index.jsp</location>
+		<location>/WEB-INF/jsp/error/401.jsp</location>
 	</error-page>
 	
 	<error-page>

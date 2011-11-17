@@ -1,9 +1,10 @@
 package interceptor;
 
+import static br.com.caelum.vraptor.view.Results.http;
 import infra.UserSession;
 import interceptor.annotations.Admin;
 
-import controller.ErrorController;
+import javax.servlet.http.HttpServletResponse;
 
 import br.com.caelum.vraptor.InterceptionException;
 import br.com.caelum.vraptor.Intercepts;
@@ -36,7 +37,7 @@ public class AdminInterceptor implements Interceptor {
 		if(session.isAuthenticated() && session.getLoggedUser().isAdmin()) {
 			stack.next(method, instance);
 		} else {
-			result.redirectTo(ErrorController.class).errorscreen();
+			result.use(http()).sendError(HttpServletResponse.SC_UNAUTHORIZED);
 		}
 		
 	}

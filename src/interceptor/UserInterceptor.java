@@ -41,17 +41,16 @@ public class UserInterceptor implements Interceptor{
 
 	@Override
 	public void intercept(InterceptorStack stack, ResourceMethod method, Object instance) throws InterceptionException {
-		Long userIdViaURL = (Long) info.getParameters()[0];
-		User daoUser = users.getUser(userIdViaURL);
+		Long userIdFromURL = (Long) info.getParameters()[0];
+		User userFromDao = users.getUser(userIdFromURL);
 		User loggedUser = session.getLoggedUser();
 		
-		if (daoUser == null) {
+		if (userFromDao == null) {
 			result.notFound();
 			return;
 		}
-		if (loggedUser == null || loggedUser.getId() != daoUser.getId()) {
+		if (loggedUser == null || loggedUser.getId() != userFromDao.getId()) {
 			result.use(http()).sendError(HttpServletResponse.SC_UNAUTHORIZED);
-			
 		} else {
 			stack.next(method, instance);
 		}

@@ -1,10 +1,13 @@
 package controller;
 
+import static br.com.caelum.vraptor.view.Results.http;
 import infra.Email;
 import infra.EmailSender;
 import infra.UserSession;
 
 import java.util.ArrayList;
+
+import javax.servlet.http.HttpServletResponse;
 
 import model.Answer;
 import model.Question;
@@ -33,7 +36,7 @@ public class AnswerController {
 		Question question = dao.getQuestion(questionId);
 		Specialty specialty = question.getSpecialty();
 		if (!userSession.isAuthenticated()) {
-			result.redirectTo(ErrorController.class).errorscreen();
+			result.use(http()).sendError(HttpServletResponse.SC_UNAUTHORIZED);
 			return;
 		}
 		answer.setAuthor(userSession.getLoggedUser());
