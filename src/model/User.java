@@ -171,4 +171,8 @@ public class User implements Serializable {
 		return u.getId() == this.id;
 	}
 
+	public boolean isSpecialist() {
+		return !this.getSpecialists().isEmpty();
+	}
+
 }

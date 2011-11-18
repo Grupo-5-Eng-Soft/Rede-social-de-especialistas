@@ -3,10 +3,13 @@ package dao;
 import java.util.ArrayList;
 import java.util.List;
 
+import model.Question;
+import model.QuestionStatus;
 import model.Specialist;
 import model.Specialty;
 import model.User;
 
+import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.criterion.Order;
@@ -118,5 +121,12 @@ public class UserDao {
 	
 	public List<Specialist> getTopSpecialists() {
 		return this.session.createCriteria(Specialist.class).addOrder( Order.desc("score")).setMaxResults(5).list();
+	}
+
+	public List<Question> getQuestionsFromSpecialties(List<Specialty> specialties) {
+		Criteria questionsCriteria = this.session.createCriteria(Question.class)
+			.add(Restrictions.in("specialty", specialties))
+			.add(Restrictions.eq("status", QuestionStatus.OPEN));
+		return questionsCriteria.list();
 	}
 }

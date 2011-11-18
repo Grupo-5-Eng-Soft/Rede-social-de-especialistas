@@ -166,4 +166,5 @@ public class UserControllerTest {
 	private void stubMockedUserSession(User user) {
 		when(userSession.getLoggedUser()).thenReturn(user);
 	}
+	
 }

@@ -101,7 +101,7 @@ public class QuestionController {
 			result.use(http()).sendError(HttpServletResponse.SC_UNAUTHORIZED);
 			return;
 		}
-		if (userSession.getLoggedUser() == null)
+		if (userSession.getLoggedUser() == null || question.getAuthor() == null)
 			result.include("isQuestionAuthor", false);
 		else
 			result.include("isQuestionAuthor", question.getAuthor().equals(userSession.getLoggedUser()));
