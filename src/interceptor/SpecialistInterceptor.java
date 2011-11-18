@@ -25,7 +25,8 @@ public class SpecialistInterceptor implements Interceptor {
 	
 	@Override
 	public boolean accepts(ResourceMethod method) {
-		return method.containsAnnotation(Specialist.class);
+		return method.containsAnnotation(Specialist.class)
+				|| method.getResource().getType().isAnnotationPresent(Specialist.class);
 	}
 
 	@Override
