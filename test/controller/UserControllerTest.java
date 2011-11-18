@@ -199,6 +199,34 @@ public class UserControllerTest {
 		verify(dao, never()).updateUser(user);
 	}
 	
+	@Test
+	public void shouldSendNewConfirmation() {
+		result = mock(Result.class);
+		EmailConfirmationController emailConfirmationController = mock(EmailConfirmationController.class);
+		controller = new UserController(result, validator, dao, userSession, emailSender);
+		User user = validUser();
+		user.setActive(true);
+		String userEmail = user.getEmail();
+		when(dao.getUserByEmail(userEmail)).thenReturn(user);
+		when(result.redirectTo(EmailConfirmationController.class)).thenReturn(emailConfirmationController);
+		controller.sendNewConfirmation(userEmail);
+		verify(result).redirectTo(EmailConfirmationController.class);
+	}
 	
+	@Test
+	public void shouldNotSendNewConfirmation() {
+		result = mock(Result.class);
+		EmailConfirmationController emailConfirmationController = mock(EmailConfirmationController.class);
+		controller = new UserController(result, validator, dao, userSession, emailSender);
+		User user = validUser();
+		user.setActive(true);
+		user.setEmail("emailCerto@gmail.com");
+		String userEmail = user.getEmail();
+		when(dao.getUserByEmail(userEmail)).thenReturn(user);
+		when(dao.getUserByEmail("emailErrado@gmail.com")).thenReturn(null);
+		when(result.redirectTo(UserController.class)).thenReturn(controller);
+		controller.sendNewConfirmation("emailErrado@gmail.com");
+		verify(result, never()).redirectTo(EmailConfirmationController.class);
+	}
 	
 }
