@@ -1,11 +1,8 @@
 package controller;
 
 import static br.com.caelum.vraptor.view.Results.http;
-import static org.junit.Assert.assertEquals;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.spy;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.junit.Assert.*;
+import static org.mockito.Mockito.*;
 import hash.HashCalculator;
 import infra.UserSession;
 
@@ -15,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import model.User;
 
+import org.hibernate.validator.AssertTrue;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
@@ -57,6 +55,7 @@ public class UserControllerTest {
 		User user = validUser();
 		user.setEmail("email-invalido");
 		controller.save(user, null);
+		verify(dao, never()).save(user);
 	}
 
 	@Test
@@ -166,5 +165,17 @@ public class UserControllerTest {
 	private void stubMockedUserSession(User user) {
 		when(userSession.getLoggedUser()).thenReturn(user);
 	}
+	
+	@Test
+	public void shouldCertifyUser() {
+		User user = validUser();
+		user.setActive(true);
+		user.setCertified(false);
+		when(dao.getUser(user.getId())).thenReturn(user);
+		controller.certify(user.getId());
+		assertTrue(user.isCertified());
+	}
+	
+	
 	
 }
