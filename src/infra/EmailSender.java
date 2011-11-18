@@ -2,6 +2,11 @@ package infra;
 
 import java.util.ArrayList;
 
+import br.com.caelum.vraptor.ioc.Component;
+import br.com.caelum.vraptor.ioc.SessionScoped;
+
+@Component
+@SessionScoped
 public class EmailSender {
 	
 	private String fromAddress = "grupo5.engsoft@gmail.com";
