@@ -10,10 +10,13 @@ import interceptor.annotations.NotSpecialist;
 import interceptor.annotations.Specialist;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Random;
 
 import org.mockito.Spy;
 
+import model.Question;
 import model.User;
 import br.com.caelum.vraptor.Path;
 import br.com.caelum.vraptor.Post;
@@ -276,14 +279,30 @@ public class UserController {
 	@Specialist
 	@Path("/usuarios/inicio/especialista/")
 	public void specialistInitialPage() {
-		
+		User loggedUser = userSession.getLoggedUser();
+		List<Question> openQuestions = dao.getQuestionsFromSpecialties(loggedUser.getSpecialties());
+		HashMap<String, List<Question>> questionsHashMapBySpecialtyName = getOpenQuestionsHashMap(openQuestions);
+		result.include("questionsHashMapBySpecialtyName", questionsHashMapBySpecialtyName);
+		result.include("user", loggedUser);
+	}
+
+	private HashMap<String, List<Question>> getOpenQuestionsHashMap(
+			List<Question> openQuestions) {
+		HashMap<String, List<Question>> questionsBySpecialtyName = new HashMap<String, List<Question>>();
+		for (Question question : openQuestions) {
+			String specialtyName = question.getSpecialty().getName();
+			if (!questionsBySpecialtyName.containsKey(specialtyName))
+				questionsBySpecialtyName.put(specialtyName, new ArrayList<Question>());
+			questionsBySpecialtyName.get(specialtyName).add(question);
+		}
+		return questionsBySpecialtyName;
 	}
 	
 	@LoggedUser
 	@NotSpecialist
 	@Path("/usuarios/inicio/comum/")
 	public void notSpecialistInitialPage() {
-		
+		result.include("user", userSession.getLoggedUser());
 	}
 
 }

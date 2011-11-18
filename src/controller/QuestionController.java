@@ -98,7 +98,7 @@ public class QuestionController {
 			result.redirectTo(ErrorController.class).errorscreen();
 			return;
 		}
-		if (userSession.getLoggedUser() == null)
+		if (userSession.getLoggedUser() == null || question.getAuthor() == null)
 			result.include("isQuestionAuthor", false);
 		else
 			result.include("isQuestionAuthor", question.getAuthor().equals(userSession.getLoggedUser()));

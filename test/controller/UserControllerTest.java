@@ -3,9 +3,12 @@ package controller;
 import static org.mockito.Mockito.*;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import hash.HashCalculator;
 import infra.UserSession;
+import model.Question;
+import model.QuestionStatus;
 import model.User;
 
 import static org.junit.Assert.*;
@@ -158,4 +161,5 @@ public class UserControllerTest {
 	private void stubMockedUserSession(User user) {
 		when(userSession.getLoggedUser()).thenReturn(user);
 	}
+	
 }

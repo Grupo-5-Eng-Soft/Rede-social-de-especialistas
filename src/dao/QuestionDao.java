@@ -136,9 +136,6 @@ public class QuestionDao {
 		session.save(classification);
 		session.update(classification.getAnswer());
 		Specialist specialistAt = classification.getAnswer().getAuthor().getSpecialistAt(question.getSpecialty());
-		System.out.println("\n\n\n\n========================");
-		System.out.println(specialistAt);
-		System.out.println("========================\n\n\n");
 		if (specialistAt != null)
 			session.update(specialistAt);
 		session.update(question);

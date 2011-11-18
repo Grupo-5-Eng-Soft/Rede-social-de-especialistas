@@ -24,27 +24,19 @@
 				<imgcert> <img src="<c:url value="/img/star.png"/>"> <span> Especialista certificado pelo CCSL  </span> </imgcert>
 			</c:if>
 			</h1>
-			<c:if test="${userSession.loggedUser.admin}">
-				<c:if test="${!user.certified}">
-					<a href="<c:url value="/usuario/certificado/${user.id}"/>">Certificar</a>
-				</c:if>
-				<c:if test="${user.certified}">
-					<a href="<c:url value="/usuario/certificado/${user.id}"/>">Remover certificação</a>
-				</c:if>		
-			</c:if>
 		</div>
-		<table>
-			<tr>
-				<td width="180"> Especialidades </td> 
-				<td width="180"> Pontuação </td>
-			</tr>
-			<c:forEach var="specialist" items="${user.specialists}">
-				<tr>			
-					<td><a href="<c:url value="/especialidades/${specialist.specialty.id}/"/>">${specialist.specialty.name}</a></td>
-					<td>${specialist.score}</td>
-				</tr>
-			</c:forEach>
-		</table>
+		<c:forEach var="specialist" items="${user.specialists}">
+			<div>
+				<h3>${specialist.specialty.name}</h3>
+				<table>
+					<c:forEach var="question" items="${questionsHashMapBySpecialtyName[specialist.specialty.name]}">
+						<tr>
+							<td><a href="<c:url value="/perguntas/${question.id}/"/>">${question.title}</a></td>
+						</tr>
+					</c:forEach>
+				</table>
+			</div>
+		</c:forEach>
 	</div>
 	<div id="bottom">
 	</div> 
