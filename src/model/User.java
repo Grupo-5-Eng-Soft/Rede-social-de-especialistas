@@ -168,6 +168,8 @@ public class User implements Serializable {
 	}
 	
 	public boolean equals(User u) {
+		if (u == null)
+			return false;
 		return u.getId() == this.id;
 	}
 

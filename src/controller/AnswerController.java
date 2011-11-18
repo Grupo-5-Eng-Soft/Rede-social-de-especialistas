@@ -44,9 +44,9 @@ public class AnswerController {
 		}
 		answer.setAuthor(userSession.getLoggedUser());
 		answer.setQuestion(question);
-		if(question.getAuthor().getId() == userSession.getLoggedUser().getId())
+		if (userSession.getLoggedUser().equals(question.getAuthor()))
 			question.setStatus(QuestionStatus.OPEN);
-		else if(userSession.getLoggedUser().isSpecialistIn(specialty))
+		else if (userSession.getLoggedUser().isSpecialistIn(specialty))
 			question.setStatus(QuestionStatus.ANSWERED);
 		dao.save(answer);
 		sendEmailToAuthor(answer);
