@@ -176,6 +176,27 @@ public class UserControllerTest {
 		assertTrue(user.isCertified());
 	}
 	
+	@Test
+	public void shouldSendNewPassword() {
+		User user = validUser();
+		user.setActive(true);
+		String userEmail = user.getEmail();
+		when(dao.getUserByEmail(userEmail)).thenReturn(user);
+		controller.sendPassword(userEmail);
+		verify(dao).updateUser(user);
+	}
+	
+	@Test
+	public void shouldNotSendNewPassword() {
+		User user = validUser();
+		user.setActive(true);
+		user.setEmail("emailcerto@gmail.com");
+		String userEmail = user.getEmail();
+		when(dao.getUserByEmail(userEmail)).thenReturn(user);
+		controller.sendPassword("emailerrado@gmail.com");
+		verify(dao, never()).updateUser(user);
+	}
+	
 	
 	
 }
