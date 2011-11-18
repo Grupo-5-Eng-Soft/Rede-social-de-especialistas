@@ -3,6 +3,7 @@ package controller;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import infra.EmailSender;
 import infra.UserSession;
 import model.Answer;
 import model.Question;
@@ -25,11 +26,12 @@ public class AnswerControllerTest {
 	private Result result = new MockResult();
 	private AnswerController controller;
 	private @Mock UserSession session;
+	private @Mock EmailSender emailSender;
 
 	@Before
 	public void setUp() throws Exception {
 		MockitoAnnotations.initMocks(this);
-		controller = new AnswerController(result, dao, session);
+		controller = new AnswerController(result, dao, session, emailSender);
 	}
 	
 	@Test

@@ -3,6 +3,7 @@ package controller;
 
 import hash.HashCalculator;
 import infra.EmailSender;
+import infra.EmailSenderRunnable;
 import model.EmailConfirmation;
 import model.User;
 import br.com.caelum.vraptor.Get;
@@ -16,11 +17,13 @@ public class EmailConfirmationController {
 	private final Result result;
 	private final EmailConfirmationDao dao;
 	private final UserDao users;
+	private final EmailSender emailSender;
 
-	public EmailConfirmationController(Result result, EmailConfirmationDao dao, UserDao users) {
+	public EmailConfirmationController(Result result, EmailConfirmationDao dao, UserDao users, EmailSender emailSender) {
 		this.result = result;
 		this.dao = dao;
 		this.users = users;
+		this.emailSender = emailSender;
 	}
 	
 	public void createAndSendEmailConfirmation(User user, String message, boolean resend) {
@@ -59,8 +62,7 @@ public class EmailConfirmationController {
 		HashCalculator hashCalculator = new HashCalculator(user.getLogin() + user.getEmail());
 		String hash = hashCalculator.getValue();
 		String message = "Confirme sua conta em http://linux.ime.usp.br:8080/rede-social-de-especialistas/usuarios/confirmar/"+user.getId()+"/"+hash;
-		Thread emailSenderThread = new Thread(new EmailSender(user.getEmail(), message, "Confirme sua conta"));
-		emailSenderThread.start();
+		this.emailSender.sendEmail(message, user.getEmail(), "Confirme sua conta");
 	}
 	
 }

@@ -1,6 +1,7 @@
 package controller;
 
 import static org.mockito.Mockito.*;
+import infra.EmailSender;
 import hash.HashCalculator;
 import model.EmailConfirmation;
 import model.User;
@@ -19,13 +20,14 @@ public class EmailConfirmationControllerTest {
 	
 	private @Mock EmailConfirmationDao dao;
 	private @Mock UserDao users;
+	private @Mock EmailSender emailSender;
 	private Result result = new MockResult();
 	private EmailConfirmationController controller;
 
 	@Before
 	public void setUp() throws Exception {
 		MockitoAnnotations.initMocks(this);
-		controller = new EmailConfirmationController(result, dao, users);
+		controller = new EmailConfirmationController(result, dao, users, emailSender);
 	}
 
 	@Test

@@ -3,6 +3,7 @@ package controller;
 import static br.com.caelum.vraptor.view.Results.http;
 import hash.HashCalculator;
 import infra.EmailSender;
+import infra.EmailSenderRunnable;
 import infra.UserSession;
 import interceptor.annotations.Admin;
 import interceptor.annotations.LoggedUser;
@@ -36,12 +37,14 @@ public class UserController {
 	private final UserDao dao;
 	private final UserSession userSession;
 	private final Validator validator;
+	private final EmailSender emailSender;
 	
-	public UserController(Result result, Validator validator, UserDao dao, UserSession userSession) {
+	public UserController(Result result, Validator validator, UserDao dao, UserSession userSession, EmailSender emailSender) {
 		this.userSession = userSession;
 		this.result = result;
 		this.dao = dao;
 		this.validator = validator;
+		this.emailSender = emailSender;
 	}
 
 	@Path("/usuarios/cadastrar/")
@@ -234,9 +237,7 @@ public class UserController {
 		if (user != null) {
 			String message = "Sua nova senha eh: " + cod + "\n\n" +
 					"Aconselhamos que mude a sua senha em Editar Perfil no topo direito da pagina.\n Obrigado.";
-			EmailSender emailSender = new EmailSender(email, message, "Rede Social de Especialistas - Recuperação de Senha");
-			Thread emailSenderThread = new Thread(emailSender);
-			emailSenderThread.start();
+			emailSender.sendEmail(email, message, "Rede Social de Especialistas - Recuperação de Senha");
 			user.setPasswordFromRawString(cod);
 			dao.updateUser(user);
 			result.include("notice", "Verifique a sua senha nova no seu email.");

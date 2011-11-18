@@ -2,69 +2,31 @@ package infra;
 
 import java.util.ArrayList;
 
-import org.apache.commons.mail.EmailException;
-import org.apache.commons.mail.SimpleEmail;
-
-public class EmailSender implements Runnable {
+public class EmailSender {
 	
-	private ArrayList<String> receivers;
-	private String message;
-	private String subject;
+	private String fromAddress = "grupo5.engsoft@gmail.com";
+	private String authenticationPassword = "ohhappyday";
+	private String authenticationUserName = "grupo5.engsoft";
+	private String emailServerHostName = "smtp.gmail.com";
 	
-	
-	public EmailSender(ArrayList<String> receivers, String message, String subject) {
-		this.receivers = receivers;
-		this.message = message;
-		this.subject = subject;
+	public void sendEmail(String message, String destinationAddress, String subject) {
+		EmailSenderRunnable runnable = new EmailSenderRunnable(destinationAddress, message, subject);
+		setUpConfigurations(runnable);
+		Thread emailSenderThread = new Thread(runnable);
+		emailSenderThread.start();
 	}
 	
-	public EmailSender(String email, String message, String subject) {
-		receivers = new ArrayList<String>();
-		receivers.add(email);
-		this.message = message;
-		this.subject = subject;
+	public void sendEmail(ArrayList<String> receivers, String message, String subject) {
+		EmailSenderRunnable runnable = new EmailSenderRunnable(receivers, message, subject);
+		setUpConfigurations(runnable);
+		Thread emailSenderThread = new Thread(runnable);
+		emailSenderThread.start();
 	}
-
-	@Override
-	public void run() {
-		SimpleEmail email = new SimpleEmail();
-		email.setDebug(true);
-		email.setHostName("smtp.gmail.com");
-		email.setAuthentication("grupo5.engsoft","ohhappyday");
-		email.setSSL(true);
-		email.setSubject(this.subject);
-		//enviar para apenas um destinatario
-		if (receivers.size() == 1) {
-			sendEmailToOneReceiver(receivers.get(0), email);
-		}
-		//enviar para varios destinatarios com blind copy
-		else  {
-			try {
-				sendEmailToMultipleReceivers(receivers, email);
-			} catch (EmailException e) {
-				e.printStackTrace();
-			}
-		}
+	
+	private void setUpConfigurations(EmailSenderRunnable runnable) {
+		runnable.setFromAddress(fromAddress);
+		runnable.setAuthenticationPassword(authenticationPassword);
+		runnable.setEmailServerHostName(emailServerHostName);
+		runnable.setAuthenticationUserName(authenticationUserName);
 	}
-
-	private void sendEmailToMultipleReceivers(ArrayList<String> receivers, SimpleEmail email) throws EmailException {
-		for (String destination : receivers)
-			email.addBcc(destination);
-		email.setFrom("grupo5.engsoft@gmail.com"); 
-		email.setMsg(this.message);
-		email.send();
-
-	}
-
-	private void sendEmailToOneReceiver(String destination, SimpleEmail email) {
-		try {
-			email.addTo(destination);
-			email.setFrom("grupo5.engsoft@gmail.com"); 
-			email.setMsg(this.message);
-			email.send();
-		} catch (EmailException e) {
-			e.printStackTrace();
-		}
-	}
-
 }

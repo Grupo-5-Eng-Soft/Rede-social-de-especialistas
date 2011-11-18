@@ -4,6 +4,7 @@ import static br.com.caelum.vraptor.view.Results.http;
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
 import hash.HashCalculator;
+import infra.EmailSender;
 import infra.UserSession;
 
 import java.util.ArrayList;
@@ -35,11 +36,12 @@ public class UserControllerTest {
 	private UserController controller;
 	private @Mock UserSession userSession;
 	private @Mock HttpResult http;
+	private @Mock EmailSender emailSender;
 
 	@Before
 	public void setUp() throws Exception {
 		MockitoAnnotations.initMocks(this);
-		controller = new UserController(result, validator, dao, userSession);
+		controller = new UserController(result, validator, dao, userSession, emailSender);
 		when(mockResult.use(http())).thenReturn(http);
 	}
 
@@ -60,7 +62,7 @@ public class UserControllerTest {
 
 	@Test
 	public void shouldNotAllowToEditOtherUser() {
-		controller = new UserController(mockResult, validator, dao, userSession);
+		controller = new UserController(mockResult, validator, dao, userSession, emailSender);
 		
 		User loggedUser = validUser();
 		User otherUser = validUser();
@@ -113,7 +115,7 @@ public class UserControllerTest {
 	@Test
 	public void shouldNotAuthenticateWhenIsNotActive() {
 		result = mock(Result.class);
-		controller = new UserController(result, validator, dao, userSession);
+		controller = new UserController(result, validator, dao, userSession, emailSender);
 		User user = setupUserToauthenticate();
 		user.setActive(false);
 		
@@ -127,7 +129,7 @@ public class UserControllerTest {
 	@Test
 	public void shouldNotAuthenticateWithWrongPassword() {
 		result = mock(Result.class);
-		controller = new UserController(result, validator, dao, userSession);
+		controller = new UserController(result, validator, dao, userSession, emailSender);
 		User user = setupUserToauthenticate();
 		user.setActive(true);
 		

@@ -3,6 +3,7 @@ package controller;
 import static br.com.caelum.vraptor.view.Results.http;
 import infra.Email;
 import infra.EmailSender;
+import infra.EmailSenderRunnable;
 import infra.UserSession;
 
 import java.util.ArrayList;
@@ -31,12 +32,14 @@ public class QuestionController {
 	private final QuestionDao dao;
 	private final UserSession userSession;
 	private final Validator validator;
+	private final EmailSender emailSender;
 	
-	public QuestionController(Result result, QuestionDao dao, UserSession userSession, Validator validator) {
+	public QuestionController(Result result, QuestionDao dao, UserSession userSession, Validator validator, EmailSender emailSender) {
 		this.result = result;
 		this.dao = dao;
 		this.userSession = userSession;
 		this.validator = validator;
+		this.emailSender = emailSender;
 	}
 	
 	
@@ -81,8 +84,7 @@ public class QuestionController {
 	
 		for (Specialist specialist : specialists)
 			receivers.add(specialist.getUser().getEmail());
-		Thread thread = new Thread(new EmailSender(receivers, message, subject));
-		thread.start();
+		emailSender.sendEmail(receivers, message, subject);
 	}
 	
 	@Path("/perguntas/")

@@ -3,6 +3,7 @@ package controller;
 import static br.com.caelum.vraptor.view.Results.http;
 import infra.Email;
 import infra.EmailSender;
+import infra.EmailSenderRunnable;
 import infra.UserSession;
 
 import java.util.ArrayList;
@@ -24,11 +25,13 @@ public class AnswerController {
 	private final Result result;
 	private final AnswerDao dao;
 	private final UserSession userSession;
+	private final EmailSender emailSender;
 	
-	public AnswerController(Result result, AnswerDao dao, UserSession userSession) {
+	public AnswerController(Result result, AnswerDao dao, UserSession userSession, EmailSender emailSender) {
 		this.result = result;
 		this.dao = dao;
 		this.userSession = userSession;
+		this.emailSender = emailSender;
 	}
 	
 	@Path("/perguntas/{questionId}/responder/")
@@ -58,7 +61,6 @@ public class AnswerController {
 		String message = Email.templateForMessage(answer.getDescription(), answer.getQuestion().getId());
 		
 		receivers.add(question.getEmail());
-		Thread thread = new Thread(new EmailSender(receivers, message, subject));
-		thread.start();
+		emailSender.sendEmail(receivers, message, subject);
 	}
 }
