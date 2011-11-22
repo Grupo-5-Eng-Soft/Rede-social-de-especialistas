@@ -28,7 +28,7 @@
 				<li>
 					<a href="<c:url value="/usuarios/${user.id}/"/>">${user.login}</a>
 					<c:if test="${user.certified}">
-						<img src="<c:url value="/img/star.png"/>">
+						<imgcert> <img src="<c:url value="/img/star.png"/>"> <span> Especialista certificado pelo CCSL  </span> </imgcert>
 					</c:if>
 				</li>
 			</c:forEach>

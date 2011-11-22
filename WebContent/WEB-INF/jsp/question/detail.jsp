@@ -62,7 +62,7 @@ function toggle(obj) {
 				</c:if>
 				${answer.author.login}
 				<c:if test="${answer.author.certified}">
-					<img src="<c:url value="/img/star.png"/>"  style="vertical-align:text-top;">
+					<imgcert> <img src="<c:url value="/img/star.png"/>"  style="vertical-align:text-top;"> <span> Especialista certificado pelo CCSL  </span> </imgcert>
 				</c:if>
 				</h6>
 				<p>${answer.description}<br /><br /></p>

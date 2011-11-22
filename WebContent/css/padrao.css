@@ -92,22 +92,23 @@ img, a img {
 }
 
 imgcert{
-position:relative;
-padding:0;
+	position:relative;
+	padding:0;
 }
 imgcert:hover{
-background:transparent;
+	background:transparent;
 }
-imgcert span{display: none}
+imgcert span{
+	display: none;}
 imgcert:hover span{
-display:block;
-position:absolute;
-width:230px;
-top:3em;
-right-align:justify;
-left:0;
-border:1px solid #999;
-background:#EEE;
-font: 12px/160% Arial, sans-serif;
-color: #494949;
+	display:block;
+	position:absolute;
+	width:230px;
+	top:3em;
+	right-align:justify;
+	left:0;
+	border:1px solid #999;
+	background:#EEE;
+	font: 12px/160% Arial, sans-serif;
+	color: #494949;
 }
