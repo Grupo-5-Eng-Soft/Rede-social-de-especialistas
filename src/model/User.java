@@ -183,5 +183,9 @@ public class User implements Serializable {
 		specialist.setSpecialty(specialty);
 		this.specialists.add(specialist);
 	}
+	
+	public String toString() {
+		return this.id + " - " + this.name;
+	}
 
 }

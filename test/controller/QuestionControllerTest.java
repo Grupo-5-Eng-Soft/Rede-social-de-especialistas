@@ -73,7 +73,7 @@ public class QuestionControllerTest {
 	
 	@Test
 	public void shouldShowQuestionDetails() {
-		Question question = createQuestionWithSpecialty();
+		Question question = createQuestionWithSpecialtyAndAuthor();
 		when(dao.getQuestion(question.getId())).thenReturn(question);
 		controller.detail(question.getId());
 		Question includedQuestion = result.included("question");
@@ -82,7 +82,8 @@ public class QuestionControllerTest {
 	
 	@Test
 	public void shouldFinalizeQuestion() {
-		Question question = createQuestionWithSpecialty();
+		Question question = createQuestionWithSpecialtyAndAuthor();
+		session.login(question.getAuthor());
 		Answer answer = createAnswerWithAuthor(question);
 		User author = answer.getAuthor();
 		author.addSpecialty(question.getSpecialty());
@@ -93,11 +94,14 @@ public class QuestionControllerTest {
 	
 	@Test
 	public void shouldNotFinalizeQuestionWhenNotAuthor() {
-		Question question = createQuestionWithSpecialty();
+		Question question = createQuestionWithSpecialtyAndAuthor();
 		Answer answer = createAnswerWithAuthor(question);
+		User loggedUser = new User();
+		loggedUser.setId(question.getId()+100L);
+		session.login(loggedUser);
 		when(dao.getAnswer(answer.getId())).thenReturn(answer);
 		controller.finalizeQuestion(answer.getId(), 3);
-		assertEquals(QuestionStatus.FINALIZED, question.getStatus());
+		assertNotSame(QuestionStatus.FINALIZED, question.getStatus());
 	} 
 
 	private Answer createAnswerWithAuthor(Question question) {
@@ -113,7 +117,11 @@ public class QuestionControllerTest {
 		return answer;
 	}
 
-	private Question createQuestionWithSpecialty() {
+	private Question createQuestionWithSpecialtyAndAuthor() {
+		User author = new User();
+		author.setId(666L);
+		author.setEmail("lala2@gmail.com");
+		author.setName("questionauthor");
 		Specialty specialty = new Specialty();
 		specialty.setId(1L);
 		specialty.setName("spec");
@@ -122,6 +130,7 @@ public class QuestionControllerTest {
 		question.setTitle("Duvida");
 		question.setDescription("Descricao");
 		question.setSpecialty(specialty);
+		question.setAuthor(author);
 		return question;
 	}
 }
