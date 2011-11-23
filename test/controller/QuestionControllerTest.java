@@ -8,13 +8,19 @@ import java.util.HashMap;
 
 import infra.UserSession;
 import infra.EmailSender;
+import model.Answer;
+import model.AnswerClassification;
 import model.Question;
+import model.QuestionStatus;
 import model.Specialty;
+import model.User;
 
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+
+import sun.security.krb5.Asn1Exception;
 
 import br.com.caelum.vraptor.Result;
 import br.com.caelum.vraptor.Validator;
@@ -67,18 +73,46 @@ public class QuestionControllerTest {
 	
 	@Test
 	public void shouldShowQuestionDetails() {
-		Question question = createQuestion();
+		Question question = createQuestionWithSpecialty();
 		when(dao.getQuestion(question.getId())).thenReturn(question);
 		controller.detail(question.getId());
 		Question includedQuestion = result.included("question");
 		assertNotNull(includedQuestion);
 	}
+	
+	@Test
+	public void shouldFinalizeQuestion() {
+		Question question = createQuestionWithSpecialty();
+		Answer answer = createAnswerWithAuthor(question);
+		when(dao.getAnswer(answer.getId())).thenReturn(answer);
+		AnswerClassification classification = new AnswerClassification(answer, 4);
+		
+		controller.finalizeQuestion(answer.getId(), 3);
+		assertEquals(QuestionStatus.FINALIZED, question.getStatus());
+	}
 
-	private Question createQuestion() {
+	private Answer createAnswerWithAuthor(Question question) {
+		User author = new User();
+		author.setId(1L);
+		author.setEmail("lala@gmail.com");
+		author.setName("nome");
+		Answer answer = new Answer();
+		answer.setDescription("resposta");
+		answer.setId(1L);
+		answer.setQuestion(question);
+		answer.setAuthor(author);
+		return answer;
+	}
+
+	private Question createQuestionWithSpecialty() {
+		Specialty specialty = new Specialty();
+		specialty.setId(1L);
+		specialty.setName("spec");
 		Question question = new Question();
 		question.setId(0);
 		question.setTitle("Duvida");
 		question.setDescription("Descricao");
+		question.setSpecialty(specialty);
 		return question;
 	}
 }
