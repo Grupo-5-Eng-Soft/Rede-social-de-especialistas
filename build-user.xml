@@ -1,11 +1,24 @@
 <project>
+    <!-- aqui tem as coisas para fazer o Cobertura funcionar -->
+    <taskdef classpathref="Web App Libraries.libraryclasspath" resource="tasks.properties"/>
+    <cobertura-instrument todir="build/instrumented-classes">
+        <fileset dir="build/classes">
+            <include name="**/*.class"/>
+        </fileset>
+    </cobertura-instrument>
+    <target name="coverage">
+        <cobertura-report format="xml" srcdir="src" destdir="cobertura"/>
+        <junit fork="yes">
+            <classpath location="build/instrumented-classes"/>
+        </junit>
+    </target>
+    <!-- aqui acabam as coisas do Cobertura -->
 	<target name="build-subprojects">
 	</target>
 	<target name="build-project">
 	</target>
+    <!-- aqui tem as coisas para montar o war -->
     <target depends="build-subprojects,build-project" name="build">
-        <antcall target="test"/> <!-- mudar no junit do build também -->
-        <antcall target="junitreport"/>
         <antcall target="war"/>
     </target>
     <target name="war">
@@ -15,4 +28,5 @@
             <classes dir="build/classes"/>
         </war>
     </target>
+    <!-- aqui acabam as coisas para montar o war -->
 </project>

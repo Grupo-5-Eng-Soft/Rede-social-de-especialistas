@@ -16,6 +16,7 @@
         <pathelement location="WebContent/WEB-INF/lib/activation.jar"/>
         <pathelement location="WebContent/WEB-INF/lib/antlr-2.7.6.jar"/>
         <pathelement location="WebContent/WEB-INF/lib/aopalliance.jar"/>
+        <pathelement location="WebContent/WEB-INF/lib/asm3-all-3.2.jar"/>
         <pathelement location="WebContent/WEB-INF/lib/aspectjrt.jar"/>
         <pathelement location="WebContent/WEB-INF/lib/cglib-nodep-2.1_3.jar"/>
         <pathelement location="WebContent/WEB-INF/lib/cobertura-1.9.4.1.jar"/>
@@ -55,6 +56,7 @@
         <pathelement location="WebContent/WEB-INF/lib/org.springframework.core-3.0.5.RELEASE.jar"/>
         <pathelement location="WebContent/WEB-INF/lib/org.springframework.expression-3.0.5.RELEASE.jar"/>
         <pathelement location="WebContent/WEB-INF/lib/org.springframework.web-3.0.5.RELEASE.jar"/>
+        <pathelement location="WebContent/WEB-INF/lib/oro-2.0.8.jar"/>
         <pathelement location="WebContent/WEB-INF/lib/paranamer-2.2.jar"/>
         <pathelement location="WebContent/WEB-INF/lib/scannotation-1.0.2.jar"/>
         <pathelement location="WebContent/WEB-INF/lib/servlet-api.jar"/>
@@ -79,6 +81,18 @@
         <pathelement location="WebContent/WEB-INF/lib/activation.jar"/>
         <pathelement location="WebContent/WEB-INF/lib/commons-email-1.2-javadoc.jar"/>
     </path>
+    <taskdef classpathref="Web App Libraries.libraryclasspath" resource="tasks.properties"/>
+    <cobertura-instrument todir="build/instrumented-classes">
+        <fileset dir="build/classes">
+            <include name="**/*.class"/>
+        </fileset>
+    </cobertura-instrument>
+    <target name="coverage">
+        <cobertura-report format="xml" srcdir="src" destdir="cobertura"/>
+        <junit fork="yes">
+            <classpath location="build/instrumented-classes"/>
+        </junit>
+    </target>
     <target name="init">
         <mkdir dir="build/classes"/>
         <copy includeemptydirs="false" todir="build/classes">
@@ -97,6 +111,7 @@
     </target>
     <target depends="clean" name="cleanall"/>
     <target depends="build-subprojects,build-project" name="build">
+        <antcall target="coverage"/>
         <antcall target="war"/>
     </target>
     <target name="build-subprojects"/>
@@ -124,6 +139,32 @@
     <target description="compile project with Eclipse compiler" name="build-eclipse-compiler">
         <property name="build.compiler" value="org.eclipse.jdt.core.JDTCompilerAdapter"/>
         <antcall target="build"/>
+    </target>
+    <target name="rede-social-de-especialistas (1)">
+        <mkdir dir="${junit.output.dir}"/>
+        <junit fork="yes" printsummary="withOutAndErr">
+            <formatter type="xml"/>
+            <test name="controller.AnswerControllerTest" todir="${junit.output.dir}"/>
+            <test name="controller.EmailConfirmationControllerTest" todir="${junit.output.dir}"/>
+            <test name="controller.QuestionControllerTest" todir="${junit.output.dir}"/>
+            <test name="controller.SpecialtyControllerTest" todir="${junit.output.dir}"/>
+            <test name="controller.UserControllerTest" todir="${junit.output.dir}"/>
+            <test name="dao.UserDaoTest" todir="${junit.output.dir}"/>
+            <test name="hash.HashCalculatorTest" todir="${junit.output.dir}"/>
+            <test name="interceptor.AdminInterceptorTest" todir="${junit.output.dir}"/>
+            <test name="interceptor.LoggedUserInterceptorTest" todir="${junit.output.dir}"/>
+            <test name="interceptor.UserInterceptorTest" todir="${junit.output.dir}"/>
+            <test name="model.UserTest" todir="${junit.output.dir}"/>
+            <classpath refid="rede-social-de-especialistas.classpath"/>
+        </junit>
+    </target>
+    <target name="junitreport">
+        <junitreport todir="${junit.output.dir}">
+            <fileset dir="${junit.output.dir}">
+                <include name="TEST-*.xml"/>
+            </fileset>
+            <report format="frames" todir="${junit.output.dir}"/>
+        </junitreport>
     </target>
     <target name="war">
         <war destfile="rede-social-de-especialistas.war" webxml="WebContent/WEB-INF/web.xml">
