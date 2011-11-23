@@ -68,16 +68,12 @@ function toggle(obj) {
 				<p>${answer.description}<br /><br /></p>
 				<p>
 					<c:if test="${isQuestionAuthor && answer.author.id != question.author.id && !question.finalized}">
-						<a href="<c:url value="/perguntas/${answer.id}/finalizar/formulario/"/>">Estou satisfeito com essa resposta</a>
+						<a href="<c:url value="/perguntas/${answer.id}/finalizar/formulario/"/>">Finalizar tópico e avaliar esta resposta</a>
 					</c:if>
 				</p>
 			</div>
 		</c:forEach>
 		<br />
-		<!-- <c:if test="${isSpecialist}">
-			<a href="#" onclick="toggle('maisinfo');">Responder</a>
-		</c:if> 
-		foi combinado que qualquer um pode responder uma pergunta, desde que esteja logado-->
 		<c:if test="${userSession.authenticated}">
 			<a href="#" onclick="toggle('maisinfo');">Responder</a>
 		</c:if>
@@ -88,6 +84,7 @@ function toggle(obj) {
 		<div id="maisinfo" style="display:none">
 			<form method="post" action="<c:url value="/perguntas/${question.id}/responder/"/>">
 					<textarea cols="80" rows="6" name="answer.description"></textarea><br />
+					Esta resposta pode finalizar a pergunta? <input type="checkbox" name="answered" value="1"/><b>Sim</b><br/>
 					<input type="submit" value="Enviar" />
 			</form>		
 		</div>

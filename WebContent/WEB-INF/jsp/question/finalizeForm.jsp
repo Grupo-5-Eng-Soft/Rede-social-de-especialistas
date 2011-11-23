@@ -20,7 +20,7 @@
 	<div id="content">
 		Classifique o autor da resposta: 
 		<form method="post" action="<c:url value="/perguntas/${answerId}/finalizar/"/>">
-			<input type="radio" name="score" value="1" checked="true"/>1
+			<input type="radio" name="score" value="1" checked/>1
 			<input type="radio" name="score" value="2" />2
 			<input type="radio" name="score" value="3" />3
 			<input type="radio" name="score" value="4" />4
