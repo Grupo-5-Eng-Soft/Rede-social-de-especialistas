@@ -66,6 +66,10 @@
         <pathelement location="WebContent/WEB-INF/lib/xstream-1.3.1.jar"/>
     </path>
     <path id="EAR Libraries.libraryclasspath"/>
+    <path id="JUnit 4.libraryclasspath">
+        <pathelement location="WebContent/WEB-INF/lib/org.hamcrest.core_1.1.0.v20090501071000.jar"/>
+        <pathelement location="WebContent/WEB-INF/lib/junit.jar"/>
+    </path>
     <path id="rede-social-de-especialistas.classpath">
         <pathelement location="build/classes"/>
         <path refid="Server Library [Tomcat] (unbound).libraryclasspath"/>
@@ -87,7 +91,7 @@
         <cobertura-report format="xml" srcdir="src" destdir="cobertura"/>
         <junit fork="yes">
             <classpath location="build/instrumented-classes"/>
-            <classpath refid="rede-social-de-especialistas.classpath"/>
+            <classpath refid="JUnit 4.libraryclasspath"/>
         </junit>
     </target>
     <target name="init">
