@@ -84,13 +84,21 @@ public class QuestionControllerTest {
 	public void shouldFinalizeQuestion() {
 		Question question = createQuestionWithSpecialty();
 		Answer answer = createAnswerWithAuthor(question);
-		answer.getAuthor();
+		User author = answer.getAuthor();
+		author.addSpecialty(question.getSpecialty());
 		when(dao.getAnswer(answer.getId())).thenReturn(answer);
-		AnswerClassification classification = new AnswerClassification(answer, 4);
-		
 		controller.finalizeQuestion(answer.getId(), 3);
 		assertEquals(QuestionStatus.FINALIZED, question.getStatus());
 	}
+	
+	@Test
+	public void shouldNotFinalizeQuestionWhenNotAuthor() {
+		Question question = createQuestionWithSpecialty();
+		Answer answer = createAnswerWithAuthor(question);
+		when(dao.getAnswer(answer.getId())).thenReturn(answer);
+		controller.finalizeQuestion(answer.getId(), 3);
+		assertEquals(QuestionStatus.FINALIZED, question.getStatus());
+	} 
 
 	private Answer createAnswerWithAuthor(Question question) {
 		User author = new User();

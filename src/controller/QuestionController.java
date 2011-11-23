@@ -150,7 +150,7 @@ public class QuestionController {
 		Question question = answer.getQuestion();
 		
 		//TODO: refatorar isso em um interceptor
-		if ((!isAvaiable(question) && question.getAuthor().equals(userSession.getLoggedUser())) || question.getStatus().equals("finalized")) {
+		if ((question.getAuthor().equals(userSession.getLoggedUser())) || question.getStatus().equals("finalized")) {
 			result.use(http()).sendError(HttpServletResponse.SC_UNAUTHORIZED);
 			return;
 		}
