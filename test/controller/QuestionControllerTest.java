@@ -84,6 +84,7 @@ public class QuestionControllerTest {
 	public void shouldFinalizeQuestion() {
 		Question question = createQuestionWithSpecialty();
 		Answer answer = createAnswerWithAuthor(question);
+		answer.getAuthor();
 		when(dao.getAnswer(answer.getId())).thenReturn(answer);
 		AnswerClassification classification = new AnswerClassification(answer, 4);
 		

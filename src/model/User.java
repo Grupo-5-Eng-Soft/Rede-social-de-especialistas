@@ -176,5 +176,12 @@ public class User implements Serializable {
 	public boolean isSpecialist() {
 		return !this.getSpecialists().isEmpty();
 	}
+	
+	public void addSpecialty(Specialty specialty) {
+		Specialist specialist = new Specialist();
+		specialist.setUser(this);
+		specialist.setSpecialty(specialty);
+		this.specialists.add(specialist);
+	}
 
 }
