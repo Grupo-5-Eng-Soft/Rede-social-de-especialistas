@@ -2,6 +2,10 @@ package controller;
 
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import static org.junit.Assert.*;
+
+import java.util.HashMap;
+
 import infra.UserSession;
 import infra.EmailSender;
 import model.Question;
@@ -22,7 +26,7 @@ import dao.QuestionDao;
 public class QuestionControllerTest {
 	
 	private @Mock QuestionDao dao;
-	private Result result = new MockResult();
+	private MockResult result = new MockResult();
 	private QuestionController controller;
 	private UserSession session = new UserSession();
 	private Validator validator = new MockValidator();
@@ -59,5 +63,22 @@ public class QuestionControllerTest {
 		q.setTitle("Titulo da pergunta");
 		q.setDescription("");
 		controller.save(q, 1L);
+	}
+	
+	@Test
+	public void shouldShowQuestionDetails() {
+		Question question = createQuestion();
+		when(dao.getQuestion(question.getId())).thenReturn(question);
+		controller.detail(question.getId());
+		Question includedQuestion = result.included("question");
+		assertNotNull(includedQuestion);
+	}
+
+	private Question createQuestion() {
+		Question question = new Question();
+		question.setId(0);
+		question.setTitle("Duvida");
+		question.setDescription("Descricao");
+		return question;
 	}
 }
