@@ -7,6 +7,7 @@ import infra.EmailSender;
 import infra.UserSession;
 import model.Answer;
 import model.Question;
+import model.QuestionStatus;
 import model.Role;
 import model.Specialty;
 import model.User;
@@ -49,7 +50,7 @@ public class AnswerControllerTest {
 		
 		when(dao.getQuestion(1l)).thenReturn(question);
 		
-		controller.answer(answer, 1l);
+		controller.answer(answer, 1l, null);
 		verify(dao).save(answer);
 	}
 	

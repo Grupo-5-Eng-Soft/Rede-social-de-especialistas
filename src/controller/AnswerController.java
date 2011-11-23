@@ -35,18 +35,17 @@ public class AnswerController {
 	}
 	
 	@Path("/perguntas/{questionId}/responder/")
-	public void answer(Answer answer, Long questionId) {
+	public void answer(Answer answer, Long questionId, Long answered) {
 		Question question = dao.getQuestion(questionId);
-		Specialty specialty = question.getSpecialty();
 		if (!userSession.isAuthenticated()) {
 			result.use(http()).sendError(HttpServletResponse.SC_UNAUTHORIZED);
 			return;
 		}
 		answer.setAuthor(userSession.getLoggedUser());
 		answer.setQuestion(question);
-		if (userSession.getLoggedUser().equals(question.getAuthor()))
+		if(answered == null)
 			question.setStatus(QuestionStatus.OPEN);
-		else if (userSession.getLoggedUser().isSpecialistIn(specialty))
+		else
 			question.setStatus(QuestionStatus.ANSWERED);
 		dao.save(answer);
 		sendEmailToAuthor(answer);

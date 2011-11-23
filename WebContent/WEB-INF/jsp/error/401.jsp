@@ -24,7 +24,7 @@
 		</c:if>
 		<c:if test="${!userSession.authenticated }">
 			<h3> Você não esta logado.</h3>
-			<a href="../login/">Login</a><br />
+			<a href="<c:url value="/login/"/>">Login</a><br />
 		</c:if>
 	</div>
 	<div id="bottom">
