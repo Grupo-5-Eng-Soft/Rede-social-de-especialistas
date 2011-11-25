@@ -89,10 +89,6 @@
     </cobertura-instrument>
     <target name="coverage">
         <cobertura-report format="xml" srcdir="src" destdir="cobertura"/>
-        <junit fork="yes">
-            <classpath location="build/instrumented-classes"/>
-            <classpath refid="JUnit 4.libraryclasspath"/>
-        </junit>
     </target>
     <target name="init">
         <mkdir dir="build/classes"/>
@@ -112,6 +108,7 @@
     </target>
     <target depends="clean" name="cleanall"/>
     <target depends="build-subprojects,build-project" name="build">
+        <antcall target="junit"/>
         <antcall target="coverage"/>
         <antcall target="war"/>
     </target>
@@ -141,9 +138,11 @@
         <property name="build.compiler" value="org.eclipse.jdt.core.JDTCompilerAdapter"/>
         <antcall target="build"/>
     </target>
-    <target name="rede-social-de-especialistas (1)">
+    <target name="junit">
         <mkdir dir="${junit.output.dir}"/>
         <junit fork="yes" printsummary="withOutAndErr">
+            <classpath location="build/instrumented-classes"/>
+            <classpath refid="JUnit 4.libraryclasspath"/>
             <formatter type="xml"/>
             <test name="controller.AnswerControllerTest" todir="${junit.output.dir}"/>
             <test name="controller.EmailConfirmationControllerTest" todir="${junit.output.dir}"/>

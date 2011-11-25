@@ -8,10 +8,11 @@
     </cobertura-instrument>
     <target name="coverage">
         <cobertura-report format="xml" srcdir="src" destdir="cobertura"/>
-        <junit fork="yes">
-            <classpath location="build/instrumented-classes"/>
-        </junit>
     </target>
+    <!-- falta renomear o esquema do junit e adicionar
+            <classpath location="build/instrumented-classes"/>
+            <classpath refid="JUnit 4.libraryclasspath"/>
+    -->
     <!-- aqui acabam as coisas do Cobertura -->
 	<target name="build-subprojects">
 	</target>
@@ -19,6 +20,8 @@
 	</target>
     <!-- aqui tem as coisas para montar o war -->
     <target depends="build-subprojects,build-project" name="build">
+        <antcall target="junit"/>
+        <antcall target="coverage"/>
         <antcall target="war"/>
     </target>
     <target name="war">
