@@ -237,7 +237,7 @@ public class UserController {
 		if (user != null) {
 			String message = "Sua nova senha eh: " + cod + "\n\n" +
 					"Aconselhamos que mude a sua senha em Editar Perfil no topo direito da pagina.\n Obrigado.";
-			emailSender.sendEmail(email, message, "Rede Social de Especialistas - Recuperação de Senha");
+			emailSender.sendEmail(message, email, "Rede Social de Especialistas - Recuperação de Senha");
 			user.setPasswordFromRawString(cod);
 			dao.updateUser(user);
 			result.include("notice", "Verifique a sua senha nova no seu email.");
