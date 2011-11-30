@@ -1,8 +1,13 @@
 package controller;
 
 import static br.com.caelum.vraptor.view.Results.http;
-import static org.junit.Assert.*;
-import static org.mockito.Mockito.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.never;
+import static org.mockito.Mockito.spy;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 import hash.HashCalculator;
 import infra.EmailSender;
 import infra.UserSession;
@@ -13,7 +18,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import model.User;
 
-import org.hibernate.validator.AssertTrue;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
@@ -30,8 +34,7 @@ import dao.UserDao;
 public class UserControllerTest {
 	
 	private @Mock UserDao dao;
-	private @Mock Result mockResult;
-	private Result result = new MockResult();
+	private MockResult result = new MockResult();
 	private Validator validator = new MockValidator();
 	private UserController controller;
 	private UserSession userSession;
@@ -43,7 +46,6 @@ public class UserControllerTest {
 		MockitoAnnotations.initMocks(this);
 		userSession = new UserSession();
 		controller = new UserController(result, validator, dao, userSession, emailSender);
-		when(mockResult.use(http())).thenReturn(http);
 	}
 
 	@Test
@@ -63,8 +65,9 @@ public class UserControllerTest {
 
 	@Test
 	public void shouldNotAllowToEditOtherUser() {
-		controller = new UserController(mockResult, validator, dao, userSession, emailSender);
-		
+		Result mockitoResult = mock(Result.class);
+		when(mockitoResult.use(http())).thenReturn(http);
+		controller = new UserController(mockitoResult, validator, dao, userSession, emailSender);
 		User loggedUser = validUser();
 		User otherUser = validUser();
 		otherUser.setEmail("outroemail@gmail.com");
@@ -115,30 +118,22 @@ public class UserControllerTest {
 	
 	@Test
 	public void shouldNotAuthenticateWhenIsNotActive() {
-		result = mock(Result.class);
 		controller = new UserController(result, validator, dao, userSession, emailSender);
 		User user = setupUserToauthenticate();
 		user.setActive(false);
 		
-		UserController spy = spy(controller);  
-		when(result.redirectTo(UserController.class)).thenReturn(spy);
 		controller.authenticate(user.getLogin(), "teste1234");
-		
-		verify(spy).loginForm();
+		result.included("notAuthenticated");
 	}
 	
 	@Test
 	public void shouldNotAuthenticateWithWrongPassword() {
-		result = mock(Result.class);
 		controller = new UserController(result, validator, dao, userSession, emailSender);
 		User user = setupUserToauthenticate();
 		user.setActive(true);
 		
-		UserController spy = spy(controller);  
-		when(result.redirectTo(UserController.class)).thenReturn(spy);
 		controller.authenticate(user.getLogin(), "essa senha esta errada");
-		
-		verify(spy).loginForm();
+		result.included("notAuthenticated");
 	}
 
 	private User setupUserToauthenticate() {
@@ -202,37 +197,73 @@ public class UserControllerTest {
 	
 	@Test
 	public void shouldSendNewConfirmation() {
-		result = mock(Result.class);
+		Result mockitoResult = mock(Result.class);
 		EmailConfirmationController emailConfirmationController = mock(EmailConfirmationController.class);
-		controller = new UserController(result, validator, dao, userSession, emailSender);
+		controller = new UserController(mockitoResult, validator, dao, userSession, emailSender);
 		User user = validUser();
 		user.setActive(true);
 		String userEmail = user.getEmail();
 		when(dao.getUserByEmail(userEmail)).thenReturn(user);
-		when(result.redirectTo(EmailConfirmationController.class)).thenReturn(emailConfirmationController);
+		when(mockitoResult.redirectTo(EmailConfirmationController.class)).thenReturn(emailConfirmationController);
 		controller.sendNewConfirmation(userEmail);
-		verify(result).redirectTo(EmailConfirmationController.class);
+		verify(mockitoResult).redirectTo(EmailConfirmationController.class);
 	}
 	
 	@Test
 	public void shouldNotSendNewConfirmation() {
-		result = mock(Result.class);
+		Result mockitoResult = mock(Result.class);
 		EmailConfirmationController emailConfirmationController = mock(EmailConfirmationController.class);
-		controller = new UserController(result, validator, dao, userSession, emailSender);
+		controller = new UserController(mockitoResult, validator, dao, userSession, emailSender);
 		User user = validUser();
 		user.setActive(true);
 		user.setEmail("emailCerto@gmail.com");
 		String userEmail = user.getEmail();
 		when(dao.getUserByEmail(userEmail)).thenReturn(user);
 		when(dao.getUserByEmail("emailErrado@gmail.com")).thenReturn(null);
-		when(result.redirectTo(UserController.class)).thenReturn(controller);
+		when(mockitoResult.redirectTo(UserController.class)).thenReturn(controller);
 		controller.sendNewConfirmation("emailErrado@gmail.com");
-		verify(result, never()).redirectTo(EmailConfirmationController.class);
+		verify(mockitoResult, never()).redirectTo(EmailConfirmationController.class);
 	}
 
 	@Test
 	public void shouldChangeUserPassword() {
+		User user = validUser();
+		String oldPassword = "oldPass";
+		String newPassword = "newPass";
+		HashCalculator encryption = new HashCalculator(oldPassword);
+		user.setPassword(encryption.getValue());
+		userSession.login(user);
+		when(dao.getUser(user.getId())).thenReturn(user);
 		
+		controller.changePasswordForm(newPassword, oldPassword, newPassword);
+		verify(dao).updateUser(user);
+	}
+	
+	@Test(expected=ValidationException.class)
+	public void shouldNotChangeUserPassword() {
+		User user = validUser();
+		String oldPassword = "oldPass";
+		String newPassword = "newPass";
+		String wrongOldPassword = "wrongOldPass";
+		String wrongConfirmation = "wrongConfirmation";
+		HashCalculator encryption = new HashCalculator(oldPassword);
+		user.setPassword(encryption.getValue());
+		userSession.login(user);
+		when(dao.getUser(user.getId())).thenReturn(user);
+		
+		controller.changePasswordForm(newPassword, wrongOldPassword, newPassword);
+		verify(dao, never()).updateUser(user);
+		
+		controller.changePasswordForm(newPassword, oldPassword, wrongConfirmation);
+		verify(dao, never()).updateUser(user);
+	}
+	
+	@Test
+	public void shouldShowSpecialistInitialPage() {
+		User specialist = validUser();
+		userSession.login(specialist);
+		controller.specialistInitialPage();
+		result.included("questionsHashMapBySpecialtyName");
 	}
 	
 }
