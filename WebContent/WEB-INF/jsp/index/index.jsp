@@ -35,7 +35,7 @@
 					<td> Especialidade </td> 
 					<td> Pontuação </td>
 				</tr>
-				<c:forEach var="specialist" items="${specialist}">
+				<c:forEach var="specialist" items="${specialists}">
 					<tr>
 						<td>
 							<a href="<c:url value="/usuarios/${specialist.user.id}/"/>">${specialist.user.login}</a>
@@ -59,7 +59,7 @@
 					<td> Especialidade </td> 
 					<td> Autor </td> 		
 				</tr>
-				<c:forEach var="question" items="${question}">
+				<c:forEach var="question" items="${questions}">
 					<tr>
 						<td> <a href="<c:url value="/perguntas/${question.id}/"/>">${question.title}</a></td>
 						<td> <a href="<c:url value="/especialidades/${question.specialty.id}/"/>">${question.specialty.name}</a></td>

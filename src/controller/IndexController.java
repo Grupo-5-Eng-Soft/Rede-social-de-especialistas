@@ -15,8 +15,6 @@ public class IndexController {
 	private final UserDao userdao;
 	private final QuestionDao questiondao;
 
-	
-
 	public IndexController(Result result,UserSession session,UserDao userdao,QuestionDao questiondao) {
 		this.result = result;
 		this.session = session;
@@ -26,9 +24,7 @@ public class IndexController {
 	
 	@Path("/")
 	public void index() {
-		result.include("specialist", userdao.getTopSpecialists());
-		result.include("question", questiondao.getLastQuestions(session.getLoggedUser()));
-
-
+		result.include("specialists", userdao.getTopSpecialists());
+		result.include("questions", questiondao.getLastQuestions(session.getLoggedUser()));
 	}
 }
