@@ -34,13 +34,14 @@ public class UserControllerTest {
 	private Result result = new MockResult();
 	private Validator validator = new MockValidator();
 	private UserController controller;
-	private @Mock UserSession userSession;
+	private UserSession userSession;
 	private @Mock HttpResult http;
 	private @Mock EmailSender emailSender;
 
 	@Before
 	public void setUp() throws Exception {
 		MockitoAnnotations.initMocks(this);
+		userSession = new UserSession();
 		controller = new UserController(result, validator, dao, userSession, emailSender);
 		when(mockResult.use(http())).thenReturn(http);
 	}
@@ -68,7 +69,7 @@ public class UserControllerTest {
 		User otherUser = validUser();
 		otherUser.setEmail("outroemail@gmail.com");
 		otherUser.setId(666);
-		stubMockedUserSession(loggedUser);
+		login(loggedUser);
 		controller.userEditForm(otherUser.getId());
 		verify(http).sendError(HttpServletResponse.SC_UNAUTHORIZED);
 	}
@@ -79,8 +80,8 @@ public class UserControllerTest {
 		User editedUser = validUser();
 		editedUser.setName(loggedUser.getName() + " mais um sobrenome");
 		
-		stubMockedUserSession(loggedUser);
-		// quando buscar pelo email, deve retornar o usuario nao editado
+		login(loggedUser);
+		System.out.println(userSession.getLoggedUser());
 		when(dao.getUserByEmail(editedUser.getEmail())).thenReturn(loggedUser);
 		
 		controller.saveEdit(editedUser, new ArrayList<Long>());
@@ -95,7 +96,7 @@ public class UserControllerTest {
 		loggedUser.setEmail("original@gmail.com");
 		editedUser.setEmail("novo@gmail.com");
 		
-		stubMockedUserSession(loggedUser);
+		login(loggedUser);
 		// quando buscar pelo email, deve retornar null, pois nao existia no bd
 		when(dao.getUserByEmail(editedUser.getEmail())).thenReturn(null);
 		
@@ -109,7 +110,7 @@ public class UserControllerTest {
 		User user = setupUserToauthenticate();
 		
 		controller.authenticate(user.getLogin(), "teste1234");
-		verify(userSession).login(user);
+		assertTrue(userSession.isAuthenticated());
 	}
 	
 	@Test
@@ -164,8 +165,8 @@ public class UserControllerTest {
 		return user;
 	}
 	
-	private void stubMockedUserSession(User user) {
-		when(userSession.getLoggedUser()).thenReturn(user);
+	private void login(User user) {
+		userSession.login(user);
 	}
 	
 	@Test
@@ -227,6 +228,11 @@ public class UserControllerTest {
 		when(result.redirectTo(UserController.class)).thenReturn(controller);
 		controller.sendNewConfirmation("emailErrado@gmail.com");
 		verify(result, never()).redirectTo(EmailConfirmationController.class);
+	}
+
+	@Test
+	public void shouldChangeUserPassword() {
+		
 	}
 	
 }
