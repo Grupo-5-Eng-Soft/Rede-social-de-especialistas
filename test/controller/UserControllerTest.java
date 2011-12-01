@@ -5,7 +5,6 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.never;
-import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import hash.HashCalculator;
@@ -84,7 +83,6 @@ public class UserControllerTest {
 		editedUser.setName(loggedUser.getName() + " mais um sobrenome");
 		
 		login(loggedUser);
-		System.out.println(userSession.getLoggedUser());
 		when(dao.getUserByEmail(editedUser.getEmail())).thenReturn(loggedUser);
 		
 		controller.saveEdit(editedUser, new ArrayList<Long>());
