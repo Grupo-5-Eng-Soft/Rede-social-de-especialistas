@@ -15,8 +15,6 @@ import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.criterion.Criterion;
-import org.hibernate.criterion.Junction;
-import org.hibernate.criterion.LogicalExpression;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 
@@ -114,16 +112,6 @@ public class QuestionDao {
 				add(avaiableQuestionsCriterion);
 		return avaiableQuestionsCriteria;
 	}
-	/** Isso é para saber somente quais são as perguntas das especialidades de cada usuario. Isso é para colocar no seu perfil. 
-	public List<Question> listQuestionsOfSpecialties(User loggedUser) {
-		Criteria avaiableQuestion;
-		Criterion avaiableQuestionsCriterion = null;
-		if(loggedUser.getSpecialtiesOfSpecialists() != null)
-			avaiableQuestionsCriterion = Restrictions.disjunction().add(Restrictions.in("specialty", loggedUser.getSpecialtiesOfSpecialists()));
-		avaiableQuestion = this.session.createCriteria(Question.class).add(avaiableQuestionsCriterion);
-		
-		return avaiableQuestion.list();
-	}**/
 
 	public void updateQuestion(Question question) {
 		Transaction tx = session.beginTransaction();

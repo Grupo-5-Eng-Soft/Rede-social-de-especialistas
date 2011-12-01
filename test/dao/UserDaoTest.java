@@ -6,6 +6,7 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import model.Specialty;
 import model.User;
@@ -41,7 +42,7 @@ public class UserDaoTest {
 	@Test
 	public void shouldSaveUserWithSpecialty() throws Exception {
 		User user = new User();
-		ArrayList<Long> specialties = mockSpecialtyWithId(1l);
+		List<Long> specialties = mockSpecialtyWithId(1l);
 		
 		dao.save(user, specialties);
 		
@@ -52,8 +53,8 @@ public class UserDaoTest {
 		assertEquals(1, user.getSpecialists().size());
 	}
 	
-	private ArrayList<Long> mockSpecialtyWithId(long id) {
-		ArrayList<Long> specialties = new ArrayList<Long>();
+	private List<Long> mockSpecialtyWithId(long id) {
+		List<Long> specialties = new ArrayList<Long>();
 		specialties.add(id);
 		Specialty specialty = mock(Specialty.class);
 		when(session.get(Specialty.class, id)).thenReturn(specialty);

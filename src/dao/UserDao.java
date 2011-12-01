@@ -33,7 +33,7 @@ public class UserDao {
 		tx.commit();
 	}
 	
-	public void save(User user, ArrayList<Long> specialties_ids) {
+	public void save(User user, List<Long> specialties_ids) {
 		Transaction tx = session.beginTransaction();
 		session.save(user);
 		saveSpecialties(user, specialties_ids);
@@ -63,12 +63,11 @@ public class UserDao {
 		tx.commit();
 	}
 	
-	private void saveSpecialties(User user, ArrayList<Long> specialties_ids) {
-		ArrayList<Specialist> specialists = new ArrayList<Specialist>();
+	private void saveSpecialties(User user, List<Long> specialties_ids) {
+		List<Specialist> specialists = new ArrayList<Specialist>();
 		if (specialties_ids != null) {
 			for (long id : specialties_ids) {
-				Specialty s;
-				s = (Specialty) this.session.get(Specialty.class, id);
+				Specialty s = (Specialty) this.session.get(Specialty.class, id);
 				Specialist specialist = new Specialist(0);
 				specialist.setUser(user);
 				specialist.setSpecialty(s);
