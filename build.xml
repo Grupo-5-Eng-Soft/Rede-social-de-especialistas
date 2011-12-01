@@ -85,6 +85,7 @@
     <cobertura-instrument todir="build/instrumented-classes">
         <fileset dir="build/classes">
             <include name="**/*.class"/>
+            <exclude name="**/*Test.class"/>
         </fileset>
     </cobertura-instrument>
     <target name="coverage">
@@ -144,17 +145,11 @@
             <classpath location="build/instrumented-classes"/>
             <classpath refid="JUnit 4.libraryclasspath"/>
             <formatter type="xml"/>
-            <test name="controller.AnswerControllerTest" todir="${junit.output.dir}"/>
-            <test name="controller.EmailConfirmationControllerTest" todir="${junit.output.dir}"/>
-            <test name="controller.QuestionControllerTest" todir="${junit.output.dir}"/>
-            <test name="controller.SpecialtyControllerTest" todir="${junit.output.dir}"/>
-            <test name="controller.UserControllerTest" todir="${junit.output.dir}"/>
-            <test name="dao.UserDaoTest" todir="${junit.output.dir}"/>
-            <test name="hash.HashCalculatorTest" todir="${junit.output.dir}"/>
-            <test name="interceptor.AdminInterceptorTest" todir="${junit.output.dir}"/>
-            <test name="interceptor.LoggedUserInterceptorTest" todir="${junit.output.dir}"/>
-            <test name="interceptor.UserInterceptorTest" todir="${junit.output.dir}"/>
-            <test name="model.UserTest" todir="${junit.output.dir}"/>
+			<batchtest todir="${junit.output.dir}">
+				<fileset dir="build/instrumented-classes">
+					<include name="**/*Test.class" />
+				</fileset>
+			</batchtest>
             <classpath refid="rede-social-de-especialistas.classpath"/>
         </junit>
     </target>
