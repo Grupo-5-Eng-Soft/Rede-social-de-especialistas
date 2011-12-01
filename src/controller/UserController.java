@@ -114,7 +114,7 @@ public class UserController {
 		if (oldPassword.equals(loggedUser.getPassword()) && confirmation.equals(newPassword)) {
 			User userToUpdate = dao.getUser(loggedUser.getId());
 			userToUpdate.setPasswordFromRawString(newPassword);
-			dao.updateUser(userToUpdate);
+			dao.update(userToUpdate);
 			result.include("notice", "Troca de senha efetuada com sucesso.");
 			result.redirectTo(IndexController.class).index();
 		}
@@ -222,7 +222,7 @@ public class UserController {
 	public void certify(Long userId) {
 		User user = dao.getUser(userId);
 		user.setCertified(!user.isCertified());
-		dao.updateUser(user);
+		dao.update(user);
 		result.redirectTo(UserController.class).detail(userId);
 	}
 	
@@ -239,7 +239,7 @@ public class UserController {
 					"Aconselhamos que mude a sua senha em Editar Perfil no topo direito da pagina.\n Obrigado.";
 			emailSender.sendEmail(message, email, "Rede Social de Especialistas - Recuperação de Senha");
 			user.setPasswordFromRawString(cod);
-			dao.updateUser(user);
+			dao.update(user);
 			result.include("notice", "Verifique a sua senha nova no seu email.");
 			result.redirectTo(IndexController.class).index();
 		}

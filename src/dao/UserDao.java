@@ -20,6 +20,7 @@ import br.com.caelum.vraptor.ioc.RequestScoped;
 
 @Component
 @RequestScoped
+@SuppressWarnings("unchecked")
 public class UserDao {
 	private final Session session;
 	
@@ -42,7 +43,7 @@ public class UserDao {
 	}
 	
 // só funciona porque um objeto altera o outro
-	public void updateUser(User user) {
+	public void update(User user) {
 		Transaction tx = session.beginTransaction();
 		session.update(user);
 		tx.commit();
@@ -50,38 +51,12 @@ public class UserDao {
 	
 	public void edit(User newUser, ArrayList<Long> specialties_ids) {
 		Transaction tx = session.beginTransaction();
-		User user = (User) session.load(User.class, newUser.getId());
-		cleanSpecialists(user);
-		saveSpecialties(user, specialties_ids);
-// copiando o objeto remapeado: carece de refatoração, não?
-		user.setActive(newUser.isActive());
-		user.setEmail(newUser.getEmail());
-		user.setInstitution(newUser.getInstitution());
-		user.setName(newUser.getName());
-		user.setPassword(newUser.getPassword());
-		session.update(user);
+		User persistedUser = (User) session.load(User.class, newUser.getId());
+		cleanSpecialists(persistedUser);
+		saveSpecialties(persistedUser, specialties_ids);
+		copyFields(persistedUser, newUser);
+		session.update(persistedUser);
 		tx.commit();
-	}
-	
-	private void saveSpecialties(User user, List<Long> specialties_ids) {
-		List<Specialist> specialists = new ArrayList<Specialist>();
-		if (specialties_ids != null) {
-			for (long id : specialties_ids) {
-				Specialty s = (Specialty) this.session.get(Specialty.class, id);
-				Specialist specialist = new Specialist(0);
-				specialist.setUser(user);
-				specialist.setSpecialty(s);
-				session.save(specialist);
-				specialists.add(specialist);
-			}
-			user.setSpecialists(specialists);
-		}
-	}
-	
-	private void cleanSpecialists(User u) {
-		for (Specialist specialist : getSpecialists(u)) {
-			session.delete(specialist);
-		}
 	}
 
 	public User getUser(long userId) {
@@ -119,7 +94,7 @@ public class UserDao {
 	}
 	
 	public List<Specialist> getTopSpecialists() {
-		return this.session.createCriteria(Specialist.class).addOrder( Order.desc("score")).setMaxResults(5).list();
+		return this.session.createCriteria(Specialist.class).addOrder(Order.desc("score")).setMaxResults(5).list();
 	}
 
 	public List<Question> getQuestionsFromSpecialties(List<Specialty> specialties) {
@@ -128,4 +103,39 @@ public class UserDao {
 			.add(Restrictions.eq("status", QuestionStatus.OPEN));
 		return questionsCriteria.list();
 	}
+	
+	private void copyFields(User oldUser, User newUser) {
+		oldUser.setActive(newUser.isActive());
+		oldUser.setEmail(newUser.getEmail());
+		oldUser.setInstitution(newUser.getInstitution());
+		oldUser.setName(newUser.getName());
+		oldUser.setPassword(newUser.getPassword());
+	}
+	
+	private Specialist specialistWithSpecialtyFromUser(User user, long id) {
+		Specialty s = (Specialty) this.session.get(Specialty.class, id);
+		Specialist specialist = new Specialist(0);
+		specialist.setUser(user);
+		specialist.setSpecialty(s);
+		return specialist;
+	}
+	
+	private void cleanSpecialists(User u) {
+		for (Specialist specialist : getSpecialists(u)) {
+			session.delete(specialist);
+		}
+	}
+	
+	private void saveSpecialties(User user, List<Long> specialtiesIds) {
+		List<Specialist> specialists = new ArrayList<Specialist>();
+		if (specialtiesIds != null) {
+			for (long specialtyId : specialtiesIds) {
+				Specialist specialist = specialistWithSpecialtyFromUser(user, specialtyId);
+				session.save(specialist);
+				specialists.add(specialist);
+			}
+			user.setSpecialists(specialists);
+		}
+	}
+
 }

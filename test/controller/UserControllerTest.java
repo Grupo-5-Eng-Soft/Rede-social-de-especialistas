@@ -179,7 +179,7 @@ public class UserControllerTest {
 		String userEmail = user.getEmail();
 		when(dao.getUserByEmail(userEmail)).thenReturn(user);
 		controller.sendPassword(userEmail);
-		verify(dao).updateUser(user);
+		verify(dao).update(user);
 	}
 	
 	@Test
@@ -190,7 +190,7 @@ public class UserControllerTest {
 		String userEmail = user.getEmail();
 		when(dao.getUserByEmail(userEmail)).thenReturn(user);
 		controller.sendPassword("emailerrado@gmail.com");
-		verify(dao, never()).updateUser(user);
+		verify(dao, never()).update(user);
 	}
 	
 	@Test
@@ -234,7 +234,7 @@ public class UserControllerTest {
 		when(dao.getUser(user.getId())).thenReturn(user);
 		
 		controller.changePasswordForm(newPassword, oldPassword, newPassword);
-		verify(dao).updateUser(user);
+		verify(dao).update(user);
 	}
 	
 	@Test(expected=ValidationException.class)
@@ -250,10 +250,10 @@ public class UserControllerTest {
 		when(dao.getUser(user.getId())).thenReturn(user);
 		
 		controller.changePasswordForm(newPassword, wrongOldPassword, newPassword);
-		verify(dao, never()).updateUser(user);
+		verify(dao, never()).update(user);
 		
 		controller.changePasswordForm(newPassword, oldPassword, wrongConfirmation);
-		verify(dao, never()).updateUser(user);
+		verify(dao, never()).update(user);
 	}
 	
 	@Test
