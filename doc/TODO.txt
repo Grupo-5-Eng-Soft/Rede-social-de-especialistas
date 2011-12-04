@@ -1,4 +1,10 @@
-Ver com o Gerosa as hist�rias:
+TODO:
 
-O usu�rio determina suas especialidades (e se torna especialista nela)
+1 - Mostrar FAQ na página principal.
+
+2 - Listar ações de usuário em seu perfil.
+
+3 - Usuário pode seguir especialistas.
+
+4 - Melhorar textos.
 
