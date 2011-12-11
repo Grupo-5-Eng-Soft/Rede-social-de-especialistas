@@ -1,0 +1,265 @@
+Id,Story,Labels,Iteration,Iteration Start,Iteration End,Story Type,Estimate,Current State,Created at,Accepted at,Deadline,Requested By,Owned By,Description,URL,Note,Note,Note,Note,Note,Note,Note,Note,Note,Note,Note,Note,Note,Note,Task,Task Status,Task,Task Status,Task,Task Status
+20064841,Configurações do ambiente (vraptor + hibernate).,"",1,"Sep 5, 2011","Sep 11, 2011",chore,,accepted,"Sep 9, 2011","Sep 9, 2011",,Marco Aurelio Gerosa,,,http://www.pivotaltracker.com/story/show/20064841
+20064843,Colocar o projeto no GitHub,"",1,"Sep 5, 2011","Sep 11, 2011",chore,,accepted,"Sep 9, 2011","Sep 9, 2011",,Marco Aurelio Gerosa,,,http://www.pivotaltracker.com/story/show/20064843
+20064847,Deve existir um usuário com poderes administrativos,"",2,"Sep 12, 2011","Sep 18, 2011",feature,3,accepted,"Aug 28, 2011","Sep 12, 2011",,Marco Aurelio Gerosa,,,http://www.pivotaltracker.com/story/show/20064847,"Acho que o usuário não deveria ter o poder de escolher se ele é ou não admin... Não faz muito sentido, né? (Chico Sokol - Sep 4, 2011)","ah, outra coisa, sempre dá conflito  com o .classpath, e se eu pego o que está no repositório, quebra tudo aqui na minha máquina... Alguém que manja mais do git poderia remover ele do projeto? (Chico Sokol - Sep 4, 2011)","Verdade, Chico! =P
+
+Só um admin deveria dar o privilégio de admin para algum usuário. Mas, para um admin existir, deve existir um admin antes.... Tá faltando a base da recursão. Por isso que eu deixei assim, apesar de não fazer sentido.
+Como a tarefa está apenas dizendo que deve existir um user com poderes administrativos, sem dizer como ele é criado, fiz assim mesmo.
+
+Abração!
+ (Felipe Torres - Sep 4, 2011)","Sobre o classpath:
+
+se alguém baixar o projeto e der git rm .classpath e commitar, acho que resolve. Vou verificar isso.
+Ah sim, evitem de commitar o hibernate.cfg.xml de vocês, caso o banco local seja diferente de engenharia_software. A gente pode escolher outro nome pra default se vcs quiserem.
+
+Abração! (Felipe Torres - Sep 4, 2011)","Sobre o classpath:
+qual o problema que dá na sua máquina, Chico? (Felipe Torres - Sep 5, 2011)"
+20064849,Criar uma tela de login e sua lógica.,"",2,"Sep 12, 2011","Sep 18, 2011",feature,3,accepted,"Sep 9, 2011","Sep 12, 2011",,Marco Aurelio Gerosa,,"Para sabermos quem está usando o sistema (usuário ou admin), precisamos fazer a parte de login.",http://www.pivotaltracker.com/story/show/20064849,"Completei a tela de login que o Chico tinha commitado. Agora, não dá mais aqueles exceptions quando o user não existe. Além disso, não basta o password bater; o user precisa estar ativo também. (Felipe Torres - Sep 10, 2011)"
+20064851," O cadastro do usuário só é validado após ele clicar no email que é
+enviado para ele.","",2,"Sep 12, 2011","Sep 18, 2011",feature,3,accepted,"Aug 28, 2011","Sep 12, 2011",,Marco Aurelio Gerosa,,,http://www.pivotaltracker.com/story/show/20064851,"Pessoal, já temos os dados do servidor de email que será usado? (Felipe Torres - Sep 4, 2011)","Provisoriamente, criei uma conta no gmail pra gente usar (login: grupo5.engsoft, senha: ohhappyday).
+Adicionei uns .jar pra poder enviar os emails, talvez quebre no projeto de vocês e precise arrumar o .classpath. Os .jar estão em WebContent/WEB-INF/lib/. 
+Já está mandando o email! (Chico Sokol - Sep 6, 2011)","Calma aí, eu estava pensando que o sujeito ia receber um email com uma url acessar confirmando a conta, não era isso (foi isso que eu fiz)? O que ele quer dizer com 'clicar no email'? (Chico Sokol - Sep 7, 2011)","Exato, Chico. Ainda não vi a tarefa, mas pelo que vc está falando, está correto. É um email com um link que confirma o cadastro dele. (Felipe Torres - Sep 7, 2011)"
+20064853,Fazer o Interceptor do admin,"",2,"Sep 12, 2011","Sep 18, 2011",chore,,accepted,"Sep 12, 2011","Sep 12, 2011",,Marco Aurelio Gerosa,,,http://www.pivotaltracker.com/story/show/20064853
+20064855,Usuário se cadastra,"",2,"Sep 12, 2011","Sep 18, 2011",feature,3,accepted,"Aug 28, 2011","Sep 12, 2011",,Marco Aurelio Gerosa,,,http://www.pivotaltracker.com/story/show/20064855,"Colocar mensagens no cadastro e falha no cadastro. (Chico Sokol - Sep 11, 2011)"
+20064857,O usuário determina suas especialidades (e se torna especialista nela),"",3,"Sep 19, 2011","Sep 25, 2011",feature,8,accepted,"Aug 29, 2011","Sep 21, 2011",,Marco Aurelio Gerosa,,,http://www.pivotaltracker.com/story/show/20064857,"E ae, galera... Tão com algum problema nessa tarefa? Posso ajudar em alguma coisa? (Felipe Torres - Sep 13, 2011)","Acho que pode mandar bala Felipe, agora que o modelo tá certo, é só mudar o formulário e a lógica do cadastro de usuário... (Chico Sokol - Sep 13, 2011)","Beleza. Renato, vc tem alguma coisa pronta? Quer ajuda? (Felipe Torres - Sep 13, 2011)","Ops, me confundi com as histórias, ignorem a outra mensagem. 
+
+O código que o Caio comitou no github não faz muito sentido pelo que eu vi, a gente não tinha removido a classe Specialist?
+
+As especialidades deveria que vir do SpecialtyDao, não ? (Chico Sokol - Sep 13, 2011)","Não, nada a ver o que eu falei, de novo. Ignorem o que eu estiver falando, agora eu só consigo pensar em álgebra 2. (Chico Sokol - Sep 13, 2011)","haha... Relaxa, Chico. Vai tomar uma água.... haha.... (Felipe Torres - Sep 13, 2011)","Pelo que eu vi, as especialidades já estão no formulário de cadastro
+de usuário, mas método save do UserController não está salvando.
+
+O jsp também não está muito legal, em algum lugar lá precisa estar o
+id da especialidade pra gente salvar certo no banco, só tem o nome.
+
+
+--
+Chico Sokol (Chico Sokol - Sep 13, 2011)","Opa ...entao, o usuario ja consegue se cadastrar, mas ainda falta salvar no banco as suas especialidades ...acho que eu e o caio conseguimos resolver isso ..
+e eu adicionei umas coisinhas a mais la ...coloquei uns botoes de voltar, nao deixo cadastrar uma especialidade se o usuario nao estiver logado, mas eu nao to conseguindo fazer com que ele cadastre so se for especialista ...falei com o chico sobre isso e acho que ate a noite eu consigo fazer ...
+ah ..eu nao comitei pq eu nao sei comitar, como eu tava fazendo com o caio era ele que comitava ...como que eu faço? (Renato Avila - Sep 14, 2011)","Opa Renato! Escrevi um tutorialzinho na lista, dá uma olhada lá. Se tiver alguma dúvida, me avisa.
+
+Abraço! (Felipe Torres - Sep 14, 2011)","O relacionamento de usuário e especialidade mudou de novo? Porque não é mais manyToMany? (Chico Sokol - Sep 14, 2011)","Opa Chico!
+O relacionamento continua sendo ManyToMany, a diferença é que eu quebrei em 2 relações OneToMany.
+Tava vendo o banco gerado pelo Hibernate e tava ficando uma zona, pq a gente tinha 2 tabelas de Join iguais. 
+
+Antes havia, entre outras coisas, uma tabela com id_specialty e id_user e outra com id_user e id_specialty.  
+Aí eu mudei pra ficar só uma, pro pessoal não se perder nas tabelas.
+
+Sempre que tiver numa Classe 
+
+@OneToMany
+private List<OutraClasse> atributo;
+
+Vejam se em OutraClasse não há
+
+@OneToMany
+private List<Classe> atributo;
+
+Se existir isso, a relação entre Classe e OutraClasse é, no fundo, ManyToMany.
+
+Abraço. (Felipe Torres - Sep 15, 2011)","Bom, ele criou uma tabela de join? Se não criou, não pode fazer sentido!
+
+
+--
+Chico Sokol (Chico Sokol - Sep 15, 2011)","Ele criou uma tabela de join, parece. Legal! Tem um campo na tabela de usuarios que eu nao sei o que significa: specialties_id
+
+Me parece que ele nao faz sentido e não deveria estar lá, mas eu também não sei como remover de lá... Alguém sabe?
+
+Já fiz o cadastro dos usuários salvar as especialidades! Vou fazer uma página para vizualizar os especialistas de uma certa especialidade...
+
+ (Chico Sokol - Sep 15, 2011)","Então, o relacionamento nao esta funcionando, a partir de uma especialidade nao consigo listar os usuarios especialistas nela. Vejam os println que eu coloquei no controller das especialidades. 
+
+Precisamos recriar o relacionamento many to many! (Chico Sokol - Sep 15, 2011)"
+20064859,Configurar um servidor de integração continua.,"",4,"Sep 26, 2011","Oct 2, 2011",chore,,accepted,"Sep 12, 2011","Oct 2, 2011",,Marco Aurelio Gerosa,,"O professor comentou sobre criarmos um servidor de integração contínua. Will, podemos usar o Valinhos ou o da rede linux?",http://www.pivotaltracker.com/story/show/20064859,"Rolou algum problema, Will? (Felipe Torres - Sep 13, 2011)","O único problema é o servidor não ser definitivo e não suportar mais de cinco projetos. A ideia é deixá-lo para todos os grupos poderem usar. (will - Sep 13, 2011)","Pelos emails que vc mandou na lista, podemos fechar essa tarefa, certo? (Felipe Torres - Oct 1, 2011)","Acho que pode sim. Pena não ter pontuação. =P (will - Oct 1, 2011)","Sussa, a gente sabe como essa tarefa não é nada facil... =) (Felipe Torres - Oct 1, 2011)"
+20064861,Exibir as telas num layout bonitinho (css parecido ao do ccsl),"",5,"Oct 3, 2011","Oct 9, 2011",feature,8,accepted,"Sep 12, 2011","Oct 3, 2011",,Marco Aurelio Gerosa,,,http://www.pivotaltracker.com/story/show/20064861,"Cabeçalho completo, ainda não cosegui fazer as imagens funcionarem no css (Gian - Sep 30, 2011)","Especialidades completo, falta terminar perguntas e a index (Gian - Sep 30, 2011)","Páginas de usuários, especialidades e erros terminados. Só falta a index. (Gian - Oct 1, 2011)","Index terminada, validar com o gerosa o que ele quer na index (Gian - Oct 1, 2011)"
+20064863,Fazer validação do cadastro de usuário,"",5,"Oct 3, 2011","Oct 9, 2011",feature,3,accepted,"Sep 28, 2011","Oct 3, 2011",,Marco Aurelio Gerosa,,"O cadastro funciona, mas falta validar no servidor.",http://www.pivotaltracker.com/story/show/20064863,"Will, vc tá mexendo com Validators? Tá com algum problema? (Felipe Torres - Oct 1, 2011)","Meu único problema foi o Git. Tenho tudo num branch que não subiu. Vou juntar as coisas hoje. (will - Oct 1, 2011)","pra subir um branch, tenta fazer isso: 
+
+git push origin ""nome-da-sua-branch-local""
+
+se não me engano é isso. =) (Felipe Torres - Oct 1, 2011)","Anyway, eu fiz a validação client-side usando JQuery... Como vc vai upar sua branch, não vou fazer a parte server-site pra n te zoar com os paus de merge, ok? (Felipe Torres - Oct 1, 2011)","Parece que a validação no servidor está um pouco quebrada, quando
+acontece algum erro lá, quando volta pra página as categorias não são
+mostradas na página, precisa ver isso...
+
+Além disso, seria bom que fossem as mesmas regras de validação no
+servidor e no cliente, tipo, essa regra de senha com pelo menos 6
+caracteres, está só no servidor. Acho que a validação da confirmação
+da senha não está funcionando, Felipe, onde é a documentação desse
+plugin do jquery?
+
+
+--
+Chico Sokol (Chico Sokol - Oct 1, 2011)","Blé, eu quebrei a validação do Felipe; usávamos um padrão diferente para a nomenclatura na hora de avaliar as senhas. Já deixei tudo bonitinho.
+
+A ausência da cor vermelha não é _minha_ culpa. =P
+
+Já foi arrumado isso. Falta, na realidade, discutirmos padrões de campos... Tipo esqueminha de *BD* mesmo... (will - Oct 1, 2011)","Chico,
+
+procura no site do JQuery por jquery validator.
+Provavelmente a documentação está no site bassistance.de
+
+Abraço. (Felipe Torres - Oct 5, 2011)",,,,,,,,Validação client-side,completed,Validação server-side,completed
+20064865,O administrador cadastra especialidades ,"",5,"Oct 3, 2011","Oct 9, 2011",feature,2,accepted,"Aug 28, 2011","Oct 3, 2011",,Marco Aurelio Gerosa,,,http://www.pivotaltracker.com/story/show/20064865,"Pessoal,
+já sabemos o que existirão nas especialidades?  (Felipe Torres - Sep 5, 2011)","Felipe, eu e o caio estamos fazendo o item ""o usuario determina suas especialidades ..."" e acho que faria mais sentido nós pegarmos esse item de o adm cadastra as especialidades, pois acho que elas estao muitos entrelaçadas ...
+ou a gnt podia discutir junto pra decidir como voce vai fazer o cadastro e as tabelas do banco pra nao ter problema de compatibilidade depois ...
+eai, como vc prefere? (Renato Avila - Sep 5, 2011)","Estava pensando numa tabela Expertise, com nome e descricao da especialidade e uma coluna para o id do Usuário (seria manyToOne) e o User teria uma lista de Expertise (oneToMany). (Felipe Torres - Sep 7, 2011)","Não deveria ser uma relação many to many de usuário com especialidades? (Chico Sokol - Sep 7, 2011)","Uma relação manyToMany pode ser quebrada em uma oneToMany e outra manyToOne. Isso evita fazer uma outra tabela. (Felipe Torres - Sep 7, 2011)","Tava flando isso com o caio, e ele achou melhor fazer a relação oneToMany, e
+nós fizemos assim ... (Renato Avila - Sep 7, 2011)","Mas não faz muito sentido... Do jeito que você está falando, dois usuários não podem ter a mesma especialidade! (Chico Sokol - Sep 7, 2011)","É Renato,
+tem que tomar cuidado com isso. (Felipe Torres - Sep 7, 2011)","O Renato mexeu um pouco, mas eles também estavam fazendo com um
+relacionamento one to many, mas a gente conversou ontem e chegamos a
+conclusão que do jeito que ele estava fazendo não fazia sentido,
+precisa ser um relacionamento many to many, mesmo.
+
+
+--
+Chico Sokol (Chico Sokol - Sep 8, 2011)","Pessoal, posso continuar essa história, ou tem alguém fazendo? (Felipe Torres - Sep 8, 2011)","Pessoal, criei a relação many to many no projeto, também fiz a página
+para cadastro de especialidade, falta fazer o controle de acesso para
+usuários logados e com poder de administração. Felipe, você pode fazer
+isso com aqueles interceptors?
+
+
+--
+Chico Sokol (Chico Sokol - Sep 9, 2011)","Sem problemas. (Felipe Torres - Sep 10, 2011)","Acho que aquela classe Specialist no model, não faz mais sentido, já
+que um especialista é um usuário qualquer, com suas especialidades
+registradas... Podemos remover né?
+
+--
+Chico Sokol (Chico Sokol - Sep 10, 2011)","Podemos, sim. (Felipe Torres - Sep 10, 2011)"
+20064867,"O usuário pode postar uma dúvida em qualquer especialidade e os
+especialistas são notificados por email","",5,"Oct 3, 2011","Oct 9, 2011",feature,8,accepted,"Aug 28, 2011","Oct 3, 2011",,Marco Aurelio Gerosa,,,http://www.pivotaltracker.com/story/show/20064867,"Preciso de alguma documentação para essa tarefa, ou posso iniciá-la? (Felipe Torres - Sep 13, 2011)","Comecei a fazer essa história, modelei a pegunta e agora vou começar a fazer o controller... (Chico Sokol - Sep 25, 2011)","Terminei! Já está mandando emails e tudo o mais, testem aí e deem uma olhada no código, principalmente o analista de qualidade. (Chico Sokol - Sep 27, 2011)","Está funcionando. Vou olhar o código. (Felipe Torres - Oct 1, 2011)",,,,,,,,,,,Modelar a pergunta,not completed
+20064869,Padronizar encoding dos CSS.,"",5,"Oct 3, 2011","Oct 9, 2011",chore,,accepted,"Oct 3, 2011","Oct 3, 2011",,Marco Aurelio Gerosa,,Algumas páginas estão com ISO8859-1 e outras com UTF-8. Deixar todas com UTF-8,http://www.pivotaltracker.com/story/show/20064869,"Acho que vamos ter problemas com acentos usando utf-8 (Gian - Oct 2, 2011)","Os problemas com acentos mesmo usando o utf-8 foram resolvidos usando html entities (Gian - Oct 4, 2011)"
+20064885,Exibir mensagem bonitinha quando o user for cadastrado no sistema.,"",8,"Oct 24, 2011","Oct 30, 2011",feature,3,accepted,"Oct 3, 2011","Oct 24, 2011",,Marco Aurelio Gerosa,Felipe Torres,"No cadastro com sucesso do usuário, exibir a mensagem ""Seu cadastro foi efetuado com sucesso, verifique seu email.""",http://www.pivotaltracker.com/story/show/20064885
+20064871,"O especialista pode responder a uma dúvida em aberto e o usuário é
+notificado por email","",8,"Oct 24, 2011","Oct 30, 2011",feature,5,accepted,"Aug 28, 2011","Oct 24, 2011",,Marco Aurelio Gerosa,Felipe Torres,,http://www.pivotaltracker.com/story/show/20064871,"Goroba, como está essa história? Consegue terminar até segunda? Está com alguma dificuldade? (Chico Sokol - Sep 29, 2011)","Chico, eu vo começar ela só amanhã, e tenho EP de IA pra fazer tambem...
+Se eu tiver alguma difículdade eu pergunto. Não sei se vai dar pra terminar pra segunda por que não tenho muita familiaridade com java, mas acho que da pra mostrar alguma coisa pro gerosa. (Thiago de Gouveia Nunes - Sep 29, 2011)","O que está faltando? (Felipe Torres - Oct 1, 2011)","Precisa verificar se o usuario que vai responder eh mesmo especialista na especialidade daquela duvida... Se nao for, acho que aquele form nem precisa aparecer pra ele.
+
+
+--
+Chico Sokol (Chico Sokol - Oct 1, 2011)","Terminei isso aqui, agora só um especialista da especialidade pode responder a dúvida! (Chico Sokol - Oct 13, 2011)","como assim???? Qualquer um pode responder a pergunta, ate mesmo se o cara nao eh especialista, a diferença eh que na hora que ele responde aparece que ele eh especialista!
+Alias, eu nao consegui responder uma pergunta que eu sou especialista!! (Renato Avila - Oct 17, 2011)","nao ta funcionando tbm! (Renato Avila - Oct 17, 2011)","arrumei, dá uma olhada tbm.
+Pelo que eu entendi só um especialista pode responder não é? Foi assim que eu fiz. (Chico Sokol - Oct 17, 2011)","Renato,
+
+valeu por nos avisar sobre o erro, mas tente refinar a descrição do problema encontrado (se bem que vc pode tentar resolvê-lo também). Dizer que ""não tá funcionando"" é algo muito vago. Tente debugar o código e encontrar o método com problema, pois fica mais fácil.
+
+Abraço. (Felipe Torres - Oct 19, 2011)","Pessoal,
+
+Atualmente, somente o especialista pode responder a pergunta. Após uma resposta, o usuário que fez a pergunta é notificado por email.
+A tarefa, como está especificada, parece correta.
+
+Abraço. (Felipe Torres - Oct 19, 2011)",,,,,verificar se o usuario que vai responder eh mesmo especialista na especialidade daquela duvida,completed
+20064877,"Os especialistas com maior pontuação são exibidos na página de
+entrada do site","",8,"Oct 24, 2011","Oct 30, 2011",feature,2,accepted,"Aug 28, 2011","Oct 24, 2011",,Marco Aurelio Gerosa,Caio Valente,,http://www.pivotaltracker.com/story/show/20064877,"Renato, como está indo esta tarefa? (Chico Sokol - Sep 27, 2011)","Eu acho que isso está errado, ele pega todos os especialistas (da classe Specialist), mas acho que deveria pegar os usuários e somar as pontuações de suas especialidades... Não faz sentido aparecer duas entradas diferentes na tabela para o mesmo usuário (se tiver um usuário com mais de uma especialidade).
+O que vocês acham? (Chico Sokol - Oct 30, 2011)"
+20064879,Admin pode editar/remover especialidades.,"",8,"Oct 24, 2011","Oct 30, 2011",feature,5,accepted,"Oct 3, 2011","Oct 24, 2011",,Marco Aurelio Gerosa,Caio Valente,"Ao excluir uma especialidade, desativar as perguntas e avisar o admin que as perguntas serão desativadas.",http://www.pivotaltracker.com/story/show/20064879,"Terminei a remoção também, vou fechar essa também. 
+
+Acho que seria legal fazer depois uma msg de warning com javascript, para o cara confirmar que vai deletar. (Chico Sokol - Oct 16, 2011)"
+20064881,Validação de perguntas.,"",8,"Oct 24, 2011","Oct 30, 2011",feature,3,accepted,"Oct 3, 2011","Oct 24, 2011",,Marco Aurelio Gerosa,Felipe Torres,,http://www.pivotaltracker.com/story/show/20064881,"Pessoal,
+
+toda pergunta TEM que pertencer a uma especialidade? (Felipe Torres - Oct 12, 2011)",,,,,,,,,,,,,,Titulo da pergunta nao pode ser vazio.,completed,Conteudo da pergunta nao pode ser vazio.,completed,Exibir erro caso a validacao falhe.,completed
+20064883,Validacao de especialidades.,"",8,"Oct 24, 2011","Oct 30, 2011",feature,3,accepted,"Oct 4, 2011","Oct 24, 2011",,Marco Aurelio Gerosa,Felipe Torres,,http://www.pivotaltracker.com/story/show/20064883,,,,,,,,,,,,,,,Nao permitir criacao de especialidades com  nome vazio.,completed,Nao permitir criacao de especialidades com o mesmo nome.,completed
+20064889,"Para posdtar uma dúvida, não é necessário o cadastro. Basta um email.","",8,"Oct 24, 2011","Oct 30, 2011",feature,3,accepted,"Oct 3, 2011","Oct 24, 2011",,Marco Aurelio Gerosa,Felipe Torres,O sistema deve mandar um link para o email assim que a dúvida for respondida.,http://www.pivotaltracker.com/story/show/20064889,"Hum... Nesse caso precisa enviar os emails pro endereço que o cara colocou no campo novo que você criou lá, Renato. Não tá enviando. 
+
+Acho que pode fazer assim: Se o autor for null, é porque foi um sujeito não cadastrado que criou a pergunta, então pega o email desse campo novo que você criou. Se não for null, continua fazendo como está.
+
+Dá uma olhada no AnswerController... (Chico Sokol - Oct 17, 2011)","Galera,
+
+Fiz um teste local, e o erro é o seguinte:
+
+quando o especialista responde uma pergunta cujo autor não está cadastrado no sistema (ou seja, possui somente o email), é gerado um nullPointerException nos locais:
+
+AnswerController.answer(AnswerController.java:38)
+AnswerController.sendEmailToAuthor(AnswerController.java:47)
+
+Provavelmente, na query não estamos tratando o caso do nome do autor ser null. =)
+
+Pra evitar paus de merge, alguém tá mexendo nessa tarefa?
+
+Abraço. (Felipe Torres - Oct 19, 2011)","Pessoal, tou mexendo nela. (Felipe Torres - Oct 19, 2011)"
+20064875,As últimas 5 perguntas são apresentadas na página inicial,"",10,"Nov 7, 2011","Nov 13, 2011",feature,2,accepted,"Aug 28, 2011","Nov 9, 2011",,Marco Aurelio Gerosa,Caio Valente,,http://www.pivotaltracker.com/story/show/20064875,"Arrumar largura das colunas. (Marco Aurelio Gerosa - Oct 24, 2011)"
+20066453,Colocar acento na página inicial,"",10,"Nov 7, 2011","Nov 13, 2011",bug,,accepted,"Oct 24, 2011","Nov 9, 2011",,Marco Aurelio Gerosa,Felipe Torres,"Palavra ""Últimas""",http://www.pivotaltracker.com/story/show/20066453
+20066827,Fazer validacao do formulario de pergunta quando o user está anonimo.,"",10,"Nov 7, 2011","Nov 13, 2011",bug,,accepted,"Oct 24, 2011","Nov 9, 2011",,Marco Aurelio Gerosa,Felipe Torres,Esquecemos de verificar o email do cara.,http://www.pivotaltracker.com/story/show/20066827
+20066561,Colocar link para a duvida nos emails do usuario e especialista.,"",10,"Nov 7, 2011","Nov 13, 2011",feature,3,accepted,"Oct 24, 2011","Nov 9, 2011",,Marco Aurelio Gerosa,Felipe Torres,,http://www.pivotaltracker.com/story/show/20066561
+20064903,"Na resposta, colocar ""autor (especialista)"" se for um especialista. Ou ""autor"" c.c.","",10,"Nov 7, 2011","Nov 13, 2011",feature,1,accepted,"Oct 3, 2011","Nov 9, 2011",,Marco Aurelio Gerosa,Renato Avila,,http://www.pivotaltracker.com/story/show/20064903
+20066619,Qualquer usuario logado pode responder perguntas.,"",10,"Nov 7, 2011","Nov 13, 2011",feature,1,accepted,"Oct 24, 2011","Nov 9, 2011",,Marco Aurelio Gerosa,Renato Avila,"Se ele não estiver logado, redirecionar para uma página de cadastro.",http://www.pivotaltracker.com/story/show/20066619
+20066691,Certificacao de usuarios pelo admin,"",10,"Nov 7, 2011","Nov 13, 2011",feature,5,accepted,"Oct 24, 2011","Nov 9, 2011",,Marco Aurelio Gerosa,Renato Avila,"Esses usuarios serao destacados nas perguntas que responderem.
+Talvez colocar alguma imagem do CCSL ao lado do nome dele.",http://www.pivotaltracker.com/story/show/20066691
+20483589,"O usuario ao enviar a duvida pode marcar se a duvida é publica ou
+restrita aos especialistas. Se for publica, qq um pode responder. Se
+for privada, só os especialistas (a duvida nem fica visivel para os
+demais usuarios). Em ambos os casos, os especialistas recebem um aviso
+de postagem de duvida por email.","",10,"Nov 7, 2011","Nov 13, 2011",feature,5,accepted,"Nov 2, 2011","Nov 9, 2011",,Renato Avila,Chico Sokol,,http://www.pivotaltracker.com/story/show/20483589,"Foi solicitado pelo gerosa na ultima iteração! (Renato Avila - Nov 2, 2011)","Não ficou claro se devemos mexer com as cinco últimas ou não. A minha dúvida é se alteramos quais são as cinco últimas com relação ao usuário (caso seja privada) ou não. (Will - Nov 6, 2011)","Acho que devemos, claro, se a dúvida é privada, é privada em qualquer lugar, na primeira página ou não!
+Terminei essa! (Chico Sokol - Nov 7, 2011)","Resolveu o o problema de acesso com a url? (Renato Avila - Nov 7, 2011)"
+20503635,Colocar uma foto quando algum usuário é certificado. E deixar bonitinho o modo como o usuário é certificado.,"",10,"Nov 7, 2011","Nov 13, 2011",feature,3,accepted,"Nov 2, 2011","Nov 9, 2011",,Renato Avila,Renato Avila,,http://www.pivotaltracker.com/story/show/20503635,"isso ja esta feito, certo? Vou finalizar! (Renato Avila - Nov 7, 2011)","Troquei a imagem (coloquei aquele logo do ccsl). Tá meio tosco, mas acho q é melhor.
+Também editei os jsp's pra aparecer sempre ao lado do login dos usuários... (Chico Sokol - Nov 7, 2011)"
+20669581,"Adicionar um ""Esqueci a senha - clique aqui""","",10,"Nov 7, 2011","Nov 13, 2011",feature,3,accepted,"Nov 7, 2011","Nov 9, 2011",,Renato Avila,Renato Avila,,http://www.pivotaltracker.com/story/show/20669581
+20064887,"Adicionar botoes para voltar a pagina anterior, e um para voltar para a pagina inicial.","",10,"Nov 7, 2011","Nov 13, 2011",feature,3,accepted,"Oct 4, 2011","Nov 9, 2011",,Marco Aurelio Gerosa,Renato Avila,"Acho que seria legal clicar no titulo ""Rede social de especialistas""   para voltar para a pagina inicial.",http://www.pivotaltracker.com/story/show/20064887,"Algum problema com essa história, Renato? (Felipe Torres - Oct 19, 2011)","Alou... (Felipe Torres - Oct 24, 2011)","galera, mal nao ter respondido ou flado nesses ultimos dias, eu estava em porto alegre essa ultima semana e so voltei ontem a noite. Como eu estava num acampamento eu fiquei sem net esses dias. Vou dar uma acelerada nessas proximas semanas. To tendo que correr atras de todas as materias. Mas acredito que ate semana que vem consigo por td em ordem. (Renato Avila - Oct 26, 2011)","Tá tudo certo por aí, Renato? (Felipe Torres - Nov 8, 2011)","Essa tarefa é realmente necessaria? Acho que temos links suficientes no menu para ir onde quiser. E não tem como eu expandir muito, ou seja, nao tem muitos links para que torne dificil a navegação na pagina ...acho que esta suficiente ...
+E ja temos um voltar a pagina inicial ...
+O que vc acha? (Renato Avila - Nov 8, 2011)","Eu finalizei essa tarefa. Eu tinha criado na primeira iteração esta tarefa para facilitar as coisas. Mas agora com os links no menu acho que nao precisa mais. E ja tem o voltar do browser. (Renato Avila - Nov 9, 2011)","Então essa tarefa não foi feita. Vou deletá-la. (Felipe Torres - Nov 10, 2011)"
+20064897,Padronizar hibernate.cfg.xml,"",13,"Nov 28, 2011","Dec 4, 2011",chore,,accepted,"Oct 3, 2011","Nov 28, 2011",,Marco Aurelio Gerosa,Felipe Torres,"Para evitar que commits quebrem o banco, seria legal que todos tivessem o mesmo arquivo.",http://www.pivotaltracker.com/story/show/20064897,"Isso já está feito, não? (Felipe Torres - Oct 16, 2011)","ACHO que sim. Todo mundo está usando o mesmo trio (esgerosa,alunoses,redesocial)? (will - Oct 19, 2011)","Eu não commito esse xml. =) (Felipe Torres - Oct 19, 2011)","Faz um tempo que não temos mais problemas com esse xml. Acho que podemos finalizar essa tarefa. (Felipe Torres - Nov 21, 2011)"
+20064873,"Listar usuarios, editar usuario e especialidade ","",14,"Dec 5, 2011","Dec 11, 2011",feature,8,delivered,"Sep 21, 2011",,,Marco Aurelio Gerosa,Felipe Torres,,http://www.pivotaltracker.com/story/show/20064873,"Tudo certo por aí? (Felipe Torres - Oct 1, 2011)","nao ...fizemos as listagens, mas estamos com problemas pra editar! (Renato Avila - Oct 2, 2011)","Colocamos no git o que a gnt fez ...o problema esta na hora de atualizar as especilidades ... (Renato Avila - Oct 3, 2011)","Arrumei a atualização das especialidades. Acho que o login não deveria ser editável, o que vocês acham? (Chico Sokol - Oct 13, 2011)","Agora o admin pode editar as especialidades. Vou fechar essa história também. (Chico Sokol - Oct 16, 2011)","Mew ...isso aqui nao ta rolando! To testando aqui e so da erro! A gnt nao pode deixar isso aqui aceito se ainda nao ta funcionando ...vc mexeu em alguma coisa nessa parte???
+Antes funcionava parcialmente, o usuario ainda nao conseguia colocar que era especialista em outra especialidade ainda ...mas o email e o login tavam funcionando! (Renato Avila - Oct 17, 2011)","nao ta funcionando (Renato Avila - Oct 17, 2011)","arrumei, da uma olhada de novo (Chico Sokol - Oct 17, 2011)","E aí pessoal, tá funfando, ou não? Vou testar localmente. (Felipe Torres - Oct 19, 2011)","Tá funfando. Acho que está tudo certo. (Felipe Torres - Oct 19, 2011)","Validar o nome. (Marco Aurelio Gerosa - Oct 24, 2011)","Falta marcar as especialidades na edição do perfil SEM usar método no JSP. (Chico Sokol - Nov 9, 2011)","Acho que isso tbm ja esta feito! (Renato Avila - Nov 10, 2011)","Não está. Leia o comentário acima do seu. (Felipe Torres - Nov 10, 2011)"
+20066641,Se o usuario trocar o email (no perfil) reenviar confirmacao de conta.,"",14,"Dec 5, 2011","Dec 11, 2011",bug,,rejected,"Oct 24, 2011",,,Marco Aurelio Gerosa,Chico Sokol,,http://www.pivotaltracker.com/story/show/20066641,"Terminei isso aqui, se o sujeito troca o email, eu deslogo ele e mando um novo email de confirmação. (Chico Sokol - Oct 30, 2011)","Will, vc mexeu aqui? Acho que está quebrado, vou arrumar.
+
+Tipo, essa comparação:
+ userByEmail.getId() == user.getId()
+é sempre falsa pq no formulário de edição não tem o campo id do usuário (e nem deveria pq é gerado pelo sistema), então o vraptor não faz a mágica de preencher pra você. 
+
+Ao invés de buscar o usuário no bd pelo email, vou usar os dados do usuário que está logado na sessão. (Chico Sokol - Nov 7, 2011)","Esquece o que eu falei, tem um método que copia tudo que está na sessão.
+
+O problema era que precisava setar active=true quando o email nao tinha mudado, já que o padrão é false... (Chico Sokol - Nov 7, 2011)","Precisa dar load no objeto antes de dar update. (Chico Sokol - Nov 9, 2011)","Aliás, essa história mudou bastante depois que a gente conversou com o
+Nelson. O Gian anotou tudo, depois seria legal criar as histórias
+novas, com base na reunião...
+
+
+--
+Chico Sokol (Chico Sokol - Nov 10, 2011)"
+20064891,O especialista pode enviar arquivos (documentos) para uma especialidade,"",14,"Dec 5, 2011","Dec 11, 2011",feature,8,started,"Aug 28, 2011",,,Marco Aurelio Gerosa,Will,,http://www.pivotaltracker.com/story/show/20064891,"Will, como está indo isso aqui? (Chico Sokol - Oct 30, 2011)","Estava meio parado por causa do meu trabalho de direito. Voltarei a mexer com isso esta semana até terminar a tarefa. o/ (Will - Oct 30, 2011)",,,,,,,,,,,,,Fazer módulo de upload,completed,Integrar módulo de upload com o sistema,not completed
+20067005,Arrumar layout das peguntas.,"",14,"Dec 5, 2011","Dec 11, 2011",feature,1,delivered,"Oct 24, 2011",,,Marco Aurelio Gerosa,Caio Valente,"Deve ser nesse formato:
+
+<Titulo da pergunta>
+<especialidade>
+<autor>",http://www.pivotaltracker.com/story/show/20067005,"Colocar apenas se a dúvida é privada. Não é necessário dizer que ela é pública. (Chico Sokol - Nov 9, 2011)","Eu tnh quase ctz queisso ja foi feito! (Renato Avila - Nov 10, 2011)","Olhe no código. Se estiver feito, finalize a tarefa. (Felipe Torres - Nov 10, 2011)"
+20064893,"O usuário pode replicar a resposta recebida ou se estiver
+satisfeito, avalia a resposta recebida de 1 a 5. O especialista recebe
+aquela pontuação","",14,"Dec 5, 2011","Dec 11, 2011",feature,3,started,"Aug 28, 2011",,,Marco Aurelio Gerosa,Renato Avila,,http://www.pivotaltracker.com/story/show/20064893,"Quando o usuário estiver satisfeito com a resposta e avalia-la, o tópico é finalizado, ou continua aberto? (Felipe Torres - Oct 19, 2011)","Vou perguntar pro gerosa! (Renato Avila - Nov 2, 2011)","O que o Gerosa disse? (Felipe Torres - Nov 8, 2011)","o usuario avalia a resposta dada e não o especialista. Depois de repondida, a pergunta sai da lista de perguntas ""a responder"". Após avaliada, ele pode ir para uma lista de interações concluídas.  (Renato Avila - Nov 8, 2011)","Outra coisa que ele mandou : a pontuacao do especialista é a soma das avaliacos de suas respostas dos ultimos 30 dias
+
+os usuarios podem ser avaliados da mesma forma. Pode mostrar misturado especialistas e usuarios melhores avaliados (Renato Avila - Nov 8, 2011)","Renato, estou fazendo isso em uma branch separada, logo mais eu do um merge no master... (Chico Sokol - Nov 9, 2011)"
+20089191,Usuario nao pode acessar partes do sistema via URL,"",14,"Dec 5, 2011","Dec 11, 2011",bug,,delivered,"Oct 24, 2011",,,Felipe Torres,Felipe Torres,"Se ao editar o proprio perfil, o usuario alterar via URL o seu id, terá acesso a outro perfil.
+Isso nao pode acontecer. =)",http://www.pivotaltracker.com/story/show/20089191,"Opa, acho que eu acabei arrumando isso, dá uma olhada e vê se está ok (cuidado pq eu fiz um teste pra isso, então se mudar alguma coisa, verifique se o teste tá passando) (Chico Sokol - Nov 7, 2011)","Felipe, pelo que eu entendi vc fez um interceptor pra filtar o que o usuário pode ou não acessar, certo? Mas quando ele tenta acessar alguma coisa que ele não pode é redirecionado pra primeira página e fica tudo em branco... Eu não sei como acertar isso, vc sabe?
+
+ (Chico Sokol - Nov 7, 2011)","Opa, não terminei meu comentário...
+Outra coisa, o detail dos usuários não tem que ser públicos pra qualquer um? Como o cara vai ""seguir"" um especialista se ele nem pode entrar na página do cara?
+Outra coisa ainda, corrigi um negócio no interceptor, dava erro quando o usuário não estava logado. Dá uma olhada pra ver se eu não estraguei nada :p (os testes continuam passando) (Chico Sokol - Nov 7, 2011)","Opa Chico,
+
+- Fiz um interceptor pra filtrar as páginas pro User. Em particular, eu chamo esse interceptor nos métodos do UserController que estão anotados com @ModifiesUser. Quando ele tenta acessar uma página que não tem permissão, no meu pc ele era redirecionado pra UNAUTHORIZED (status 401). Tinha uma página bonitinha implementada pelo Renato, se não me engano. Estranho estar tudo branco... Vou olhar isso.
+
+- O detail tem que ser público, sim. Mas nesse até esse ponto achei que não estávamos tratando isso ainda.
+
+- Putz, agora que vc falou desse erro, faz sentido. Pois faço uma verificação no User da session. Se não tem ninguém lá, acho que rolava um NullPointer... Valeu, Chico. (Felipe Torres - Nov 8, 2011)","Fazer a página de 401. (Chico Sokol - Nov 9, 2011)","A tarefa tá pra aprovação. A pagina de 401 já foi feita? (Felipe Torres - Nov 10, 2011)"
+20064907,"Se por algum motivo, o email do cadastro do User não puder ser enviado, tratar isso.","",14,"Dec 5, 2011","Dec 11, 2011",feature,3,delivered,"Oct 3, 2011",,,Marco Aurelio Gerosa,Renato Avila,Talvez um link para reenvio de email na página de login?,http://www.pivotaltracker.com/story/show/20064907,"Foi assim que eu fiz. (Renato Avila - Nov 8, 2011)","Agora sim esta pronto!!!! (Renato Avila - Nov 9, 2011)"
+20779637,Colocar a tooltip na imagem da certificação.,"",14,"Dec 5, 2011","Dec 11, 2011",feature,2,delivered,"Nov 9, 2011",,,Chico Sokol,Caio Valente,Precisa dizer o que significa a imagenzinha de especialista.,http://www.pivotaltracker.com/story/show/20779637,"Não esta funcionando direito. (Caio Valente - Nov 22, 2011)"
+21177925,"Criar uma página inicial para os especialistas com as perguntas ativas das suas especialiadades, como o Nelson explicou.","",14,"Dec 5, 2011","Dec 11, 2011",feature,5,started,"Nov 17, 2011",,,Chico Sokol,Chico Sokol,,http://www.pivotaltracker.com/story/show/21177925
+20064899,Arrumar a documentação OpenUP de tudo,"",14,"Dec 5, 2011","Dec 11, 2011",feature,3,started,"Oct 20, 2011",,,Marco Aurelio Gerosa,Will,"Feliz ou infelizmente, além de entregar software funcionando, precisamos entregar a documentação.",http://www.pivotaltracker.com/story/show/20064899
+20064895,"O especialista pode marcar uma pergunta e resposta para aparecer
+como FAQ daquela especialidade","",15,"Dec 12, 2011","Dec 18, 2011",feature,2,unstarted,"Aug 28, 2011",,,Marco Aurelio Gerosa,,,http://www.pivotaltracker.com/story/show/20064895,"O FAQ aparece na página da Especialidade, ou na página inicial? (Felipe Torres - Oct 19, 2011)","Eu acho que na especialidade podia ter um link para o FAQ daquela
+especialidade, senão pode ficar meio estranho...
+
+
+--
+Chico Sokol (Chico Sokol - Oct 19, 2011)","Beleza. (Felipe Torres - Oct 19, 2011)"
+21821653,"Criar níveis de usuário ( Bronze, Prata, Ouro... )","",,,,feature,,unscheduled,"Dec 4, 2011",,,Thiago de Gouveia Nunes,,,http://www.pivotaltracker.com/story/show/21821653
+21821639,"Ao entrar no sistema, um usuário vê as mensagens de quem ele seguem.","",,,,feature,,unscheduled,"Dec 4, 2011",,,Thiago de Gouveia Nunes,,,http://www.pivotaltracker.com/story/show/21821639
+21821629,Implementar sistema de Follow.,"",,,,feature,,unscheduled,"Dec 4, 2011",,,Thiago de Gouveia Nunes,,,http://www.pivotaltracker.com/story/show/21821629
+21821627,Numa pergunta anônima o especialista ganha a pontuação que é a média do mês.,"",,,,feature,,unscheduled,"Dec 4, 2011",,,Thiago de Gouveia Nunes,,,http://www.pivotaltracker.com/story/show/21821627
+21821613,"Criar checkout ""Essa mensagem pode responder essa dúvida"" na dúvida.","",,,,feature,,unscheduled,"Dec 4, 2011",,,Thiago de Gouveia Nunes,,Ativado por default para especialista e desativado para autor.,http://www.pivotaltracker.com/story/show/21821613
+21821597,Adicionar digest para um especialista.,"",,,,feature,,unscheduled,"Dec 4, 2011",,,Thiago de Gouveia Nunes,,,http://www.pivotaltracker.com/story/show/21821597
+21821593,Desativar as mensagens por e-mail.,"",,,,feature,,unscheduled,"Dec 4, 2011",,,Thiago de Gouveia Nunes,,,http://www.pivotaltracker.com/story/show/21821593
+21821583,"Implementar ""minhas perguntas"". Especialista vê as perguntas das especialidades.","",,,,feature,,unscheduled,"Dec 4, 2011",,,Thiago de Gouveia Nunes,,,http://www.pivotaltracker.com/story/show/21821583
+21821571,Time out se a pergunta foi respondida ou se está inativa.,"",,,,feature,,unscheduled,"Dec 4, 2011",,,Thiago de Gouveia Nunes,,,http://www.pivotaltracker.com/story/show/21821571
+21821565,"Excluir pergunta, resposta e usuário.","",,,,feature,,unscheduled,"Dec 4, 2011",,,Thiago de Gouveia Nunes,,,http://www.pivotaltracker.com/story/show/21821565
+21821553,Validação no lado do servidor.,"",,,,feature,,unscheduled,"Dec 4, 2011",,,Thiago de Gouveia Nunes,,,http://www.pivotaltracker.com/story/show/21821553
+21821547,Ao fazer login na página de pergunta deve voltar para a pergunta.,"",,,,feature,,unscheduled,"Dec 4, 2011",,,Thiago de Gouveia Nunes,,,http://www.pivotaltracker.com/story/show/21821547
+20780047,Arrumar a mensagem do esqueci a senha.,"",,,,bug,,unscheduled,"Nov 9, 2011",,,Chico Sokol,,,http://www.pivotaltracker.com/story/show/20780047,"Qual o problema com essa mensagem? (Felipe Torres - Nov 21, 2011)"
+20692827,Melhorar textos.,"",,,,feature,,unscheduled,"Nov 7, 2011",,,Felipe Torres,,,http://www.pivotaltracker.com/story/show/20692827,"Seria legal a gente falar com o Gerosa (ou até mesmo o Nelson) sobre essa tarefa. (Felipe Torres - Nov 7, 2011)",,,,,,,,,,,,,,Mensagens de email.,not completed,Mensagem de confirmação de conta.,not completed,Texto da página inicial.,not completed
+20066765,Usuario pode seguir especialistas.,"",,,,feature,,unscheduled,"Oct 24, 2011",,,Marco Aurelio Gerosa,,"Se o usuario seguir um especialista, sempre que este responder uma duvida (ou postar algo), o usuario sera notificado por email",http://www.pivotaltracker.com/story/show/20066765
+20066905,Listar acoes do usuario no perfil dele.,"",,,,feature,,unscheduled,"Oct 24, 2011",,,Marco Aurelio Gerosa,,,http://www.pivotaltracker.com/story/show/20066905,"""Ações"" seria algo como histórico? (Felipe Torres - Nov 21, 2011)"
+20064905,Mostrar FAQ na pagina inicial.,"",,,,feature,,unscheduled,"Oct 3, 2011",,,Marco Aurelio Gerosa,,,http://www.pivotaltracker.com/story/show/20064905
+20064901,Web Standards,"",,,,chore,,unscheduled,"Oct 5, 2011",,,Marco Aurelio Gerosa,,Fazer o site passar pelo http://validator.w3.org (Web Standards),http://www.pivotaltracker.com/story/show/20064901,"Essa tarefa é necessária? Vai acrescentar algum valor ao programa fazer ele passar pelo validator? (Felipe Torres - Nov 7, 2011)"
+20064909,Criar arquivos de configuração (XML) para tirar coisas hardcoded.,"",,,,chore,,unscheduled,"Oct 3, 2011",,,Marco Aurelio Gerosa,,"Pra tirar trechos hardcoded do projeto, como hostname e permitir que o usuário do projeto não precise mexer no código para alterar determinadas configuraçãoes.",http://www.pivotaltracker.com/story/show/20064909
