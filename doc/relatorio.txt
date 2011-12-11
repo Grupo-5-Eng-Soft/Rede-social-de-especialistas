@@ -1,0 +1,35 @@
+Relatório da Iteração 5:
+
+1) URLs:
+  a) Pivotal Tracker: https://www.pivotaltracker.com/projects/398789
+  b) Repositório: https://github.com/Grupo-5-Eng-Soft/Rede-social-de-especialistas
+  c) Projeto rodando:
+      I) http://linux.ime.usp.br:8080/rede-social-de-especialistas/
+      II) http://tomcat.linux.ime.usp.br/rede-social-de-especialistas/
+  d) Servidor de Integração Contínua (com relatório de cobertura de testes):
+      http://hudson.linux.ime.usp.br/job/Rede Social de Especialistas/
+
+2) Retrospectiva:
+  a) Documentação:
+
+Apesar de ser bastante importante a documentação, diversos artefatos como o Work Items List ou o Iteration Plan foram trivialmente substituídos por ferramentas como o Pivotal Tracker. Outros diagramas foram substituídos por uma cobertura sólida de testes.
+
+Muitas empresas as quais visitamos não dão importância aos documentos pelo motivo de os considerarem perda de tempo. Alguns alegam que é uma documentação que poucos lerão, outros alegam que o tempo tomado pela documentação faz com que a produtividade caia.
+
+De forma similar, a partir da ideia ágil, optamos por testes em detrimento de toda a documentação (sem contar a documentação que ficaria redundante com o Pivotal).
+
+  b) Reunião com o cliente:
+
+Infelizmente, no meio do projeto, mudamos de cliente. Deixou de ser o Gerosa para ser o Nelson. Acabamos conseguindo nos reunir com o Nelson próximos do final da quarta iteração. Logo muitas das funcionalidades que ele julgou pertinente acabaram não sendo codificadas.
+
+Talvez, se tivéssemos a possibilidade de nos reunir antes, teríamos um resultado mais satisfatório.
+
+  c) Saída de membros:
+
+No começo do projeto (iteração 2), o responsável pela lista de e-mail e pelo Pivotal Tracker abandonou o barco. Ficamos perdidos sem ter poderes para adicionar as pessoas ao repositório.
+
+  d) Resultados:
+
+É imprescindível dizer que, de fato, houve um resultado positivo ao fazer esse projeto. Tivemos contato com tecnologias bastante interessantes como sistemas Web, integração contínua, Pivotal Tracker... Por outro lado, também tivemos probleminhas envolvendo o repositório e o não-uso de branching.
+
+A experiência foi bastante proveitosa.
